@@ -45,12 +45,13 @@ class PizzaStatus:
         current_toppings: a dictionary of all toppings and their instances on
         the pizza's surface.
     """
+
     def __init__(self):
         self._current_toppings = {
-            'sauce': 0,
-            'cheese': 0,
-            'pepperoni': 0,
-            'mushroom': 0
+            "sauce": 0,
+            "cheese": 0,
+            "pepperoni": 0,
+            "mushroom": 0,
         }
         self._position = [240, 150]
 
@@ -72,11 +73,12 @@ class PizzaStatus:
             representing the quantity on the pizza.
         """
         return self._current_toppings
-    
+
     def update_position(self):
+        pass
 
     def get_position(self):
-
+        pass
 
 
 class TimerStatus:
@@ -107,8 +109,11 @@ class TotalMoney(CustomerHappiness):
 
 
 class Button:
+    """ """
+
     def __init__(self, x, y, image, scale, screen):
         self.screen = screen
+        image = pygame.image.load(image).convert_alpha()
         width = image.get_width()
         height = image.get_height()
         self.image = pygame.transform.scale(

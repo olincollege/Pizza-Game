@@ -15,14 +15,9 @@ pygame.display.set_caption(
 homescreen = pygame.image.load("assets/img/homescreen.png")
 
 
-# load button images
-start_img = pygame.image.load("assets/img/StartButton.png").convert_alpha()
-exit_img = pygame.image.load("assets/img/ExitButton.png").convert_alpha()
-
-
 # create button instances
-start_button = Button(50, 600, start_img, 1, screen)
-exit_button = Button(250, 600, exit_img, 1, screen)
+start_button = Button(50, 600, "assets/img/StartButton.png", 1, screen)
+exit_button = Button(250, 600, "assets/img/ExitButton.png", 1, screen)
 
 
 # game loop
