@@ -11,7 +11,28 @@ class order_status:
         order_dict = dictionary of all toppings and their instances in the order
     """
 
-    order_dict = {}
+    def __init__(self):
+        self.order_dict = {
+            "sauce": 0,
+            "cheese": 0,
+            "pepperoni": 0,
+            "mushroom": 0,
+        }
+        for topping in self.order_dict:
+            self.order_dict[topping] = random.randint(0, 4)
+
+    def check_order(self):
+        temp_order_status_dict = {}
+        for topping, num in self.order_dict.items():
+            if num >= self._current_pizza[topping]:
+                temp_order_status_dict[topping] = True
+            else:
+                temp_order_status_dict[topping] = False
+
+        for topping, num in temp_order_status_dict:
+            if num is False:
+                return temp_order_status_dict, False
+        return temp_order_status_dict, True
 
 
 class pizza_status:
