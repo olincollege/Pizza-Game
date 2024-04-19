@@ -33,7 +33,9 @@ class OrderStatus:
             if num is False:
                 return temp_order_status_dict, False
         return temp_order_status_dict, True
-
+    
+    def get_order(self):
+        return self.order_dict
 
 class PizzaStatus:
     """
@@ -93,6 +95,7 @@ class CustomerHappiness(PizzaStatus, OrderStatus):
         tip: an integer representing the tip amount derived from
         customer happiness
     """
+
 
 
 class TotalMoney(CustomerHappiness):
