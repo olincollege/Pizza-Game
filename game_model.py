@@ -6,9 +6,10 @@ the current time elapsed since the time of ordering."""
 
 class OrderStatus:
     """
-    A class to track the status of an order during game play
+    A class to track the status of an order during game play.
+
     Attributes:
-        order_dict = dictionary of all toppings and their instances in the order
+        order_dict: A dictionary of all toppings and their instances in the order.
     """
 
     def __init__(self):
@@ -22,9 +23,16 @@ class OrderStatus:
             self.order_dict[topping] = random.randint(0, 4)
 
     def check_order(self):
+        """
+        Compare order toppings and current toppings on pizza.
+
+        Returns:
+            A boolean where True means the order is complete and False means
+            the order is incomplete.
+        """
         temp_order_status_dict = {}
         for topping, num in self.order_dict.items():
-            if num >= self._current_pizza[topping]:
+            if num >= self._current_pizza[topping]: # check for if it's over the requested amount
                 temp_order_status_dict[topping] = True
             else:
                 temp_order_status_dict[topping] = False
@@ -35,13 +43,15 @@ class OrderStatus:
         return temp_order_status_dict, True
 
 
+
 class PizzaStatus:
     """
     A class to track the toppings on the pizza and location during game play
 
     Attributes:
-        current_toppings: a dictionary of all toppings and their instances on
+        _current_toppings: a dictionary of all toppings and their instances on
         the pizza's surface.
+        _position: A list representing the x and y position.
     """
     def __init__(self):
         self._current_toppings = {
