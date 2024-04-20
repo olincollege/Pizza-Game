@@ -13,6 +13,11 @@ class OrderStatus:
     """
 
     def __init__(self):
+        """
+        A function to initiate a populated order for reference. 
+        Attributes:
+            order_dict = dictionary of all toppings and their instances in the order
+        """
         self.order_dict = {
             "sauce": 0,
             "cheese": 0,
@@ -22,7 +27,13 @@ class OrderStatus:
         for topping in self.order_dict:
             self.order_dict[topping] = random.randint(0, 4)
 
-    def check_order(self):
+    def check_order(self, pizza):
+        """
+        Function to check the order against a pizza's status
+        Attributes:
+            pizza: a dictionary of toppings with their current instances on the pizza
+
+        """
         """
         Compare order toppings and current toppings on pizza.
 
@@ -32,7 +43,9 @@ class OrderStatus:
         """
         temp_order_status_dict = {}
         for topping, num in self.order_dict.items():
-            if num >= self._current_pizza[topping]: # check for if it's over the requested amount
+            if (
+                num >= self._current_pizza[topping]
+            ):  # check for if it's over the requested amount
                 temp_order_status_dict[topping] = True
             else:
                 temp_order_status_dict[topping] = False
@@ -66,13 +79,12 @@ class PizzaStatus:
         the pizza's surface.
         _position: A list representing the x and y position.
     """
-
     def __init__(self):
         self._current_toppings = {
-            "sauce": 0,
-            "cheese": 0,
-            "pepperoni": 0,
-            "mushroom": 0,
+            'sauce': 0,
+            'cheese': 0,
+            'pepperoni': 0,
+            'mushroom': 0
         }
         self._position = [240, 150]
 
@@ -94,12 +106,11 @@ class PizzaStatus:
             representing the quantity on the pizza.
         """
         return self._current_toppings
-
+    
     def update_position(self):
-        pass
 
     def get_position(self):
-        pass
+
 
 
 class TimerStatus:
@@ -110,7 +121,7 @@ class TimerStatus:
     """
 
 
-class CustomerHappiness(PizzaStatus, OrderStatus):
+class CustomerHappiness():
     """
     A class to calculate customer happiness/tip based on player accuracy
     Attributes:
@@ -118,6 +129,32 @@ class CustomerHappiness(PizzaStatus, OrderStatus):
         tip: an integer representing the tip amount derived from
         customer happiness
     """
+    def __init__(self):
+        self.happiness_level = 80
+
+    def evaluate_order(self,desired_order, pizza_status):
+        """
+        A function to evaluate the cutomer's desired order versus the given pizza. 
+        Attributes:
+            desired_order: a dictionery representing the customer's order with 
+            toppings as the keys and topping instances as the values.
+
+            pizza_status: a dictionary representing the toppings actually on the pizza
+            with toppings as the keys and num topping instances as the values
+        Returns: 
+            customer_happiness_change: an int to represent cutomer happiness level based on the order's accurateness
+        """
+    
+    def get_tip(self):
+        """
+        A function to get the customer's final tip based on customer happiness
+        Returns:
+            tip: an int representing the tip given
+        """
+        
+        
+
+
 
 
 
@@ -133,6 +170,20 @@ class Button:
     """ """
 
     def __init__(self, x, y, image, scale, screen):
+        """
+        Initializes a Button object.
+
+        Args:
+            x: A float representing the x position of the top left corner of
+        the button.
+            y: A float representing the y position of the top left corner of
+        the button.
+            image: A string representing the file path where the image of the
+        button is stored.
+            scale: A float representing how much the image should be scaled from
+        its default resolution
+            screen: The pygame surface being used for the game.
+        """
         self.screen = screen
         image = pygame.image.load(image).convert_alpha()
         width = image.get_width()
@@ -140,7 +191,7 @@ class Button:
         self.image = pygame.transform.scale(
             image, (int(width * scale), int(height * scale))
         )
-        self.rect = self.image.get_rect()
+        self.rect = self.converted_image.get_rect()
         self.rect.topleft = (x, y)
         self.clicked = False
 
@@ -157,5 +208,5 @@ class Button:
         if pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
         # draw button on screen
-        self.screen.blit(self.image, (self.rect.x, self.rect.y))
+        self.screen.blit(self.converted_image, (self.rect.x, self.rect.y))
         return action
