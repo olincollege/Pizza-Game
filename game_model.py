@@ -1,7 +1,9 @@
 import pygame, random
 
-"""Classes for tracking the current order, current toppings on pizza, and
-the current time elapsed since the time of ordering."""
+"""
+Classes for tracking the current order, current toppings on pizza, and
+the current time elapsed since the time of ordering.
+"""
 
 
 class OrderStatus:
@@ -9,14 +11,16 @@ class OrderStatus:
     A class to track the status of an order during game play.
 
     Attributes:
-        order_dict: A dictionary of all toppings and their instances in the order.
+        order_dict: A dictionary of all toppings and their instances
+        in the order.
     """
 
     def __init__(self):
         """
         A function to initiate a populated order for reference.
         Attributes:
-            order_dict = dictionary of all toppings and their instances in the order
+            order_dict = dictionary of all toppings and their
+            instances in the order
         """
         self.order_dict = {
             "sauce": 0,
@@ -27,16 +31,11 @@ class OrderStatus:
         for topping in self.order_dict:
             self.order_dict[topping] = random.randint(0, 4)
 
-    def check_order(self, pizza):
+    def check_order(self, current_pizza):
         """
         Function to check the order against a pizza's status
         Attributes:
             pizza: a dictionary of toppings with their current instances on the pizza
-
-        """
-        """
-        Compare order toppings and current toppings on pizza.
-
         Returns:
             A boolean where True means the order is complete and False means
             the order is incomplete.
@@ -44,7 +43,7 @@ class OrderStatus:
         temp_order_status_dict = {}
         for topping, num in self.order_dict.items():
             if (
-                num >= self._current_pizza[topping]
+                num >= current_pizza[topping]
             ):  # check for if it's over the requested amount
                 temp_order_status_dict[topping] = True
             else:
@@ -56,6 +55,11 @@ class OrderStatus:
         return temp_order_status_dict, True
 
     def get_order(self):
+        """
+        A function that returns the customer's order
+        Returns:
+            order_dict= a dictionary representing the customer's desired order
+        """
         return self.order_dict
 
 
@@ -150,15 +154,18 @@ class CustomerHappiness:
 
     def evaluate_order(self, desired_order, pizza_status):
         """
-        A function to evaluate the cutomer's desired order versus the given pizza.
+        A function to evaluate the cutomer's desired order versus
+        the given pizza.
         Attributes:
             desired_order: a dictionery representing the customer's order with
             toppings as the keys and topping instances as the values.
 
-            pizza_status: a dictionary representing the toppings actually on the pizza
-            with toppings as the keys and num topping instances as the values
+            pizza_status: a dictionary representing the toppings actually
+            on the pizza with toppings as the keys and num topping
+            instances as the values
         Returns:
-            customer_happiness_change: an int to represent cutomer happiness level based on the order's accurateness
+            customer_happiness_change: an int to represent cutomer
+            happiness level based on the order's accurateness
         """
 
     def get_tip(self):
