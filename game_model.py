@@ -6,9 +6,10 @@ the current time elapsed since the time of ordering."""
 
 class OrderStatus:
     """
-    A class to track the status of an order during game play
+    A class to track the status of an order during game play.
+
     Attributes:
-        order_dict = dictionary of all toppings and their instances in the order
+        order_dict: A dictionary of all toppings and their instances in the order.
     """
 
     def __init__(self):
@@ -33,9 +34,18 @@ class OrderStatus:
             pizza: a dictionary of toppings with their current instances on the pizza
 
         """
+        """
+        Compare order toppings and current toppings on pizza.
+
+        Returns:
+            A boolean where True means the order is complete and False means
+            the order is incomplete.
+        """
         temp_order_status_dict = {}
         for topping, num in self.order_dict.items():
-            if num >= self._current_pizza[topping]:
+            if (
+                num >= self._current_pizza[topping]
+            ):  # check for if it's over the requested amount
                 temp_order_status_dict[topping] = True
             else:
                 temp_order_status_dict[topping] = False
@@ -44,17 +54,19 @@ class OrderStatus:
             if num is False:
                 return temp_order_status_dict, False
         return temp_order_status_dict, True
-    
+
     def get_order(self):
         return self.order_dict
+
 
 class PizzaStatus:
     """
     A class to track the toppings on the pizza and location during game play
 
     Attributes:
-        current_toppings: a dictionary of all toppings and their instances on
+        _current_toppings: a dictionary of all toppings and their instances on
         the pizza's surface.
+        _position: A list representing the x and y position.
     """
     def __init__(self):
         self._current_toppings = {
@@ -135,7 +147,6 @@ class CustomerHappiness():
 
 
 
-
 class TotalMoney(CustomerHappiness):
     """
     A class to keep track of total money earned by the player
@@ -145,14 +156,31 @@ class TotalMoney(CustomerHappiness):
 
 
 class Button:
+    """ """
+
     def __init__(self, x, y, image, scale, screen):
+        """
+        Initializes a Button object.
+
+        Args:
+            x: A float representing the x position of the top left corner of
+        the button.
+            y: A float representing the y position of the top left corner of
+        the button.
+            image: A string representing the file path where the image of the
+        button is stored.
+            scale: A float representing how much the image should be scaled from
+        its default resolution
+            screen: The pygame surface being used for the game.
+        """
         self.screen = screen
+        image = pygame.image.load(image).convert_alpha()
         width = image.get_width()
         height = image.get_height()
         self.image = pygame.transform.scale(
             image, (int(width * scale), int(height * scale))
         )
-        self.rect = self.image.get_rect()
+        self.rect = self.converted_image.get_rect()
         self.rect.topleft = (x, y)
         self.clicked = False
 
@@ -169,5 +197,5 @@ class Button:
         if pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
         # draw button on screen
-        self.screen.blit(self.image, (self.rect.x, self.rect.y))
+        self.screen.blit(self.converted_image, (self.rect.x, self.rect.y))
         return action
