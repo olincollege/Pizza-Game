@@ -12,6 +12,11 @@ class OrderStatus:
     """
 
     def __init__(self):
+        """
+        A function to initiate a populated order for reference. 
+        Attributes:
+            order_dict = dictionary of all toppings and their instances in the order
+        """
         self.order_dict = {
             "sauce": 0,
             "cheese": 0,
@@ -21,7 +26,13 @@ class OrderStatus:
         for topping in self.order_dict:
             self.order_dict[topping] = random.randint(0, 4)
 
-    def check_order(self):
+    def check_order(self, pizza):
+        """
+        Function to check the order against a pizza's status
+        Attributes:
+            pizza: a dictionary of toppings with their current instances on the pizza
+
+        """
         temp_order_status_dict = {}
         for topping, num in self.order_dict.items():
             if num >= self._current_pizza[topping]:
@@ -45,13 +56,12 @@ class PizzaStatus:
         current_toppings: a dictionary of all toppings and their instances on
         the pizza's surface.
     """
-
     def __init__(self):
         self._current_toppings = {
-            "sauce": 0,
-            "cheese": 0,
-            "pepperoni": 0,
-            "mushroom": 0,
+            'sauce': 0,
+            'cheese': 0,
+            'pepperoni': 0,
+            'mushroom': 0
         }
         self._position = [240, 150]
 
@@ -73,12 +83,11 @@ class PizzaStatus:
             representing the quantity on the pizza.
         """
         return self._current_toppings
-
+    
     def update_position(self):
-        pass
 
     def get_position(self):
-        pass
+
 
 
 class TimerStatus:
@@ -89,7 +98,7 @@ class TimerStatus:
     """
 
 
-class CustomerHappiness(PizzaStatus, OrderStatus):
+class CustomerHappiness():
     """
     A class to calculate customer happiness/tip based on player accuracy
     Attributes:
@@ -97,6 +106,33 @@ class CustomerHappiness(PizzaStatus, OrderStatus):
         tip: an integer representing the tip amount derived from
         customer happiness
     """
+    def __init__(self):
+        self.happiness_level = 80
+
+    def evaluate_order(self,desired_order, pizza_status):
+        """
+        A function to evaluate the cutomer's desired order versus the given pizza. 
+        Attributes:
+            desired_order: a dictionery representing the customer's order with 
+            toppings as the keys and topping instances as the values.
+
+            pizza_status: a dictionary representing the toppings actually on the pizza
+            with toppings as the keys and num topping instances as the values
+        Returns: 
+            customer_happiness_change: an int to represent cutomer happiness level based on the order's accurateness
+        """
+    
+    def get_tip(self):
+        """
+        A function to get the customer's final tip based on customer happiness
+        Returns:
+            tip: an int representing the tip given
+        """
+        
+        
+
+
+
 
 
 
@@ -109,11 +145,8 @@ class TotalMoney(CustomerHappiness):
 
 
 class Button:
-    """ """
-
     def __init__(self, x, y, image, scale, screen):
         self.screen = screen
-        image = pygame.image.load(image).convert_alpha()
         width = image.get_width()
         height = image.get_height()
         self.image = pygame.transform.scale(
