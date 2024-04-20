@@ -41,10 +41,21 @@ class OrderStatus:
             if num is False:
                 return temp_order_status_dict, False
         return temp_order_status_dict, True
-    
+
     def get_order(self):
         return self.order_dict
 
+
+class Pizza(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        pizza = pygame.image.load('assets/img/pizza.png').convert_alpha()
+        pizza_rect = pizza.get_rect()
+        pizza_mask = pygame.mask.from_surface(pizza)
+        self.mask_img = pizza_mask.to_surface()
+
+    def update(self):
+        pass
 
 class PizzaStatus:
     """
