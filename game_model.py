@@ -14,7 +14,7 @@ class OrderStatus:
 
     def __init__(self):
         """
-        A function to initiate a populated order for reference. 
+        A function to initiate a populated order for reference.
         Attributes:
             order_dict = dictionary of all toppings and their instances in the order
         """
@@ -62,13 +62,14 @@ class OrderStatus:
 class Pizza(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        pizza = pygame.image.load('assets/img/pizza.png').convert_alpha()
+        pizza = pygame.image.load("assets/img/pizza.png").convert_alpha()
         pizza_rect = pizza.get_rect()
         pizza_mask = pygame.mask.from_surface(pizza)
         self.mask_img = pizza_mask.to_surface()
 
     def update(self):
         pass
+
 
 class PizzaStatus:
     """
@@ -79,12 +80,13 @@ class PizzaStatus:
         the pizza's surface.
         _position: A list representing the x and y position.
     """
+
     def __init__(self):
         self._current_toppings = {
-            'sauce': 0,
-            'cheese': 0,
-            'pepperoni': 0,
-            'mushroom': 0
+            "sauce": 0,
+            "cheese": 0,
+            "pepperoni": 0,
+            "mushroom": 0,
         }
         self._position = [240, 150]
 
@@ -106,11 +108,24 @@ class PizzaStatus:
             representing the quantity on the pizza.
         """
         return self._current_toppings
-    
-    def update_position(self):
+
+    def update_position(self, x_update):
+        """
+        A function to update the x-coordinates of the pizza
+        Attributes:
+        x_update: an int representing the number of pixels to move the pizza
+        Returns:
+        New pos, a list of the pizza's x-y coordinates with an altered x values.
+        """
+        new_pos = PizzaStatus.get_position(self)
+        new_pos[0] = new_pos[0] + x_update
+        return new_pos
 
     def get_position(self):
-
+        """
+        A function that returns the pizza's current position
+        """
+        return self._position
 
 
 class TimerStatus:
@@ -121,7 +136,7 @@ class TimerStatus:
     """
 
 
-class CustomerHappiness():
+class CustomerHappiness:
     """
     A class to calculate customer happiness/tip based on player accuracy
     Attributes:
@@ -129,64 +144,44 @@ class CustomerHappiness():
         tip: an integer representing the tip amount derived from
         customer happiness
     """
+
     def __init__(self):
         self.happiness_level = 80
 
-    def evaluate_order(self,desired_order, pizza_status):
+    def evaluate_order(self, desired_order, pizza_status):
         """
-        A function to evaluate the cutomer's desired order versus the given pizza. 
+        A function to evaluate the cutomer's desired order versus the given pizza.
         Attributes:
-            desired_order: a dictionery representing the customer's order with 
+            desired_order: a dictionery representing the customer's order with
             toppings as the keys and topping instances as the values.
 
             pizza_status: a dictionary representing the toppings actually on the pizza
             with toppings as the keys and num topping instances as the values
-        Returns: 
+        Returns:
             customer_happiness_change: an int to represent cutomer happiness level based on the order's accurateness
         """
-    
+
     def get_tip(self):
         """
         A function to get the customer's final tip based on customer happiness
         Returns:
             tip: an int representing the tip given
         """
-        
-        
 
 
-
-
-
-class TotalMoney(CustomerHappiness):
+class TotalMoney:
     """
     A class to keep track of total money earned by the player
     Attributes:
-        money: an integer representing money earned
+        total_money: an integer representing money earned
     """
+
+    def __init__(self):
+        self.total_money = 0
 
 
 class Button:
-    """
-    A class for the buttons that display at the start of the game.
-
-    Attributes:
-        x: A float representing the x position of the top left corner of the
-    button.
-        y: A float representing the y position of the top left corner of the
-    button.
-        image: A string representing the file path where the image of the
-    button is stored.
-        scale: A float representing how much the image should be scaled from
-    its default resolution
-        converted_image: A surface representing the image.
-        screen: The pygame surface being used for the game.
-        width: An int representing the width in pixels of the image.
-        height: An int representing the height in pixels of the image.
-        rect: A rect representing the image.
-        clicked: A boolean representing whether or not a button is actively
-    being pressed.
-    """
+    """ """
 
     def __init__(self, x, y, image, scale, screen):
         """
