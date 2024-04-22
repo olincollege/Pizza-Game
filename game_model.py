@@ -64,8 +64,17 @@ class OrderStatus:
 
 
 class Pizza(pygame.sprite.Sprite):
+    """
+    A class to create and keep track of the Pizza object and its location.
+    """
     def __init__(self):
+        """
+        Initialize an instance of Pizza object. 
+        """
         pygame.sprite.Sprite.__init__(self)
+        self.movex = 240
+        self.movey = 200
+
         pizza = pygame.image.load("assets/img/pizza.png").convert_alpha()
         pizza_rect = pizza.get_rect()
         pizza_mask = pygame.mask.from_surface(pizza)
