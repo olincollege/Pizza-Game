@@ -67,9 +67,10 @@ class Pizza(pygame.sprite.Sprite):
     """
     A class to create and keep track of the Pizza object and its location.
     """
+
     def __init__(self):
         """
-        Initialize an instance of Pizza object. 
+        Initialize an instance of Pizza object.
         """
         pygame.sprite.Sprite.__init__(self)
         self.movex = 240
@@ -197,7 +198,25 @@ class TotalMoney:
 
 
 class Button:
-    """ """
+    """
+    A class for the buttons that display at the start of the game.
+    Attributes:
+        x: A float representing the x position of the top left corner of the
+    button.
+        y: A float representing the y position of the top left corner of the
+    button.
+        image: A string representing the file path where the image of the
+    button is stored.
+        scale: A float representing how much the image should be scaled from
+    its default resolution
+        converted_image: A surface representing the image.
+        screen: The pygame surface being used for the game.
+        width: An int representing the width in pixels of the image.
+        height: An int representing the height in pixels of the image.
+        rect: A rect representing the image.
+        clicked: A boolean representing whether or not a button is actively
+    being pressed.
+    """
 
     def __init__(self, x, y, image, scale, screen):
         """
@@ -215,11 +234,11 @@ class Button:
             screen: The pygame surface being used for the game.
         """
         self.screen = screen
-        image = pygame.image.load(image).convert_alpha()
-        width = image.get_width()
-        height = image.get_height()
-        self.image = pygame.transform.scale(
-            image, (int(width * scale), int(height * scale))
+        self.converted_image = pygame.image.load(image).convert_alpha()
+        width = self.converted_image.get_width()
+        height = self.converted_image.get_height()
+        self.converted_image = pygame.transform.scale(
+            self.converted_image, (int(width * scale), int(height * scale))
         )
         self.rect = self.converted_image.get_rect()
         self.rect.topleft = (x, y)
