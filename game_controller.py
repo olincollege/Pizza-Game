@@ -1,5 +1,5 @@
 import pygame
-from game_model import PizzaStatus
+from game_model import *
 
 class Button:
     """
@@ -23,6 +23,10 @@ class Arrow:
     def __init__(self):
         """
         Initiate an instance of the arrow class.
+
+        Attributes:
+            _pizza_speed: An integer representing the number of pixels the
+            Pizza moves with each press of key.
         """
         self._pizza_speed = 10
 
@@ -32,6 +36,17 @@ class Arrow:
         """
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            PizzaStatus.update_position(10)
+            print('left click') #print test
+            PizzaStatus.update_position(self, -(self._pizza_speed))
         elif keys[pygame.K_RIGHT]:
-            PizzaStatus.update_position(int(self._pizza_speed))
+            print('right click')
+            PizzaStatus.update_position(self, self._pizza_speed)
+        print(PizzaStatus.get_position)
+
+# tester code
+# pygame.init()
+# test_pizza = PizzaStatus()
+# i =0
+# while i == 10:
+#     Arrow.move_pizza(test_pizza)
+#     i += 1
