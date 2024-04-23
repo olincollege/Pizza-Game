@@ -32,6 +32,6 @@ class Arrow:
         """
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            PizzaStatus.update_position(10)
+            PizzaStatus.update_position(self, -(self._pizza_speed))
         elif keys[pygame.K_RIGHT]:
-            PizzaStatus.update_position(int(self._pizza_speed))
+            PizzaStatus.update_position(self, self._pizza_speed)
