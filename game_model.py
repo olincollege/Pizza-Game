@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, random, time
 
 """
 Classes for tracking the current order, current toppings on pizza, and
@@ -159,10 +159,27 @@ class Cheese(Toppings):
 
 class TimerStatus:
     """
-    A class to track game time
-        Attributes:
-            time: an int representing elapsed time in seconds
+    A class to track game time.
+
+    Attributes:
+        time_current: A float epresenting the time in seconds since the Epoch
+    when the instance of TimerStatus was initialized.
     """
+
+    def __init__(self):
+        """
+        Initializes a TimerStatus object.
+        """
+        self.time_current = time.time()
+
+    def __repr__(self):
+        """
+        Makes a TimerStatus easily convertable to a float.
+
+        Returns:
+            A float representing the time since the creation of the TimerStatus object.
+        """
+        return time.time() - self.time_current
 
 
 class CustomerHappiness:
