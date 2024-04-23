@@ -335,7 +335,16 @@ class Button:
         self.clicked = False
 
     def draw(self):
+        """
+        This function both draws the button and checks if it is pressed.
 
+        A call to this function will both display the button on the surface
+        being used for the game and also return a boolean.
+
+        Returns:
+            A boolean representing whether or not the button is being pressed
+        during the call to draw.
+        """
         action = False
         # get mouse position
         pos = pygame.mouse.get_pos()
