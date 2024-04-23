@@ -157,7 +157,73 @@ class Cheese(Toppings):
     """
 
     def __init__(self):
-        super().__init__()
+        self._fall_speed = 5
+        self.value = "Cheese"
+        # Initializing Color
+        color = (255, 0, 0)
+
+        # Drawing Rectangle
+        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+
+
+class Sauce(Toppings):
+    """
+    A class to create an instance of the sauce topping.
+    """
+
+    def __init__(self):
+
+        self._fall_speed = 5
+        self.value = "Sauce"
+        # Initializing Color
+        color = (255, 0, 0)
+        # Drawing Rectangle
+        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+
+
+class Pepperoni(Toppings):
+    """
+    A class to create an instance of the sauce topping.
+    """
+
+    def __init__(self):
+
+        self._fall_speed = 5
+        self.value = "Pepperoni"
+        # Initializing Color
+        color = (255, 0, 0)
+        # Drawing Rectangle
+        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+
+
+class Basil(Toppings):
+    """
+    A class to create an instance of the sauce topping.
+    """
+
+    def __init__(self):
+
+        self._fall_speed = 5
+        self.value = "Basil"
+        # Initializing Color
+        color = (255, 0, 0)
+        # Drawing Rectangle
+        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+
+
+class Pepper(Toppings):
+    """
+    A class to create an instance of the sauce topping.
+    """
+
+    def __init__(self):
+
+        self._fall_speed = 5
+        self.value = "Pepper"
+        # Initializing Color
+        color = (255, 0, 0)
+        # Drawing Rectangle
+        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
 
 
 class TimerStatus:
