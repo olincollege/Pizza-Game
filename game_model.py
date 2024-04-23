@@ -250,30 +250,48 @@ class CustomerHappiness:
     """
 
     def __init__(self):
-        self.happiness_level = 80
+        self._customer_happiness = 0
+        self._desired_toppings = 0
 
     def evaluate_order(self, desired_order, pizza_status):
         """
-        A function to evaluate the cutomer's desired order versus
+        A function to evaluate the customer's desired order versus
         the given pizza.
         Attributes:
-            desired_order: a dictionery representing the customer's order with
+            desired_order: a dictionary representing the customer's order with
             toppings as the keys and topping instances as the values.
 
             pizza_status: a dictionary representing the toppings actually
             on the pizza with toppings as the keys and num topping
-            instances as the values
+            instances as the values.
+
         Returns:
-            customer_happiness_change: an int to represent cutomer
-            happiness level based on the order's accurateness
+            customer_happiness_change: a float to represent customer
+            happiness level based on the order's accurateness.
         """
+        topping_inaccuracies = 0
+        for topping, num in desired_order.items():
+            topping_inaccuracies += num - pizza_status[topping]
+
+        for num in desired_order.values():
+            self._desired_toppings += num
+
+        topping_differences = self._desired_toppings - topping_inaccuracies
+
+        if topping_differences < 1:
+            return self._customer_happiness
+        self._customer_happiness = topping_inaccuracies / self._desired_toppings
+        return self._customer_happiness
+
 
     def get_tip(self):
         """
         A function to get the customer's final tip based on customer happiness
         Returns:
-            tip: an int representing the tip given
+            tip: an int representing the tip given.
         """
+        tip = (self._desired_toppings * 1.5) * self._customer_happiness
+        return tip
 
 
 class TotalMoney:
