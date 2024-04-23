@@ -140,7 +140,22 @@ class PizzaStatus:
         A function that returns the pizza's current position
         """
         return self._position
+    
 
+class Toppings:
+    """
+    A parent class.
+    """
+    def __init__(self):
+        self._fall_speed = 5
+
+class Cheese(Toppings):
+    """
+    A class to create an instance of Cheese topping.
+    """
+    def __init__(self):
+        super().__init__()
+        
 
 class TimerStatus:
     """
