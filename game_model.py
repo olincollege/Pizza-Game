@@ -142,86 +142,77 @@ class PizzaStatus:
 
 class Toppings:
     """
-    A parent class.
+    A parent class for the individual toppings.
+    Attributes:
+        value: a string denoting what topping the instance is
+        color: a tuple of 3 numbers detailing the color key
+        bounding_box: a tuple dictating the borders of the topping's
+        bounding box
+        fall_speed = an integer set to default value 5
     """
 
-    def __init__(self):
-        self._fall_speed = 5
+    def __init__(
+        self,
+        value,
+        color,
+        bounding_box,
+        fall_speed=5,
+    ):
+        self._fall_speed = fall_speed
+        self.value = value
+        self.color = color
+        self.bounding_box = bounding_box
 
 
 class Cheese(Toppings):
     """
-    A class to create an instance of Cheese topping.
+    A class to create an instance of Cheese topping based on the topping
+    parent class.
     """
 
     def __init__(self):
-        self._fall_speed = 5
-        self.value = "Cheese"
-        # Initializing Color
-        color = (255, 0, 0)
-
-        # Drawing Rectangle
-        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+        super().__init__(self, "Cheese", (255, 255, 224), (30, 30, 60, 60))
 
 
 class Sauce(Toppings):
     """
-    A class to create an instance of the sauce topping.
+    A class to create an instance of the sauce topping based on the
+    topping parent class.
     """
 
     def __init__(self):
-
-        self._fall_speed = 5
-        self.value = "Sauce"
-        # Initializing Color
-        color = (255, 0, 0)
-        # Drawing Rectangle
-        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+        super().__init__(self, "Sauce", (255, 0, 0), (30, 30, 60, 60))
 
 
 class Pepperoni(Toppings):
     """
-    A class to create an instance of the sauce topping.
+    A class to create an instance of the pepperoni topping based on the
+    toping parent class.
     """
 
     def __init__(self):
-
-        self._fall_speed = 5
-        self.value = "Pepperoni"
-        # Initializing Color
-        color = (255, 0, 0)
-        # Drawing Rectangle
-        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+        super().__init__(self, "Pepperoni", (165, 42, 42), (30, 30, 60, 60))
 
 
 class Basil(Toppings):
     """
-    A class to create an instance of the sauce topping.
+    A class to create an instance of the sauce topping based on the
+    topping parent class.
     """
 
     def __init__(self):
-
-        self._fall_speed = 5
-        self.value = "Basil"
-        # Initializing Color
-        color = (255, 0, 0)
-        # Drawing Rectangle
-        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+        super().__init__(self, "Basil", (0, 255, 0), (30, 30, 60, 60))
 
 
 class Pepper(Toppings):
     """
-    A class to create an instance of the sauce topping.
+    A class to create an instance of the pepper topping based on the
+    topping parent class.
     """
 
     def __init__(self):
 
-        self._fall_speed = 5
-        self.value = "Pepper"
-        # Initializing Color
-        color = (255, 0, 0)
-        # Drawing Rectangle
-        pygame.draw.rect(color, pygame.Rect(30, 30, 60, 60))
+        super().__init__(self, "Pepper", (255, 165, 0), (30, 30, 60, 60))
 
 
 class TimerStatus:
