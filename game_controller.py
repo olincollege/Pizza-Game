@@ -1,29 +1,37 @@
-class button:
+import pygame
+from game_model import PizzaStatus
+
+class Button:
     """
-    A class to define button functions within the game
+    A class to define button functions within the game.
+
     Attributes:
-        Goes-to: a string of the name of the environment that the button leads to
+        Goes-to: a string of the name of the environment that the button
+        leads to.
     """
 
 
-class arrow:
+class Arrow:
     """
     A class to define the function of a button press
+
         direction: whether the left or right button was pressed
-        move-pizza: true or false depending if the player is in active play of the game
+        move-pizza: true or false depending if the player is in active play
+        of the game.
     """
 
     def __init__(self):
         """
-        Initiate an instance of the arrow class
+        Initiate an instance of the arrow class.
         """
-
-    def direction(self, movement):
-        """
-        Detects the direction of the arrow button
-        """
+        self._pizza_speed = 10
 
     def move_pizza(self):
         """
-        A function to move the piza left or right based on arrow interaction
+        A function to move the pizza left or right based on arrow interaction.
         """
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            PizzaStatus.update_position(10)
+        elif keys[pygame.K_RIGHT]:
+            PizzaStatus.update_position(int(self._pizza_speed))
