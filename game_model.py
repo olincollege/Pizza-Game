@@ -172,7 +172,7 @@ class Cheese(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Cheese", (255, 255, 224), (30, 30, 60, 60))
+        super().__init__(self, "Cheese", (255, 255, 224), (30, 30))
 
 
 class Sauce(Toppings):
@@ -182,7 +182,7 @@ class Sauce(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Sauce", (255, 0, 0), (30, 30, 60, 60))
+        super().__init__(self, "Sauce", (255, 0, 0), (30, 30))
 
 
 class Pepperoni(Toppings):
@@ -192,7 +192,7 @@ class Pepperoni(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Pepperoni", (165, 42, 42), (30, 30, 60, 60))
+        super().__init__(self, "Pepperoni", (165, 42, 42), (30, 30))
 
 
 class Basil(Toppings):
@@ -202,7 +202,7 @@ class Basil(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Basil", (0, 255, 0), (30, 30, 60, 60))
+        super().__init__(self, "Basil", (0, 255, 0), (30, 30))
 
 
 class Pepper(Toppings):
@@ -213,7 +213,7 @@ class Pepper(Toppings):
 
     def __init__(self):
 
-        super().__init__(self, "Pepper", (255, 165, 0), (30, 30, 60, 60))
+        super().__init__(self, "Pepper", (255, 165, 0), (30, 30))
 
 
 class ToppingPosition:
@@ -232,10 +232,12 @@ class ToppingPosition:
         self._topping_info = []
         self._fall_speed = 5
 
-    def add_topping(self):
+    def spawn_topping(self):
         """
         A function to generate a topping at the top of the screen at a random x-value
         """
+        SCREEN_HEIGHT = 800
+        SCREEN_WIDTH = 480
         top = random.choice(self._topping_list)
         if top == "Cheese":
             top = Cheese.__init__
@@ -252,6 +254,7 @@ class ToppingPosition:
         pos_y = SCREEN_HEIGHT - 5
         top_position = [top, pos_x, pos_y]
         self._topping_info.extend(top_position)
+        return top_position
 
     def move_all_toppings(self):
         """
