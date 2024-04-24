@@ -1,4 +1,5 @@
 import pygame, random, time
+from game_main import SCREEN_WIDTH, SCREEN_HEIGHT
 
 """
 Classes for tracking the current order, current toppings on pizza, and
@@ -213,6 +214,47 @@ class Pepper(Toppings):
     def __init__(self):
 
         super().__init__(self, "Pepper", (255, 165, 0), (30, 30, 60, 60))
+
+
+class ToppingPosition:
+    """
+    A class to monitor the positions of all toppings on screen
+    Attributes:
+        topping_info: A list of lists, where the list entries contain a topping
+        value in index 0, topping x pos in index 1, and y pos in index 2
+    """
+
+    def __init__(self):
+        """
+        Create an instance of the ToppingPosition class
+        """
+        self.topping_list = ("Cheese", "Sauce", "Pepperoni", "Basil", "Pepper")
+        self.topping_info = []
+
+    def add_topping(self):
+        """
+        A function to generate a topping at the top of the screen at a random x-value
+        """
+        top = random.choice(self.topping_list)
+        if top == "Cheese":
+            top = Cheese.__init__
+        if top == "Sauce":
+            top == Sauce.__init__
+
+        pos_x = random.choice(range(15, SCREEN_WIDTH - 15))
+        pos_y = SCREEN_HEIGHT - 5
+        top_position = [top, pos_x, pos_y]
+        self.topping_info.extend(top_position)
+
+    def move_all_toppings(self):
+        """
+        A function to update the topping positions and remove out of bounds toppings
+        """
+        for topping in self.topping_info:
+            if self.topping_info[topping[2]] <= SCREEN_HEIGHT:
+                del [topping]
+            else:
+                topping[] 
 
 
 class TimerStatus:
