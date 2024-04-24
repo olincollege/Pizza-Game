@@ -262,7 +262,7 @@ class TimerStatus:
     A class to track game time.
 
     Attributes:
-        time_current: A float epresenting the time in seconds since the Epoch
+        time_current: A float representing the time in seconds since the Epoch
     when the instance of TimerStatus was initialized.
     """
 
@@ -274,10 +274,11 @@ class TimerStatus:
 
     def __repr__(self):
         """
-        Makes a TimerStatus easily convertable to a float.
+        Makes a TimerStatus easily convertible to a float.
 
         Returns:
-            A float representing the time since the creation of the TimerStatus object.
+            A float representing the time since the creation of the
+            TimerStatus object.
         """
         return time.time() - self.time_current
 
@@ -344,7 +345,16 @@ class TotalMoney:
     """
 
     def __init__(self):
+        """
+        Initialize money.
+        """
         self.total_money = 0
+    
+    def update_money(self):
+        """
+        A method to update total_money after every order.
+        """
+        self.total_money += CustomerHappiness.get_tip()
 
 
 class Button:
