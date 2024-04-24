@@ -26,8 +26,8 @@ while run:
 
     screen.blit(homescreen, (0, -100))  # display homescreen img
     if start_button.draw():
-        order = OrderStatus
-        print(order.get_order)
+        order = OrderStatus()
+        print(order.order_dict)
     if exit_button.draw():
         pygame.quit()
 
