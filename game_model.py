@@ -228,33 +228,42 @@ class ToppingPosition:
         """
         Create an instance of the ToppingPosition class
         """
-        self.topping_list = ("Cheese", "Sauce", "Pepperoni", "Basil", "Pepper")
-        self.topping_info = []
+        self._topping_list = ("Cheese", "Sauce", "Pepperoni", "Basil", "Pepper")
+        self._topping_info = []
+        self._fall_speed = 5
 
     def add_topping(self):
         """
         A function to generate a topping at the top of the screen at a random x-value
         """
-        top = random.choice(self.topping_list)
+        top = random.choice(self._topping_list)
         if top == "Cheese":
             top = Cheese.__init__
         if top == "Sauce":
-            top == Sauce.__init__
+            top = Sauce.__init__
+        if top == "Pepperoni":
+            top = Pepperoni.__init__
+        if top == "Basil":
+            top = Basil.__init__
+        if top == "Pepper":
+            top = Pepper.__init__
 
         pos_x = random.choice(range(15, SCREEN_WIDTH - 15))
         pos_y = SCREEN_HEIGHT - 5
         top_position = [top, pos_x, pos_y]
-        self.topping_info.extend(top_position)
+        self._topping_info.extend(top_position)
 
     def move_all_toppings(self):
         """
         A function to update the topping positions and remove out of bounds toppings
         """
-        for topping in self.topping_info:
-            if self.topping_info[topping[2]] <= SCREEN_HEIGHT:
+        for topping in self._topping_info:
+            if topping 
+            if topping[2] <= SCREEN_HEIGHT:
                 del [topping]
             else:
-                topping[] 
+                topping[2] -= self._fall_speed
+    
 
 
 class TimerStatus:
@@ -326,7 +335,6 @@ class CustomerHappiness:
         self._customer_happiness = topping_inaccuracies / self._desired_toppings
         return self._customer_happiness
 
-
     def get_tip(self):
         """
         A function to get the customer's final tip based on customer happiness
@@ -349,7 +357,7 @@ class TotalMoney:
         Initialize money.
         """
         self.total_money = 0
-    
+
     def update_money(self):
         """
         A method to update total_money after every order.
