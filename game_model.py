@@ -1,5 +1,5 @@
 import pygame, random, time
-from game_main import SCREEN_WIDTH, SCREEN_HEIGHT
+# from game_main import SCREEN_WIDTH, SCREEN_HEIGHT
 
 """
 Classes for tracking the current order, current toppings on pizza, and

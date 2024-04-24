@@ -1,5 +1,5 @@
 import pygame
-from game_model import Button
+from game_model import Button, OrderStatus
 
 pygame.init()
 
@@ -24,8 +24,10 @@ exit_button = Button(250, 600, "assets/img/ExitButton.png", 1, screen)
 run = True
 while run:
 
+    screen.blit(homescreen, (0, -100))  # display homescreen img
     if start_button.draw():
-        screen.blit(homescreen, (0, -100))  # display homescreen img
+        order = OrderStatus()
+        print(order.order_dict)
     if exit_button.draw():
         pygame.quit()
 
