@@ -258,12 +258,16 @@ class ToppingPosition:
         A function to update the topping positions and remove out of bounds toppings
         """
         for topping in self._topping_info:
-            if topping 
             if topping[2] <= SCREEN_HEIGHT:
                 del [topping]
             else:
                 topping[2] -= self._fall_speed
-    
+
+    def get_topping_info(self):
+        """
+        A function that refturns the value of list _topping_info
+        """
+        return self._topping_info
 
 
 class TimerStatus:
