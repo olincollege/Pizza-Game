@@ -1,5 +1,5 @@
 import pygame
-import game_model
+import game_model as gm
 
 """
 Classes for viewing the game.
@@ -31,13 +31,13 @@ class Pizza():
 
 class Toppings():
     def __init__(self):
-        self.top_info = game_model.ToppingPosition.__init__
+        self.top_info = gm.ToppingPosition.__init__
     
     def create_topping(self):
         new_top_info = self.top_info.spawn_topping
         new_top_type = new_top_info[0]
-        color = game_model.new_top_type.color
-        dimension = game_model.new_top_type.bounding_box
+        color = gm.new_top_type.color
+        dimension = gm.new_top_type.bounding_box
         pos_x = new_top_info[1]
         pos_y = new_top_info[2]
         pygame.draw.rect(color, (dimension[1], dimension[2], pos_x, pos_y))
@@ -46,14 +46,17 @@ class Toppings():
         self.top_info.move_all_toppings
         for topping in self.top_info:
             new_top_type = topping[0]
-            color = game_model.new_top_type.color
-            dimension = game_model.new_top_type.bounding_box
+            color = gm.new_top_type.color
+            dimension = gm.new_top_type.bounding_box
             pos_x = topping[1]
             pos_y = topping[2]
             pygame.draw.rect(color, (dimension[1], dimension[2], pos_x, pos_y))
     
-    def collide_pizza(self):
-        
+    def collide_pizza(self,pizza):
+
+
+
+
 
 
     
