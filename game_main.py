@@ -1,5 +1,5 @@
 import pygame
-from game_model import Button, OrderStatus
+from game_model import Button, OrderStatus, Pizza, PizzaStatus
 
 pygame.init()
 
@@ -23,11 +23,15 @@ exit_button = Button(250, 600, "assets/img/ExitButton.png", 1, screen)
 # game loop
 run = True
 while run:
-
     screen.blit(homescreen, (0, -100))  # display homescreen img
+
     if start_button.draw():
-        order = OrderStatus()
+        screen.blit(pygame.image.load('assets/img/kitchen.png'), (0, 0)) # display kitchen
+        order = OrderStatus() # initialized order
         print(order.order_dict)
+        pizza_sprite = Pizza()
+        pizza_stat = PizzaStatus()
+        print(pizza_stat._current_toppings)
     if exit_button.draw():
         pygame.quit()
 
@@ -35,6 +39,6 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    pygame.display.update()
+    pygame.display.flip()
 
 pygame.quit()
