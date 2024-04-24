@@ -1,4 +1,5 @@
 import pygame
+import game_model
 
 """
 Classes for viewing the game.
@@ -29,6 +30,18 @@ class Pizza():
     def update(self):
 
 class Toppings():
+    def __init__(self):
+        top_info = game_model.ToppingPosition.__init__
+    
+    def create_topping(self):
+        new_top_info = game_model.ToppingPosition.spawn_topping
+        new_top_type = new_top_info[0]
+        color = game_model.new_top_type.color
+        dimension = game_model.new_top_type.bounding_box
+        pos_x = new_top_info[1]
+        pos_y = new_top_info[2]
+        pygame.draw.rect(color, (dimension[1], dimension[2], pos_x, pos_y))
+
 
 class Cheese(Toppings):
 
