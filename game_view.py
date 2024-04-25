@@ -13,21 +13,25 @@ class HomeScreen():
         homescreen = pygame.image.load('assests/img/homescreen.png')
         screen.blit(homescreen, (0, 0))
 
-class Button(HomeScreen):
+#class Button(HomeScreen):
 
-class StartButton(Button):
+# class StartButton(Button):
 
-class InstructionButton(Button):
+# class InstructionButton(Button):
 
-class Kitchen():
+# class Kitchen():
 
-class Order():
+# class Order():
 
 class Pizza():
-    def __init__(self, x, y):
-        img = pygame.image.load('assets/img/pizza.png')
+    """
+    DOC STRING
+    """
+    def __init__(self):
+        pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
 
     def update(self):
+        pass
 
 class Toppings():
     def __init__(self):
@@ -65,10 +69,10 @@ class Toppings():
 
 
 
-class Cheese(Toppings):
+# class Cheese(Toppings):
 
-class Sauce(Toppings):
+# class Sauce(Toppings):
 
-class Basil(Toppings):
+# class Basil(Toppings):
 
-class Mushroom(Toppings):
+# class Mushroom(Toppings):
