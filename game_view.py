@@ -24,10 +24,12 @@ class Kitchen():
 class Order():
 
 class Pizza():
-    def __init__(self, x, y):
-        img = pygame.image.load('assets/img/pizza.png')
+    def __init__(self):
+        sprite = gm.PizzaSprite()
+        pygame.blit(sprite.pizza_rect, gm.PizzaStatus._position)
 
     def update(self):
+        pass
 
 class Toppings():
     def __init__(self):
