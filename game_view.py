@@ -35,17 +35,17 @@ class Toppings():
     """
     def __init__(self):
         """
-        Initiates a database to monitor and create toppings. 
+        Initiates a list to monitor and create toppings. 
         Attributes:
-            top_info = an instance of the topping position data class
             rectangle_top_list = a list to hold all rectangles represented in the database
         """
-        self.top_info = gm.ToppingPosition.__init__
         self.rectangle_top_list = []
     
-    def create_topping(self):
+    def create_topping(self, random_topping):
         """
         Spawns a random topping at the top of the screen at a random x-value.
+        Attributes:
+            random_topping: the output of 
         """
         new_top_info = self.top_info.spawn_topping
         new_top_type = new_top_info[0]
@@ -69,7 +69,8 @@ class Toppings():
         """
         for topping in self.rectangle_top_list:
             if pygame.Rect.colliderect(topping, pizza):
-                del self.rectangle_top
+                del topping
+            
 
 
 
