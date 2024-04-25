@@ -1,4 +1,5 @@
 import pygame, random, time
+
 # from game_main import SCREEN_WIDTH, SCREEN_HEIGHT
 
 """
@@ -329,7 +330,9 @@ class CustomerHappiness:
             happiness level based on the order's accurateness.
         """
         topping_inaccuracies = 0
+        # loops through dictionary of the desired toppings
         for topping, num in desired_order.items():
+            # MAYBE SHOULD BE ABS VALUE
             topping_inaccuracies += num - pizza_status[topping]
 
         for num in desired_order.values():
