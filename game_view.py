@@ -24,12 +24,10 @@ class Kitchen():
 class Order():
 
 class Pizza():
-    def __init__(self):
-        sprite = gm.PizzaSprite()
-        pygame.blit(sprite.pizza_rect, gm.PizzaStatus._position)
+    def __init__(self, x, y):
+        img = pygame.image.load('assets/img/pizza.png')
 
     def update(self):
-        pass
 
 class Toppings():
     def __init__(self):
@@ -55,7 +53,9 @@ class Toppings():
             pygame.draw.rect(color, (dimension[1], dimension[2], pos_x, pos_y))
     
     def collide_pizza(self,pizza):
-
+        for topping in self.top_info:
+            if topping[1].pygame.Rect.colliderect(pizza):
+                del topping
 
 
 
