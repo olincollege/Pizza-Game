@@ -5,7 +5,7 @@ import time
 
 pygame.init()
 
-ORDERS = 4
+ORDERS = 1
 SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 800
 
@@ -38,7 +38,7 @@ while button_run:
 
 print(1)
 # create exit button instance
-exit_button_2 = gmo.Button(400, 0, "assets/img/ExitButton.png", .5, screen)
+exit_button_2 = gmo.Button(400, 0, "assets/img/ExitButton.png", 0.5, screen)
 
 # game loop
 for i in range(ORDERS):
@@ -52,10 +52,12 @@ for i in range(ORDERS):
         pizza_sprite = gmo.Pizza()
         pizza_stat = gmo.PizzaStatus()
         happiness = gmo.CustomerHappiness()
-        print(happiness.evaluate_order(order.order_dict, pizza_stat._current_toppings))
+        print(
+            happiness.evaluate_order(
+                order.order_dict, pizza_stat._current_toppings
+            )
+        )
         print(pizza_stat._current_toppings)
-        # pizza = gv.Pizza()
-        pygame.draw.rect(pygame.image.load('assets/img/pizza.png').convert_alpha(), (0,0,0))
 
         if exit_button_2.draw():
             pygame.quit()
@@ -64,4 +66,3 @@ for i in range(ORDERS):
                 game_run = False
         pygame.display.update()
         time.sleep(1)
-
