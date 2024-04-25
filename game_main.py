@@ -1,5 +1,6 @@
 import pygame
 import game_model as gmo
+import game_view as gv
 import time
 
 pygame.init()
@@ -53,6 +54,9 @@ for i in range(ORDERS):
         happiness = gmo.CustomerHappiness()
         print(happiness.evaluate_order(order.order_dict, pizza_stat._current_toppings))
         print(pizza_stat._current_toppings)
+        # pizza = gv.Pizza()
+        pygame.draw.rect(pygame.image.load('assets/img/pizza.png').convert_alpha(), (0,0,0))
+
         if exit_button_2.draw():
             pygame.quit()
         for event in pygame.event.get():
