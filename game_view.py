@@ -27,12 +27,13 @@ class Pizza():
     """
     DOC STRING
     """
-    def __init__(self):
-        pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
+    def __init__(self, screen):
+        # pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
+        pygame.draw.ellipse(screen, (235, 198, 52), (75, 40))
 
     def update(self):
         pass
-
+235, 198, 52
 class Toppings():
     """
     A class to spawn toppings and alter their positions
