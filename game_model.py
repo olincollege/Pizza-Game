@@ -332,8 +332,7 @@ class CustomerHappiness:
         topping_inaccuracies = 0
         # loops through dictionary of the desired toppings
         for topping, num in desired_order.items():
-            # MAYBE SHOULD BE ABS VALUE
-            topping_inaccuracies += num - pizza_status[topping]
+            topping_inaccuracies += abs(num - pizza_status[topping])
 
         for num in desired_order.values():
             self._desired_toppings += num
@@ -372,7 +371,7 @@ class TotalMoney:
         """
         A method to update total_money after every order.
         """
-        self.total_money += CustomerHappiness.get_tip()
+        self.total_money += CustomerHappiness.get_tip(self)
 
 
 class Button:
