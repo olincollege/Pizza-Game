@@ -5,7 +5,7 @@ import time
 
 pygame.init()
 
-ORDERS = 4
+ORDERS = 1
 SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 800
 
