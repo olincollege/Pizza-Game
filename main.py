@@ -45,12 +45,20 @@ def play(screen):
     """
     clock = pygame.time.Clock()
     running = True
+
+    order_instance = gmo.OrderStatus()
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
+        # set up
         gv.Kitchen(screen)
+        gv.Pizza(screen)
+
+        # run orders
+        gv.Order(screen, order_instance)
 
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60

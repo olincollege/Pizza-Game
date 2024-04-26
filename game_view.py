@@ -1,10 +1,10 @@
 import pygame
 import game_model as gm
+import sys
 
 """
 Classes for viewing the game.
 """
-
 
 class HomeScreen:
     """
@@ -33,22 +33,44 @@ class Kitchen:
 
 class Order:
     """
-    Class to display order.
+    Class to display order and update its position.
     """
+    def __init__(self, screen, order_instance):
+        """
+        Initialize pizza on display.
+        """
+        font = pygame.font.Font(None, 36)
 
-    pass
+        pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
+
+        order_dict = order_instance.get_order()
+        i = 0
+        while i < len(order_dict):
+            for topping, num in order_dict.items():
+                text = f'{topping}: {num}'
+                order_text = font.render(text, True, (0, 0 , 0))
+                screen.blit(order_text, (35, 30 + (30 * i)))
+                i += 1
+
+    def update(self):
+        """
+        Update order status display.
+        """
+        pass
 
 
 class Pizza:
     """
-    DOC STRING
+    Class to display pizza, update its position and toppings.
     """
-
     def __init__(self, screen):
         # pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
         pygame.draw.ellipse(screen, (235, 198, 52), (230, 700, 120, 70))
 
     def update(self):
+        """
+        DOC STRING
+        """
         pass
 
 
