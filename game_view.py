@@ -64,14 +64,17 @@ class Pizza:
     Class to display pizza, update its position and toppings.
     """
     def __init__(self, screen):
+        x_pos = 230
         # pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
-        pygame.draw.ellipse(screen, (235, 198, 52), (230, 700, 120, 70))
+        pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
 
-    def update(self):
+    def update(self, screen):
         """
         DOC STRING
         """
-        pass
+        pos = gm.PizzaStatus.get_position(self)
+        x_pos = pos[0]
+        pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
 
 
 class Toppings:

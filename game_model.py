@@ -126,12 +126,13 @@ class PizzaStatus:
     def update_position(self, x_update):
         """
         A function to update the x-coordinates of the pizza
-        Attributes:
-        x_update: an int representing the number of pixels to move the pizza
+        Args:
+            x_update: an int representing the number of pixels to move the pizza
         Returns:
-        New pos, a list of the pizza's x-y coordinates with an altered x values.
+            New pos, a list of the pizza's x-y coordinates with an altered x values.
         """
-        new_pos = PizzaStatus.get_position(self)
+        new_pos = self._position
+        # new_pos = PizzaStatus.get_position(self)
         new_pos[0] = new_pos[0] + x_update
         return new_pos
 

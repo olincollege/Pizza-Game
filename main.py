@@ -1,6 +1,7 @@
 import pygame
 import game_model as gmo
 import game_view as gv
+import game_controller as gc
 import time
 
 pygame.init()
@@ -47,6 +48,8 @@ def play(screen):
     running = True
 
     order_instance = gmo.OrderStatus()
+    pizza = gmo.PizzaStatus()
+    gv.Pizza(screen)
 
     while running:
         for event in pygame.event.get():
@@ -55,10 +58,15 @@ def play(screen):
 
         # set up
         gv.Kitchen(screen)
-        gv.Pizza(screen)
 
         # run orders
         gv.Order(screen, order_instance)
+
+        # move pizza
+        arrow = gc.Arrow()
+        arrow.move_pizza(pizza)
+        gv.Pizza.update(pizza, screen)
+
 
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60

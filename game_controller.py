@@ -30,18 +30,16 @@ class Arrow:
         """
         self._pizza_speed = 10
 
-    def move_pizza(self):
+    def move_pizza(self, pizza):
         """
         A function to move the pizza left or right based on arrow interaction.
         """
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            print('left click') #print test
-            PizzaStatus.update_position(self, -(self._pizza_speed))
+            PizzaStatus.update_position(pizza, -(self._pizza_speed))
         elif keys[pygame.K_RIGHT]:
-            print('right click')
-            PizzaStatus.update_position(self, self._pizza_speed)
-        print(PizzaStatus.get_position)
+            PizzaStatus.update_position(pizza, self._pizza_speed)
+        print(PizzaStatus.get_position(pizza))
 
 # tester code
 # pygame.init()
