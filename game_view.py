@@ -46,7 +46,7 @@ class Pizza:
 
     def __init__(self, screen):
         # pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
-        pygame.draw.ellipse(screen, (235, 198, 52), (75, 40))
+        pygame.draw.ellipse(screen, (235, 198, 52), (230, 700, 120, 70))
 
     def update(self):
         pass
