@@ -6,7 +6,33 @@ import pytest
 import game_model as gmo
 
 
-def check_topping_name():
+def check_check_order():
+    """
+    Check that a complete order is correctly marked.
+
+    Args:
+        pizza_status: A string representing the user's username.
+
+    Returns:
+        True if user.username exists and False otherwise.
+    """
+    order = gmo.OrderStatus()
+    order.order_dict = {
+        "sauce": 2,
+        "cheese": 3,
+        "pepperoni": 4,
+        "mushroom": 5,
+    }
+    pizza_status = {
+        "sauce": 1,
+        "cheese": 1,
+        "pepperoni": 1,
+        "mushroom": 1,
+    }
+    return not order.check_order(pizza_status)
+
+
+def check_get_order():
     """
     Check that a topping  has the username property.
 
@@ -16,34 +42,15 @@ def check_topping_name():
     Returns:
         True if user.username exists and False otherwise.
     """
-    topping = gmo.Pepper()
-    return topping.value == "Pepper"
-
-
-def check_topping_nombre():
-    """
-    Check that a topping  has the username property.
-
-    Args:
-        username: A string representing the user's username.
-
-    Returns:
-        True if user.username exists and False otherwise.
-    """
-    topping = gmo.Pepper()
-    print(topping.value)
-    return topping.value == "Pepper"
-
-
-def check_one_equals_one():
-    return 1 == 1
+    order = gmo.OrderStatus()
+    return order.order_dict == order.get_order()
 
 
 @pytest.mark.parametrize(
     "func",
-    [check_topping_name, check_topping_nombre, check_one_equals_one],
+    [check_check_order, check_get_order],
 )
-def test_toppings(func):
+def test_OrderStatus(func):
     """
     Check that post IDs are generated correctly.
 
