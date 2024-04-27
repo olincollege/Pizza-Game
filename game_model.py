@@ -44,14 +44,16 @@ class OrderStatus:
         """
         temp_order_status_dict = {}
         for topping, num in self.order_dict.items():
+            print(f'CURRENT {current_pizza}')
+            print(f'ORDER {self.order_dict}')
             if (
-                num >= current_pizza[topping]
-            ):  # check for if it's over the requested amount
+                current_pizza[topping] <= num
+            ):  # check for if it's over the requested amount (DON"T NEED THIS)
                 temp_order_status_dict[topping] = True
             else:
                 temp_order_status_dict[topping] = False
 
-        for topping, num in temp_order_status_dict:
+        for topping, num in temp_order_status_dict.items():
             if num is False:
                 return temp_order_status_dict, False
         return temp_order_status_dict, True
