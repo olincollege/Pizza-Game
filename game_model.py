@@ -132,7 +132,6 @@ class PizzaStatus:
             New pos, a list of the pizza's x-y coordinates with an altered x values.
         """
         new_pos = self._position
-        # new_pos = PizzaStatus.get_position(self)
         new_pos[0] = new_pos[0] + x_update
         return new_pos
 

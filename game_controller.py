@@ -39,7 +39,6 @@ class Arrow:
             PizzaStatus.update_position(pizza, -(self._pizza_speed))
         elif keys[pygame.K_RIGHT]:
             PizzaStatus.update_position(pizza, self._pizza_speed)
-        print(PizzaStatus.get_position(pizza))
 
 # tester code
 # pygame.init()

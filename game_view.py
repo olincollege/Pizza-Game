@@ -8,9 +8,14 @@ Classes for viewing the game.
 
 class HomeScreen:
     """
-    DOC STRING
+    Class to display the home screen.
     """
     def __init__(self, screen):
+        """
+        Initialize Home screen on display.
+        Args:
+            screen: a Surface to display on to.
+        """
         scene = pygame.image.load('assets/img/homescreen.png')
         screen.blit(scene, (0,0))
 
@@ -23,10 +28,14 @@ class HomeScreen:
 
 class Kitchen:
     """
-    Doc String
+    Class to display the Kitchen scene.
     """
-
     def __init__(self, screen):
+        """
+        Initialize Kitchen on display.
+        Args:
+            screen: a Surface to display on to.
+        """
         scene = pygame.image.load("assets/img/kitchen.png")
         screen.blit(scene, (0, 0))
 
@@ -38,6 +47,9 @@ class Order:
     def __init__(self, screen, order_instance):
         """
         Initialize pizza on display.
+        Args:
+            screen: a Surface to display on to.
+            order_instance: the instance of the current working order.
         """
         font = pygame.font.Font(None, 36)
 
@@ -52,9 +64,11 @@ class Order:
                 screen.blit(order_text, (35, 30 + (30 * i)))
                 i += 1
 
-    def update(self):
+    def update(self, screen):
         """
         Update order status display.
+        Args:
+            screen: a Surface to display on to.
         """
         pass
 
@@ -64,13 +78,20 @@ class Pizza:
     Class to display pizza, update its position and toppings.
     """
     def __init__(self, screen):
+        """
+        Initialize Pizza on display.
+        Args:
+            screen: a Surface to display on to.
+        """
         x_pos = 230
         # pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
         pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
 
     def update(self, screen):
         """
-        DOC STRING
+        Update Pizza location on display.
+        Args:
+            screen: a Surface to display on to.
         """
         pos = gm.PizzaStatus.get_position(self)
         x_pos = pos[0]
