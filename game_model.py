@@ -35,28 +35,22 @@ class OrderStatus:
 
     def check_order(self, current_pizza):
         """
-        Function to check the order against a pizza's status
-        Attributes:
-            pizza: a dictionary of toppings with their current instances on the pizza
+        Function to check the order against a pizza's status.
+
+        Args:
+            current_pizza: a dictionary with toppings as keys and their count
+        as values.
+
         Returns:
             A boolean where True means the order is complete and False means
-            the order is incomplete.
+        the order is incomplete.
         """
-        temp_order_status_dict = {}
         for topping, num in self.order_dict.items():
-            print(f'CURRENT {current_pizza}')
-            print(f'ORDER {self.order_dict}')
             if (
-                current_pizza[topping] <= num
-            ):  # check for if it's over the requested amount (DON"T NEED THIS)
-                temp_order_status_dict[topping] = True
-            else:
-                temp_order_status_dict[topping] = False
-
-        for topping, num in temp_order_status_dict.items():
-            if num is False:
-                return temp_order_status_dict, False
-        return temp_order_status_dict, True
+                num >= current_pizza[topping]
+            ):  # check for if it's equal to the requested amount
+                return False
+        return True
 
     def get_order(self):
         """
