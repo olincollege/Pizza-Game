@@ -44,14 +44,16 @@ class OrderStatus:
         """
         temp_order_status_dict = {}
         for topping, num in self.order_dict.items():
+            print(f'CURRENT {current_pizza}')
+            print(f'ORDER {self.order_dict}')
             if (
-                num >= current_pizza[topping]
-            ):  # check for if it's over the requested amount
+                current_pizza[topping] <= num
+            ):  # check for if it's over the requested amount (DON"T NEED THIS)
                 temp_order_status_dict[topping] = True
             else:
                 temp_order_status_dict[topping] = False
 
-        for topping, num in temp_order_status_dict:
+        for topping, num in temp_order_status_dict.items():
             if num is False:
                 return temp_order_status_dict, False
         return temp_order_status_dict, True
@@ -126,12 +128,12 @@ class PizzaStatus:
     def update_position(self, x_update):
         """
         A function to update the x-coordinates of the pizza
-        Attributes:
-        x_update: an int representing the number of pixels to move the pizza
+        Args:
+            x_update: an int representing the number of pixels to move the pizza
         Returns:
-        New pos, a list of the pizza's x-y coordinates with an altered x values.
+            New pos, a list of the pizza's x-y coordinates with an altered x values.
         """
-        new_pos = PizzaStatus.get_position(self)
+        new_pos = self._position
         new_pos[0] = new_pos[0] + x_update
         return new_pos
 
@@ -165,6 +167,12 @@ class Toppings:
         self.color = color
         self.bounding_box = bounding_box
 
+    def get_color(self):
+        """
+        Returns topping color
+        """
+        return self.color
+
 
 class Cheese(Toppings):
     """
@@ -173,7 +181,7 @@ class Cheese(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Cheese", (255, 255, 224), (30, 30))
+        super().__init__("Cheese", (255, 255, 224), (30, 30))
 
 
 class Sauce(Toppings):
@@ -183,7 +191,7 @@ class Sauce(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Sauce", (255, 0, 0), (30, 30))
+        super().__init__("Sauce", (255, 0, 0), (30, 30))
 
 
 class Pepperoni(Toppings):
@@ -193,7 +201,7 @@ class Pepperoni(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Pepperoni", (165, 42, 42), (30, 30))
+        super().__init__("Pepperoni", (165, 42, 42), (30, 30))
 
 
 class Basil(Toppings):
@@ -203,7 +211,7 @@ class Basil(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Basil", (0, 255, 0), (30, 30))
+        super().__init__("Basil", (0, 255, 0), (30, 30))
 
 
 class Pepper(Toppings):
@@ -214,7 +222,7 @@ class Pepper(Toppings):
 
     def __init__(self):
 
-        super().__init__(self, "Pepper", (255, 165, 0), (30, 30))
+        super().__init__("Pepper", (255, 165, 0), (30, 30))
 
 
 class ToppingPosition:
@@ -241,20 +249,19 @@ class ToppingPosition:
         SCREEN_WIDTH = 480
         top = random.choice(self._topping_list)
         if top == "Cheese":
-            top = Cheese.__init__
+            top = Cheese()
         if top == "Sauce":
-            top = Sauce.__init__
+            top = Sauce()
         if top == "Pepperoni":
-            top = Pepperoni.__init__
+            top = Pepperoni()
         if top == "Basil":
-            top = Basil.__init__
+            top = Basil()
         if top == "Pepper":
-            top = Pepper.__init__
+            top = Pepper()
 
         pos_x = random.choice(range(15, SCREEN_WIDTH - 15))
-        pos_y = SCREEN_HEIGHT - 5
-        top_position = [top, pos_x, pos_y]
-        self._topping_info.extend(top_position)
+        top_position = [top, pos_x]
+        self._topping_info.append(top_position)
         return top_position
 
     def move_all_toppings(self):

@@ -1,5 +1,6 @@
 import pygame
 import game_model as gm
+import sys
 
 """
 Classes for viewing the game.
@@ -8,12 +9,17 @@ Classes for viewing the game.
 
 class HomeScreen:
     """
-    DOC STRING
+    Class to display the home screen.
     """
 
-    def __init__(self):
-        homescreen = pygame.image.load("assests/img/homescreen.png")
-        screen.blit(homescreen, (0, 0))
+    def __init__(self, screen):
+        """
+        Initialize Home screen on display.
+        Args:
+            screen: a Surface to display on to.
+        """
+        scene = pygame.image.load("assets/img/homescreen.png")
+        screen.blit(scene, (0, 0))
 
 
 # class Button(HomeScreen):
@@ -22,35 +28,83 @@ class HomeScreen:
 
 # class InstructionButton(Button):
 
-# class Kitchen():
 
-# class Order():
+class Kitchen:
+    """
+    Class to display the Kitchen scene.
+    """
+
+    def __init__(self, screen):
+        """
+        Initialize Kitchen on display.
+        Args:
+            screen: a Surface to display on to.
+        """
+        scene = pygame.image.load("assets/img/kitchen.png")
+        screen.blit(scene, (0, 0))
+
+
+class Order:
+    """
+    Class to display order and update its position.
+    """
+
+    def __init__(self, screen, order_instance):
+        """
+        Initialize pizza on display.
+        Args:
+            screen: a Surface to display on to.
+            order_instance: the instance of the current working order.
+        """
+        font = pygame.font.Font(None, 36)
+
+        pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
+
+        order_dict = order_instance.get_order()
+        i = 0
+        while i < len(order_dict):
+            for topping, num in order_dict.items():
+                text = f"{topping}: {num}"
+                order_text = font.render(text, True, (0, 0, 0))
+                screen.blit(order_text, (35, 30 + (30 * i)))
+                i += 1
+
+    def update(self, screen):
+        """
+        Update order status display.
+        Args:
+            screen: a Surface to display on to.
+        """
+        pass
 
 
 class Pizza:
     """
-    DOC STRING
+    Class to display pizza, update its position and toppings.
     """
-<<<<<<< HEAD
+
     def __init__(self, screen):
+        """
+        Initialize Pizza on display.
+        Args:
+            screen: a Surface to display on to.
+        """
+        x_pos = 230
         # pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
-        pygame.draw.ellipse(screen, (235, 198, 52), (75, 40))
+        pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
 
-    def update(self):
-        pass
-235, 198, 52
-class Toppings():
-=======
-
-    def __init__(self):
-        pizza_surf = pygame.image.load("assets/img/pizza.png").convert_alpha()
-
-    def update(self):
-        pass
+    def update(self, screen):
+        """
+        Update Pizza location on display.
+        Args:
+            screen: a Surface to display on to.
+        """
+        pos = gm.PizzaStatus.get_position(self)
+        x_pos = pos[0]
+        pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
 
 
 class Toppings:
->>>>>>> f390754e7408b1f33c0b290482d86da5b7347db4
     """
     A class to spawn toppings and alter their positions
     """
@@ -63,7 +117,7 @@ class Toppings:
         """
         self.rectangle_top_list = []
 
-    def create_topping(self, random_topping, screen):
+    def create_topping(self, screen, database):
         """
         Spawns a random topping at the top of the screen at a random x-value.
         Attributes:
@@ -72,24 +126,28 @@ class Toppings:
             screen: the surface to draw the topping on
 
         """
-        new_top_info = random_topping
+        new_top_info = database.spawn_topping()
         new_top_type = new_top_info[0]
-        color = new_top_type.color
+        color = new_top_type.get_color()
         dimension = new_top_type.bounding_box
         pos_x = new_top_info[1]
-        pos_y = new_top_info[2]
-        self.rectangle_top_list.append(
-            pygame.draw.rect(
-                screen, color, (dimension[1], dimension[2], pos_x, pos_y)
-            )
-        )
+        new_rect = [
+            screen,
+            color,
+            pygame.Rect(pos_x, 5, dimension[0], dimension[1]),
+        ]
+        self.rectangle_top_list.append(new_rect)
+        for topping in self.rectangle_top_list:
+            topping[2] = pygame.Rect.move(topping[2], 0, 5)
+            pygame.draw.rect(topping[0], topping[1], topping[2])
 
     def move_toppings_view(self):
         """
         Moves all toppings down 5 pixels
         """
+        # database.move_all_toppings()
         for topping in self.rectangle_top_list:
-            pygame.Rect.move(topping, 0, -5)
+            pygame.Rect.move_ip(topping[2], 0, -5)
 
     def collide_pizza(self, pizza):
         """
