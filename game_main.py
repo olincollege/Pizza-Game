@@ -9,6 +9,8 @@ ORDERS = 1
 SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 800
 
+topping_view = gv.Toppings
+
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 pygame.display.set_caption(
@@ -58,6 +60,7 @@ for i in range(ORDERS):
             )
         )
         print(pizza_stat._current_toppings)
+        topping_view.create_topping
 
         if exit_button_2.draw():
             pygame.quit()

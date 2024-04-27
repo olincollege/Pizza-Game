@@ -10,9 +10,11 @@ class HomeScreen:
     """
     DOC STRING
     """
+
     def __init__(self, screen):
-        scene = pygame.image.load('assets/img/homescreen.png')
-        screen.blit(scene, (0,0))
+        homescreen = pygame.image.load("assests/img/homescreen.png")
+        screen.blit(homescreen, (0, 0))
+
 
 # class Button(HomeScreen):
 
@@ -79,9 +81,13 @@ class Toppings:
         color = new_top_type.get_color()
         dimension = new_top_type.bounding_box
         pos_x = new_top_info[1]
-        self.rectangle_top_list.append(
-            [screen, color, pygame.Rect(pos_x, 5, dimension[0], dimension[1])]
-        )
+        new_rect = [
+            screen,
+            color,
+            pygame.Rect(pos_x, 5, dimension[0], dimension[1]),
+        ]
+        self.rectangle_top_list.append(new_rect)
+        pygame.draw.rect(new_rect[0], new_rect[1], new_rect[2])
 
     def move_toppings_view(self, database):
         """

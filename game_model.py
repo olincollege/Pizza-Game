@@ -252,9 +252,8 @@ class ToppingPosition:
             top = Pepper.__init__
 
         pos_x = random.choice(range(15, SCREEN_WIDTH - 15))
-        pos_y = SCREEN_HEIGHT - 5
-        top_position = [top, pos_x, pos_y]
-        self._topping_info.extend(top_position)
+        top_position = [top, pos_x]
+        self._topping_info.append(top_position)
         return top_position
 
     def move_all_toppings(self):
