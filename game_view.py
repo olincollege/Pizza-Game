@@ -117,7 +117,7 @@ class Toppings:
         """
         self.rectangle_top_list = []
 
-    def create_topping(self, database, screen):
+    def create_topping(self, screen, database):
         """
         Spawns a random topping at the top of the screen at a random x-value.
         Attributes:

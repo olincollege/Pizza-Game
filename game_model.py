@@ -165,6 +165,12 @@ class Toppings:
         self.color = color
         self.bounding_box = bounding_box
 
+    def get_color(self):
+        """
+        Returns topping color
+        """
+        return self.color
+
 
 class Cheese(Toppings):
     """
@@ -173,7 +179,7 @@ class Cheese(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Cheese", (255, 255, 224), (30, 30))
+        super().__init__("Cheese", (255, 255, 224), (30, 30))
 
 
 class Sauce(Toppings):
@@ -183,7 +189,7 @@ class Sauce(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Sauce", (255, 0, 0), (30, 30))
+        super().__init__("Sauce", (255, 0, 0), (30, 30))
 
 
 class Pepperoni(Toppings):
@@ -193,7 +199,7 @@ class Pepperoni(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Pepperoni", (165, 42, 42), (30, 30))
+        super().__init__("Pepperoni", (165, 42, 42), (30, 30))
 
 
 class Basil(Toppings):
@@ -203,7 +209,7 @@ class Basil(Toppings):
     """
 
     def __init__(self):
-        super().__init__(self, "Basil", (0, 255, 0), (30, 30))
+        super().__init__("Basil", (0, 255, 0), (30, 30))
 
 
 class Pepper(Toppings):
@@ -214,7 +220,7 @@ class Pepper(Toppings):
 
     def __init__(self):
 
-        super().__init__(self, "Pepper", (255, 165, 0), (30, 30))
+        super().__init__("Pepper", (255, 165, 0), (30, 30))
 
 
 class ToppingPosition:
@@ -241,15 +247,15 @@ class ToppingPosition:
         SCREEN_WIDTH = 480
         top = random.choice(self._topping_list)
         if top == "Cheese":
-            top = Cheese.__init__
+            top = Cheese()
         if top == "Sauce":
-            top = Sauce.__init__
+            top = Sauce()
         if top == "Pepperoni":
-            top = Pepperoni.__init__
+            top = Pepperoni()
         if top == "Basil":
-            top = Basil.__init__
+            top = Basil()
         if top == "Pepper":
-            top = Pepper.__init__
+            top = Pepper()
 
         pos_x = random.choice(range(15, SCREEN_WIDTH - 15))
         top_position = [top, pos_x]
