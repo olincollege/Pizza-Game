@@ -17,8 +17,6 @@ Our game
 # About Us
 
 ### Olivia Smith
-
 ### Laurel Cox
 Pizza lover. Here's my [GitHub](https://github.com/coxlaurel).
-
 ### Vishnu Eskew
