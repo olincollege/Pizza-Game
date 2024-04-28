@@ -11,9 +11,8 @@ SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 800
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # window display caption
-pygame.display.set_caption(
-    "Cloudy with a Chance of Pizza"
-)
+pygame.display.set_caption("Cloudy with a Chance of Pizza")
+
 
 # scene functions
 def menu(screen):
@@ -38,13 +37,14 @@ def menu(screen):
         # display home screen and buttons.
         gv.HomeScreen(screen)
         # checking for button clicks
-        if start_button.draw(): # start, exit menu, start game
+        if start_button.draw():  # start, exit menu, start game
             running = False
-        if exit_button_1.draw(): # exit, exit
+        if exit_button_1.draw():  # exit, exit
             pygame.quit()
 
         pygame.display.update()
         clock.tick(60)  # limits FPS to 60
+
 
 def play(screen):
     """
@@ -53,15 +53,14 @@ def play(screen):
     Args:
         screen: a Surface to display on.
     """
-    order_instance = gmo.OrderStatus() # initialize first order
-    pizza = gmo.PizzaStatus() # initialize empty pizza
-    gv.Pizza(screen) # display pizza
+    order_instance = gmo.OrderStatus(4)  # initialize first order
+    pizza = gmo.PizzaStatus()  # initialize empty pizza
+    gv.Pizza(screen)  # display pizza
 
-    topping_view = gv.Toppings() # initialize list of toppings
-    topping_database = gmo.ToppingPosition() # initialize topping info
+    topping_view = gv.Toppings()  # initialize list of toppings
+    topping_database = gmo.ToppingPosition()  # initialize topping info
 
-
-    topping_interval = 10 # TESTING
+    topping_interval = 10  # TESTING
 
     # start loop
     clock = pygame.time.Clock()
@@ -72,31 +71,34 @@ def play(screen):
                 running = False
 
         # set up
-        gv.Kitchen(screen) # display Kitchen scene
+        gv.Kitchen(screen)  # display Kitchen scene
 
         # run orders
-        gv.Order(screen, order_instance) # display Order
-        current_pizza = pizza.get_pizza_status() # get status on current pizza
+        gv.Order(screen, order_instance)  # display Order
+        current_pizza = pizza.get_pizza_status()  # get status on current pizza
         # check if pizza order is completed
-        if gmo.OrderStatus.check_order(order_instance,
-                                       current_pizza) is True:
-            order_instance = gmo.OrderStatus() # initialize new order
+        if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
+            order_instance = gmo.OrderStatus(4)  # initialize new order
 
         # move pizza
-        arrow = gc.Arrow() # initialize class for arrow inputs
-        arrow.move_pizza(pizza) # check for user arrow inputs
-        gv.Pizza.update(pizza, screen) # update pizza position on display
+        arrow = gc.Arrow()  # initialize class for arrow inputs
+        arrow.move_pizza(pizza)  # check for user arrow inputs
+        gv.Pizza.update(pizza, screen)  # update pizza position on display
 
-        # toppings WIP
-        if topping_interval == 10: # ATTEMPT to generate toppings at slower rate
-            topping_view.create_topping(screen, topping_database) # create and display toppings
+        # toppings
+        if (
+            topping_interval == 10
+        ):  # attempt to generate toppings at slower rate
+            topping_view.create_topping(
+                screen, topping_database
+            )  # create and display toppings
         #     topping_interval = 0
         # else:
         #     topping_interval += 1
 
-
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
+
 
 menu(SCREEN)
 play(SCREEN)

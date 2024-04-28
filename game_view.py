@@ -60,7 +60,7 @@ class Order:
 
         pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
 
-        order_dict = order_instance.get_order()
+        order_dict = order_instance.order_dict
         i = 0
         while i < len(order_dict):
             for topping, num in order_dict.items():
@@ -137,9 +137,6 @@ class Toppings:
             pygame.Rect(pos_x, 5, dimension[0], dimension[1]),
         ]
         self.rectangle_top_list.append(new_rect)
-        for topping in self.rectangle_top_list:
-            topping[2] = pygame.Rect.move(topping[2], 0, 5)
-            pygame.draw.rect(topping[0], topping[1], topping[2])
 
     def move_toppings_view(self):
         """
@@ -147,7 +144,8 @@ class Toppings:
         """
         # database.move_all_toppings()
         for topping in self.rectangle_top_list:
-            pygame.Rect.move_ip(topping[2], 0, -5)
+            topping[2] = pygame.Rect.move(topping[2], 0, 5)
+            pygame.draw.rect(topping[0], topping[1], topping[2])
 
     def collide_pizza(self, pizza):
         """
@@ -162,9 +160,11 @@ class Cheese(Toppings):
     """
     A class to display Cheese topping.
     """
+
     def __init__(self, screen):
         super().__init__()
         pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 100, 50))
+
 
 # class Sauce(Toppings):
 
