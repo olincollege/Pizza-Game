@@ -60,7 +60,7 @@ class Order:
 
         pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
 
-        order_dict = order_instance.get_order()
+        order_dict = order_instance.order_dict
         i = 0
         while i < len(order_dict):
             for topping, num in order_dict.items():
@@ -156,7 +156,15 @@ class Toppings:
                 del topping
 
 
-# class Cheese(Toppings):
+class Cheese(Toppings):
+    """
+    A class to display Cheese topping.
+    """
+
+    def __init__(self, screen):
+        super().__init__()
+        pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 100, 50))
+
 
 # class Sauce(Toppings):
 
