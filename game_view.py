@@ -137,9 +137,6 @@ class Toppings:
             pygame.Rect(pos_x, 5, dimension[0], dimension[1]),
         ]
         self.rectangle_top_list.append(new_rect)
-        for topping in self.rectangle_top_list:
-            topping[2] = pygame.Rect.move(topping[2], 0, 5)
-            pygame.draw.rect(topping[0], topping[1], topping[2])
 
     def move_toppings_view(self):
         """
@@ -147,7 +144,8 @@ class Toppings:
         """
         # database.move_all_toppings()
         for topping in self.rectangle_top_list:
-            pygame.Rect.move_ip(topping[2], 0, -5)
+            topping[2] = pygame.Rect.move(topping[2], 0, 5)
+            pygame.draw.rect(topping[0], topping[1], topping[2])
 
     def collide_pizza(self, pizza):
         """
