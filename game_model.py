@@ -13,25 +13,28 @@ class OrderStatus:
     A class to track the status of an order during game play.
 
     Attributes:
-        order_dict: A dictionary of all toppings and their instances
+        __order_dict: A dictionary of all toppings and their instances
         in the order.
+        __max_toppings: The max ammount of each topping a pizza could have.
     """
 
-    def __init__(self):
+    def __init__(self, topping):
         """
         A function to initiate a populated order for reference.
-        Attributes:
-            order_dict = dictionary of all toppings and their
-            instances in the order
+
+        Args:
+            topping: An int representing the maximum individual ammount of
+        toppings a pizza could have.
         """
-        self.order_dict = {
+        self.__max_toppings = topping
+        self.__order_dict = {
             "sauce": 0,
             "cheese": 0,
             "pepperoni": 0,
             "mushroom": 0,
         }
-        for topping in self.order_dict:
-            self.order_dict[topping] = random.randint(0, 4)
+        for topping in self.__order_dict:
+            self.__order_dict[topping] = random.randint(0, self.__max_toppings)
 
     def check_order(self, current_pizza):
         """
@@ -45,20 +48,24 @@ class OrderStatus:
             A boolean where True means the order is complete and False means
         the order is incomplete.
         """
-        for topping, num in self.order_dict.items():
-            if (
-                num >= current_pizza[topping]
-            ):  # check for if it's equal to the requested amount
+        for topping, num in self.__order_dict.items():
+            if current_pizza[topping] < num:
                 return False
         return True
 
-    def get_order(self):
+    @property
+    def order_dict(self):
         """
-        A function that returns the customer's order
-        Returns:
-            order_dict= a dictionary representing the customer's desired order
+        Returns a dictionary representing the order of an OrderStatus instance.
         """
-        return self.order_dict
+        return self.__order_dict
+
+    @property
+    def max_toppings(self):
+        """
+        Returns an integer the topping maximum of an OrderStatus instance.
+        """
+        return self.__max_toppings
 
 
 class Pizza(pygame.sprite.Sprite):
