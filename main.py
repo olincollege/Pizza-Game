@@ -60,7 +60,7 @@ def play(screen):
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
 
-    topping_interval = 10  # TESTING
+    topping_interval = 25
 
     # start loop
     clock = pygame.time.Clock()
@@ -86,15 +86,15 @@ def play(screen):
         gv.Pizza.update(pizza, screen)  # update pizza position on display
 
         # toppings
-        if (
-            topping_interval == 10
-        ):  # attempt to generate toppings at slower rate
+        if topping_interval == 25:  # attempt to generate toppings at slower rate
             topping_view.create_topping(
                 screen, topping_database
             )  # create and display toppings
-        #     topping_interval = 0
-        # else:
-        #     topping_interval += 1
+            topping_view.move_toppings_view()
+            topping_interval = 0
+        else:
+            topping_view.move_toppings_view()
+            topping_interval += 1
 
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60

@@ -50,7 +50,7 @@ for i in range(ORDERS):
         screen.blit(
             pygame.image.load("assets/img/kitchen.png"), (0, 0)
         )  # display kitchen
-        order = gmo.OrderStatus()  # initialized order
+        order = gmo.OrderStatus(4)  # initialized order
         print(order.order_dict)
         pizza_sprite = gmo.Pizza()
         pizza_stat = gmo.PizzaStatus()
@@ -63,6 +63,7 @@ for i in range(ORDERS):
 
         print(pizza_stat._current_toppings)
         topping_view.create_topping(screen, topping_database)
+        topping_view.move_toppings_view()
 
         if exit_button_2.draw():
             pygame.quit()

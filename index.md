@@ -10,11 +10,9 @@ Our game
 
 # Download Links
 
-# GitHub
-
 # Attribution for External Resources
 
-# About Us
+# Meet the Creators
 
 ### Olivia Smith
 ### Laurel Cox

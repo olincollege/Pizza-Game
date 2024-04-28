@@ -155,19 +155,3 @@ class Toppings:
             if pygame.Rect.colliderect(topping, pizza):
                 del topping
 
-
-class Cheese(Toppings):
-    """
-    A class to display Cheese topping.
-    """
-
-    def __init__(self, screen):
-        super().__init__()
-        pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 100, 50))
-
-
-# class Sauce(Toppings):
-
-# class Basil(Toppings):
-
-# class Mushroom(Toppings):
