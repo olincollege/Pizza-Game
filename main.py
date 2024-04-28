@@ -87,8 +87,8 @@ def play(screen):
         arrow.move_pizza(pizza) # check for user arrow inputs
         gv.Pizza.update(pizza, screen) # update pizza position on display
 
-        # toppings
-        if topping_interval == 10: # attempt to generate toppings at slower rate
+        # toppings WIP
+        if topping_interval == 10: # ATTEMPT to generate toppings at slower rate
             topping_view.create_topping(screen, topping_database) # create and display toppings
         #     topping_interval = 0
         # else:

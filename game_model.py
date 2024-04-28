@@ -125,10 +125,15 @@ class PizzaStatus:
         Args:
             x_update: an int representing the number of pixels to move the pizza
         Returns:
-            New pos, a list of the pizza's x-y coordinates with an altered x values.
+            new_pos: a list of the pizza's xy coordinates with altered x values.
         """
-        new_pos = self._position
-        new_pos[0] = new_pos[0] + x_update
+        new_pos = self._position # get position
+        new_pos[0] = new_pos[0] + x_update # update position's X coordinate
+        # check that position is within bounds
+        if new_pos[0] < 0:
+            new_pos[0] = 0 # make X coordinate cap at left screen
+        if new_pos[0] > 360:
+            new_pos[0] = 360 # make X coordinate cap at right screen
         return new_pos
 
     def get_position(self):
