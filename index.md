@@ -8,3 +8,5 @@ Cloudy With A Chance Of Pizza is a lively arcade video game where players take o
 # GitHub
 # Attribution for External Resources
 # About Us
+
+### Olivia Smith
