@@ -1,4 +1,4 @@
-import pygame, random, time
+import pygame, random, time, numpy
 
 # from game_main import SCREEN_WIDTH, SCREEN_HEIGHT
 
@@ -34,9 +34,19 @@ class OrderStatus:
             "basil": 0,
             "mushroom": 0,
         }
+        # variable to track total toppings on the pizza
+        temp = 0
+        # assign values to the topping quantities in __order_dict
         for topping in self.__order_dict:
-            self.__order_dict[topping] = random.randint(0, self.__max_toppings)
+            rand = random.randint(0, self.__max_toppings)
+            temp += rand
+            self.__order_dict[topping] = rand
+        # checks if pizza with no toppings was created randomly
+        if temp == 0:
+            # assigns one topping at random to a quantity of 1
+            self.__order_dict[numpy.random.choice(self.__order_dict.keys)] = 1
 
+    ### THE ORDER SHOULDN'T CHANGE, PIZZA STATUS SHOULD ###
     def topping_collision(self, topping_type):
         """
         A class to alter the order status when a topping hits the pizza
@@ -76,7 +86,7 @@ class OrderStatus:
         """
         return self.__max_toppings
 
-
+### DO WE NEED Pizza CLASS?? ###
 class Pizza(pygame.sprite.Sprite):
     """
     A class to create and keep track of the Pizza object and its location.
@@ -99,11 +109,11 @@ class Pizza(pygame.sprite.Sprite):
 
 class PizzaStatus:
     """
-    A class to track the toppings on the pizza and location during game play
+    A class to track the toppings on the pizza and location during game play.
 
     Attributes:
-        _current_toppings: a dictionary of all toppings and their instances on
-        the pizza's surface.
+        __current_toppings: a dictionary of all toppings and their instances on
+    the pizza's surface.
         _position: A list representing the x and y position.
     """
 

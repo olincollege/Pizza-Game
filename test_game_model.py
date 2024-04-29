@@ -19,6 +19,7 @@ def check_check_order_incomplete():
         "sauce": 0,
         "cheese": 0,
         "pepperoni": 0,
+        "basil": 0,
         "mushroom": 0,
     }
     return not order.check_order(pizza_status)
@@ -37,6 +38,7 @@ def check_check_order_complete():
         "sauce": maximum,
         "cheese": maximum,
         "pepperoni": maximum,
+        "basil": maximum,
         "mushroom": maximum,
     }
     return order.check_order(pizza_status)
@@ -46,7 +48,7 @@ def check_access_order():
     """
     Check that an order can be accessed as a dictionary outside of OrderStatus.
     """
-    order = gmo.OrderStatus(0)
+    order = gmo.OrderStatus(1)
     return isinstance(order.order_dict, dict)
 
 
