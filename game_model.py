@@ -197,6 +197,8 @@ class Cheese(Toppings):
     """
 
     def __init__(self):
+        # img = pygame.image.load('assets/img/cheese.png')
+        # super().__init__("Cheese", img, (30, 30))
         super().__init__("Cheese", (255, 255, 224), (30, 30))
 
 
