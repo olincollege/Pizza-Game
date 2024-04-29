@@ -140,7 +140,7 @@ def check_update_postion_left_side():
 )
 def test_PizzaStatus(func):  # pylint: disable=invalid-name
     """
-    Check that the PizzaStatus class in game_model is working as intended
+    Check that the PizzaStatus class in game_model is working as intended.
 
     Args:
         func: A function that returns a boolean, used to test various
