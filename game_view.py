@@ -60,22 +60,37 @@ class Order:
 
         pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
 
-        order_dict = order_instance.order_dict
+        self.order_dict = order_instance.order_dict
+        self.pizza_status = gm.PizzaStatus()
+
         i = 0
-        while i < len(order_dict):
-            for topping, num in order_dict.items():
+        while i < len(self.order_dict):
+            for topping, num in self.order_dict.items():
                 text = f"{topping}: {num}"
                 order_text = font.render(text, True, (0, 0, 0))
                 screen.blit(order_text, (35, 30 + (30 * i)))
                 i += 1
 
-    def update(self, screen):
+    def update(self, screen, new_topping_added):
         """
         Update order status display.
         Args:
             screen: a Surface to display on to.
+            new_topping_added: a string representing the topping that has
+            to be updated in the order
         """
-        pass
+        self.pizza_status.current_toppings[new_topping_added] += 1
+        font = pygame.font.Font(None, 36)
+
+        pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
+
+        i = 0
+        while i < len(self.order_dict):
+            for topping, num in self.order_dict.items():
+                text = f"{topping}: {num}, {self.pizza_status.current_toppings[topping]}"
+                order_text = font.render(text, True, (0, 0, 0))
+                screen.blit(order_text, (35, 30 + (30 * i)))
+                i += 1
 
 
 class Pizza:
@@ -90,10 +105,11 @@ class Pizza:
             screen: a Surface to display on to.
         """
         x_pos = 230
+        pizza_dimension = (x_pos, 700, 120, 70)
         # pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
         pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
 
-    def update(self, screen):
+    def update(self, screen, topping):
         """
         Update Pizza location on display.
         Args:
@@ -102,6 +118,12 @@ class Pizza:
         pos = gm.PizzaStatus.get_position(self)
         x_pos = pos[0]
         pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
+
+    def add_topping(self, topping):
+        """
+        Docstring
+        """
+        pass
 
 
 class Toppings:
@@ -116,6 +138,7 @@ class Toppings:
             rectangle_top_list = a list to hold all rectangles 'toppings' represented in the database
         """
         self.rectangle_top_list = []
+        self._order_status = gm.OrderStatus(4)
 
     def create_topping(self, screen, database):
         """
@@ -130,11 +153,13 @@ class Toppings:
         new_top_type = new_top_info[0]
         color = new_top_type.get_color()
         dimension = new_top_type.bounding_box
+        topping_type = new_top_type.topping_value
         pos_x = new_top_info[1]
         new_rect = [
             screen,
             color,
             pygame.Rect(pos_x, 5, dimension[0], dimension[1]),
+            topping_type,
         ]
         self.rectangle_top_list.append(new_rect)
 
@@ -150,8 +175,10 @@ class Toppings:
     def collide_pizza(self, pizza):
         """
         Checks if any of the toppings have collided with the pizza, and if so, delete them.
+        Also updates order status.
         """
         for topping in self.rectangle_top_list:
-            if pygame.Rect.colliderect(topping, pizza):
+            if pygame.Rect.colliderect(topping[2], pizza):
+                topping_value = topping[3]
                 del topping
-
+                return topping_value

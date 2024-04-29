@@ -36,6 +36,14 @@ class OrderStatus:
         for topping in self.__order_dict:
             self.__order_dict[topping] = random.randint(0, self.__max_toppings)
 
+    def topping_collision(self, topping_type):
+        """
+        A class to alter the order status when a topping hits the pizza
+        Attributes:
+            topping_type: a string representing the topping to be added to the order
+        """
+        self.__order_dict[topping_type] += 1
+
     def check_order(self, current_pizza):
         """
         Function to check the order against a pizza's status.
@@ -99,7 +107,7 @@ class PizzaStatus:
     """
 
     def __init__(self):
-        self._current_toppings = {
+        self.current_toppings = {
             "sauce": 0,
             "cheese": 0,
             "pepperoni": 0,
@@ -114,7 +122,7 @@ class PizzaStatus:
         Args:
             topping: A string representing the type of topping to update
         """
-        self._current_toppings[topping] += 1
+        self.current_toppings[topping] += 1
 
     def get_pizza_status(self):
         """
@@ -124,7 +132,7 @@ class PizzaStatus:
             A dictionary with keys representing the type of topping and values
             representing the quantity on the pizza.
         """
-        return self._current_toppings
+        return self.current_toppings
 
     def update_position(self, x_update):
         """
@@ -134,13 +142,13 @@ class PizzaStatus:
         Returns:
             new_pos: a list of the pizza's xy coordinates with altered x values.
         """
-        new_pos = self._position # get position
-        new_pos[0] = new_pos[0] + x_update # update position's X coordinate
+        new_pos = self._position  # get position
+        new_pos[0] = new_pos[0] + x_update  # update position's X coordinate
         # check that position is within bounds
         if new_pos[0] < 0:
-            new_pos[0] = 0 # make X coordinate cap at left screen
+            new_pos[0] = 0  # make X coordinate cap at left screen
         if new_pos[0] > 360:
-            new_pos[0] = 360 # make X coordinate cap at right screen
+            new_pos[0] = 360  # make X coordinate cap at right screen
         return new_pos
 
     def get_position(self):
@@ -169,7 +177,7 @@ class Toppings:
         fall_speed=5,
     ):
         self._fall_speed = fall_speed
-        self.value = value
+        self.topping_value = value
         self.color = color
         self.bounding_box = bounding_box
 
