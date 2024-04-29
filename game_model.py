@@ -13,9 +13,9 @@ class OrderStatus:
     A class to track the status of an order during game play.
 
     Attributes:
-        __order_dict: A dictionary of all toppings and their instances
-        in the order.
-        __max_toppings: The max ammount of each topping a pizza could have.
+        __order_dict: A dictionary of all toppings and their quantity in the
+    order.
+        __max_toppings: The maximum ammount of each topping a pizza could have.
     """
 
     def __init__(self, topping):
@@ -50,7 +50,8 @@ class OrderStatus:
     def topping_collision(self, topping_type):
         """
         A class to alter the order status when a topping hits the pizza
-        Attributes:
+        
+        Args:
             topping_type: a string representing the topping to be added to the order
         """
         self.__order_dict[topping_type] += 1
@@ -112,49 +113,45 @@ class PizzaStatus:
     A class to track the toppings on the pizza and location during game play.
 
     Attributes:
-        __current_toppings: a dictionary of all toppings and their instances on
+        __current_toppings: A dictionary of all toppings and their quanitity on
     the pizza's surface.
-        _position: A list representing the x and y position.
+        __position: A two element list representing the x and y position of a
+    pizza.
     """
 
     def __init__(self):
-        self.current_toppings = {
+        self.__current_toppings = {
             "sauce": 0,
             "cheese": 0,
             "pepperoni": 0,
             "basil": 0,
             "mushroom": 0,
         }
-        self._position = [240, 150]
+        self.__position = [240, 150]
 
     def add_topping(self, topping):
         """
-        Update current toppings with new topping
+        Update current toppings with new topping.
 
         Args:
-            topping: A string representing the type of topping to update
+            topping: A string representing the name of the topping to update.
         """
-        self.current_toppings[topping] += 1
+        self.__current_toppings[topping] += 1
 
-    def get_pizza_status(self):
-        """
-        Get status of pizza which includes all current toppings
-
-        Returns:
-            A dictionary with keys representing the type of topping and values
-            representing the quantity on the pizza.
-        """
-        return self.current_toppings
 
     def update_position(self, x_update):
         """
-        A function to update the x-coordinates of the pizza
+        A function to update the x-coordinate of the pizza.
+
         Args:
-            x_update: an int representing the number of pixels to move the pizza
+            x_update: An int representing the number of pixels to move the
+        pizza.
+        
         Returns:
-            new_pos: a list of the pizza's xy coordinates with altered x values.
+            new_pos: A list of the pizza's xy coordinates with altered x
+        values.
         """
-        new_pos = self._position  # get position
+        new_pos = self.__position  # get position
         new_pos[0] = new_pos[0] + x_update  # update position's X coordinate
         # check that position is within bounds
         if new_pos[0] < 0:
@@ -163,11 +160,19 @@ class PizzaStatus:
             new_pos[0] = 360  # make X coordinate cap at right screen
         return new_pos
 
-    def get_position(self):
+    @property
+    def position(self):
         """
-        A function that returns the pizza's current position
+        Returns a two element list representing the pizza's x and y location.
         """
-        return self._position
+        return self.__position
+
+    @property
+    def status(self):
+        """
+        Returns a dictionary representing the toppings on the pizza.
+        """
+        return self.__current_toppings
 
 
 class Toppings:
