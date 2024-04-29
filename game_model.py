@@ -46,16 +46,6 @@ class OrderStatus:
             # assigns one topping at random to a quantity of 1
             self.__order_dict[numpy.random.choice(self.__order_dict.keys)] = 1
 
-    ### THE ORDER SHOULDN'T CHANGE, PIZZA STATUS SHOULD ###
-    def topping_collision(self, topping_type):
-        """
-        A class to alter the order status when a topping hits the pizza
-        
-        Args:
-            topping_type: a string representing the topping to be added to the order
-        """
-        self.__order_dict[topping_type] += 1
-
     def check_order(self, current_pizza):
         """
         Function to check the order against a pizza's status.
