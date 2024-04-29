@@ -31,6 +31,7 @@ class OrderStatus:
             "sauce": 0,
             "cheese": 0,
             "pepperoni": 0,
+            "basil": 0,
             "mushroom": 0,
         }
         for topping in self.__order_dict:
@@ -111,6 +112,7 @@ class PizzaStatus:
             "sauce": 0,
             "cheese": 0,
             "pepperoni": 0,
+            "basil": 0,
             "mushroom": 0,
         }
         self._position = [240, 150]
@@ -228,15 +230,15 @@ class Basil(Toppings):
         super().__init__("Basil", (0, 255, 0), (30, 30))
 
 
-class Pepper(Toppings):
+class Mushroom(Toppings):
     """
-    A class to create an instance of the pepper topping based on the
+    A class to create an instance of the mushroom topping based on the
     topping parent class.
     """
 
     def __init__(self):
 
-        super().__init__("Pepper", (255, 165, 0), (30, 30))
+        super().__init__("Mushroom", (255, 165, 0), (30, 30))
 
 
 class ToppingPosition:
@@ -251,7 +253,7 @@ class ToppingPosition:
         """
         Create an instance of the ToppingPosition class
         """
-        self._topping_list = ("Cheese", "Sauce", "Pepperoni", "Basil", "Pepper")
+        self._topping_list = ("Cheese", "Sauce", "Pepperoni", "Basil", "Mushroom")
         self._topping_info = []
         self._fall_speed = 5
 
@@ -270,8 +272,8 @@ class ToppingPosition:
             top = Pepperoni()
         if top == "Basil":
             top = Basil()
-        if top == "Pepper":
-            top = Pepper()
+        if top == "Mushroom":
+            top = Mushroom()
 
         pos_x = random.choice(range(15, SCREEN_WIDTH - 15))
         top_position = [top, pos_x]
