@@ -90,8 +90,10 @@ class Pizza:
             screen: a Surface to display on to.
         """
         x_pos = 230
-        # pizza_surf = pygame.image.load('assets/img/pizza.png').convert_alpha()
-        pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
+        # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
+        dough_surf = pygame.image.load('assets/img/pizza_dough.png')
+        self.pizza_dough = pygame.transform.scale_by(dough_surf, 0.27)
+        pygame.Surface.blit(screen, self.pizza_dough, (x_pos, 600))
 
     def update(self, screen):
         """
@@ -101,7 +103,10 @@ class Pizza:
         """
         pos = gm.PizzaStatus.get_position(self)
         x_pos = pos[0]
-        pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
+        # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
+        dough_surf = pygame.image.load('assets/img/pizza_dough.png')
+        self.pizza_dough = pygame.transform.scale_by(dough_surf, 0.27)
+        pygame.Surface.blit(screen, self.pizza_dough, (x_pos, 600))
 
 
 class Toppings:
