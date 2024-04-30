@@ -63,6 +63,8 @@ def play(screen):
     order_instance = gmo.OrderStatus(4)  # initialize first order
     pizza_status = gmo.PizzaStatus()  # initialize empty pizza
     pizza_view = gv.Pizza(screen)  # display pizza
+    pizza = gv.PizzaView()
+    pizza_sprite = pizza.pizza_sprite
 
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
@@ -70,7 +72,7 @@ def play(screen):
     customer_happiness = gmo.CustomerHappiness() # initialize customer happiness
     total_money_instance = gmo.TotalMoney() # initialize money count
 
-    topping_interval = 25 # every 25 frames add generate new topping
+    topping_interval = 25  # every 25 frames add generate new topping
 
     # start loop
     clock = pygame.time.Clock()
@@ -88,16 +90,19 @@ def play(screen):
         current_pizza = pizza_status.status  # get status on current pizza
         # check if pizza order is completed
         if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
-            customer_happiness.evaluate_order(order_instance.order_dict,
-                                              pizza_status.status)
+            customer_happiness.evaluate_order(
+                order_instance.order_dict, pizza_status.status
+            )
             total_money_instance.update_money()
             #### ADD METHOD TO CLEAR PIZZA
-            order_instance = gmo.OrderStatus(4) # initialize new order
+            order_instance = gmo.OrderStatus(4)  # initialize new order
 
         # move pizza
         arrow = gc.Arrow(10)  # initialize class for arrow inputs
         arrow.move_pizza(pizza_status)  # check for user arrow inputs
-        pizza_view.update(pizza_status, screen)  # update pizza position on display
+        pizza_view.update(
+            pizza_status, screen
+        )  # update pizza position on display
 
         # toppings
         if topping_interval == 25:  # generate toppings at rate
@@ -111,11 +116,12 @@ def play(screen):
             topping_view.move_toppings_view(screen)
             topping_interval += 1
 
-
+        pizza_status.add_topping(topping_view.collide_pizza(pizza))
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
 
     return total_money_instance.get_money
+
 
 def end(screen, money):
     """
