@@ -406,6 +406,12 @@ class TotalMoney:
         """
         self.total_money += CustomerHappiness.get_tip(self)
 
+    @property
+    def get_money(self):
+        """
+        Returns the total amount of money earned.
+        """
+        return self.total_money
 
 class Button:
     """
