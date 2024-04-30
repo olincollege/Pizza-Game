@@ -59,13 +59,14 @@ def play(screen):
     order_instance = gmo.OrderStatus(4)  # initialize first order
     pizza_status = gmo.PizzaStatus()  # initialize empty pizza
     pizza_view = gv.Pizza(screen)  # display pizza
-
+    pizza = gv.PizzaView()
+    pizza_sprite = pizza.pizza_sprite
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
 
-    total_money_instance = gmo.TotalMoney() # initialize money count
+    total_money_instance = gmo.TotalMoney()  # initialize money count
 
-    topping_interval = 25 # every 25 frames add generate new topping
+    topping_interval = 25  # every 25 frames add generate new topping
 
     # start loop
     clock = pygame.time.Clock()
@@ -88,7 +89,9 @@ def play(screen):
         # move pizza
         arrow = gc.Arrow()  # initialize class for arrow inputs
         arrow.move_pizza(pizza_status)  # check for user arrow inputs
-        pizza_view.update(pizza_status, screen)  # update pizza position on display
+        pizza_view.update(
+            pizza_status, screen
+        )  # update pizza position on display
 
         # toppings
         if topping_interval == 25:  # generate toppings at rate
@@ -101,9 +104,10 @@ def play(screen):
             topping_view.move_toppings_view(screen)
             topping_interval += 1
 
-
+        pizza_status.add_topping(topping_view.collide_pizza(pizza))
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
+
 
 def end(screen):
     """
@@ -130,4 +134,4 @@ def end(screen):
 
 menu(SCREEN)
 play(SCREEN)
-#end(SCREEN)
+# end(SCREEN)

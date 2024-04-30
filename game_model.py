@@ -1,4 +1,4 @@
-import pygame, random, time, numpy
+import pygame, random, time, numpy, os
 
 # from game_main import SCREEN_WIDTH, SCREEN_HEIGHT
 
@@ -76,27 +76,6 @@ class OrderStatus:
         Returns an integer the topping maximum of an OrderStatus instance.
         """
         return self.__max_toppings
-
-
-### DO WE NEED Pizza CLASS?? ###
-class Pizza(pygame.sprite.Sprite):
-    """
-    A class to create and keep track of the Pizza object and its location.
-    """
-
-    def __init__(self):
-        """
-        Initialize an instance of Pizza object.
-        """
-        pygame.sprite.Sprite.__init__(self)
-
-        # pizza = pygame.image.load("assets/img/pizza.png").convert_alpha()
-        # pizza_rect = pizza.get_rect()
-        # pizza_mask = pygame.mask.from_surface(pizza)
-        # self.mask_img = pizza_mask.to_surface()
-
-    def update(self):
-        pass
 
 
 class PizzaStatus:
@@ -198,10 +177,10 @@ class Cheese(Toppings):
     """
 
     def __init__(self):
-        super().__init__("Cheese")
-        # img = pygame.image.load('assets/img/cheese.png')
-        # super().__init__("Cheese", img, (30, 30))
-        super().__init__("Cheese")
+        super().__init__("cheese")
+        # # img = pygame.image.load('assets/img/cheese.png')
+        # # super().__init__("Cheese", img, (30, 30))
+        # super().__init__("cheese")
 
 
 class Sauce(Toppings):
@@ -211,7 +190,7 @@ class Sauce(Toppings):
     """
 
     def __init__(self):
-        super().__init__("Sauce")
+        super().__init__("sauce")
 
 
 class Pepperoni(Toppings):
@@ -221,7 +200,7 @@ class Pepperoni(Toppings):
     """
 
     def __init__(self):
-        super().__init__("Pepperoni")
+        super().__init__("pepperoni")
 
 
 class Basil(Toppings):
@@ -231,7 +210,7 @@ class Basil(Toppings):
     """
 
     def __init__(self):
-        super().__init__("Basil")
+        super().__init__("basil")
 
 
 class Mushroom(Toppings):
@@ -242,7 +221,7 @@ class Mushroom(Toppings):
 
     def __init__(self):
 
-        super().__init__("Mushroom")
+        super().__init__("mushroom")
 
 
 class ToppingPosition:
@@ -258,11 +237,11 @@ class ToppingPosition:
         Create an instance of the ToppingPosition class
         """
         self._topping_list = (
-            "Cheese",
-            "Sauce",
-            "Pepperoni",
-            "Basil",
-            "Mushroom",
+            "cheese",
+            "sauce",
+            "pepperoni",
+            "basil",
+            "mushroom",
         )
         self._topping_info = []
         self._fall_speed = 5
@@ -274,15 +253,15 @@ class ToppingPosition:
         SCREEN_HEIGHT = 800
         SCREEN_WIDTH = 480
         top = random.choice(self._topping_list)
-        if top == "Cheese":
+        if top == "cheese":
             top = Cheese()
-        if top == "Sauce":
+        if top == "sauce":
             top = Sauce()
-        if top == "Pepperoni":
+        if top == "pepperoni":
             top = Pepperoni()
-        if top == "Basil":
+        if top == "basil":
             top = Basil()
-        if top == "Mushroom":
+        if top == "mushroom":
             top = Mushroom()
 
         pos_x = random.choice(range(15, SCREEN_WIDTH - 15))
@@ -412,6 +391,7 @@ class TotalMoney:
         Returns the total amount of money earned.
         """
         return self.total_money
+
 
 class Button:
     """
