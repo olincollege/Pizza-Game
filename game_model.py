@@ -398,20 +398,20 @@ class TotalMoney:
         """
         Initialize money.
         """
-        self.total_money = 0
+        self._total_money = 0
 
     def update_money(self):
         """
         A method to update total_money after every order.
         """
-        self.total_money += CustomerHappiness.get_tip(self)
+        self._total_money += CustomerHappiness.get_tip(self)
 
     @property
     def get_money(self):
         """
         Returns the total amount of money earned.
         """
-        return self.total_money
+        return self._total_money
 
 class Button:
     """

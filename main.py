@@ -63,6 +63,7 @@ def play(screen):
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
 
+    customer_happiness = gmo.CustomerHappiness() # initialize customer happiness
     total_money_instance = gmo.TotalMoney() # initialize money count
 
     topping_interval = 25 # every 25 frames add generate new topping
@@ -83,7 +84,11 @@ def play(screen):
         current_pizza = pizza_status.status  # get status on current pizza
         # check if pizza order is completed
         if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
-            order_instance = gmo.OrderStatus(4)  # initialize new order
+            customer_happiness.evaluate_order(order_instance.order_dict,
+                                              pizza_status.status)
+            total_money_instance.update_money()
+            #### ADD METHOD TO CLEAR PIZZA
+            order_instance = gmo.OrderStatus(4) # initialize new order
 
         # move pizza
         arrow = gc.Arrow()  # initialize class for arrow inputs
