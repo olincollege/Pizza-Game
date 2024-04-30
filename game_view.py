@@ -115,10 +115,12 @@ class Pizza:
     def update(self, screen):
         """
         Update Pizza location on display.
+
         Args:
+            pizza_status: A PizzaStatus instance.
             screen: a Surface to display on to.
         """
-        pos = gm.PizzaStatus.get_position(self)
+        pos = pizza_status.position
         x_pos = pos[0]
         # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
         dough_surf = pygame.image.load("assets/img/pizza_dough.png")

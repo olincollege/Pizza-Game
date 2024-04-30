@@ -54,13 +54,13 @@ def play(screen):
         screen: a Surface to display on.
     """
     order_instance = gmo.OrderStatus(4)  # initialize first order
-    pizza = gmo.PizzaStatus()  # initialize empty pizza
-    gv.Pizza(screen)  # display pizza
+    pizza_status = gmo.PizzaStatus()  # initialize empty pizza
+    pizza_view = gv.Pizza(screen)  # display pizza
 
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
 
-    topping_interval = 25
+    topping_interval = 25 # every 25 frames add generate new topping
 
     # start loop
     clock = pygame.time.Clock()
@@ -75,18 +75,18 @@ def play(screen):
 
         # run orders
         gv.Order(screen, order_instance)  # display Order
-        current_pizza = pizza.get_pizza_status()  # get status on current pizza
+        current_pizza = pizza_status.status  # get status on current pizza
         # check if pizza order is completed
         if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
             order_instance = gmo.OrderStatus(4)  # initialize new order
 
         # move pizza
         arrow = gc.Arrow()  # initialize class for arrow inputs
-        arrow.move_pizza(pizza)  # check for user arrow inputs
-        gv.Pizza.update(pizza, screen)  # update pizza position on display
+        arrow.move_pizza(pizza_status)  # check for user arrow inputs
+        pizza_view.update(pizza_status, screen)  # update pizza position on display
 
         # toppings
-        if topping_interval == 25:  # attempt to generate toppings at slower rate
+        if topping_interval == 25:  # generate toppings at rate
             topping_view.create_topping(
                 screen, topping_database
             )  # create and display toppings
@@ -96,8 +96,15 @@ def play(screen):
             topping_view.move_toppings_view()
             topping_interval += 1
 
+
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
+
+def end(screen):
+    """
+    Display End scene, including score and option to play again.
+    """
+    pass
 
 
 menu(SCREEN)

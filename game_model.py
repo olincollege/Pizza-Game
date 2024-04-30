@@ -1,4 +1,4 @@
-import pygame, random, time
+import pygame, random, time, numpy
 
 # from game_main import SCREEN_WIDTH, SCREEN_HEIGHT
 
@@ -13,9 +13,9 @@ class OrderStatus:
     A class to track the status of an order during game play.
 
     Attributes:
-        __order_dict: A dictionary of all toppings and their instances
-        in the order.
-        __max_toppings: The max ammount of each topping a pizza could have.
+        __order_dict: A dictionary of all toppings and their quantity in the
+    order.
+        __max_toppings: The maximum ammount of each topping a pizza could have.
     """
 
     def __init__(self, topping):
@@ -34,16 +34,17 @@ class OrderStatus:
             "basil": 0,
             "mushroom": 0,
         }
+        # variable to track total toppings on the pizza
+        temp = 0
+        # assign values to the topping quantities in __order_dict
         for topping in self.__order_dict:
-            self.__order_dict[topping] = random.randint(0, self.__max_toppings)
-
-    def topping_collision(self, topping_type):
-        """
-        A class to alter the order status when a topping hits the pizza
-        Attributes:
-            topping_type: a string representing the topping to be added to the order
-        """
-        self.__order_dict[topping_type] += 1
+            rand = random.randint(0, self.__max_toppings)
+            temp += rand
+            self.__order_dict[topping] = rand
+        # checks if pizza with no toppings was created randomly
+        if temp == 0:
+            # assigns one topping at random to a quantity of 1
+            self.__order_dict[numpy.random.choice(self.__order_dict.keys)] = 1
 
     def check_order(self, current_pizza):
         """
@@ -77,6 +78,7 @@ class OrderStatus:
         return self.__max_toppings
 
 
+### DO WE NEED Pizza CLASS?? ###
 class Pizza(pygame.sprite.Sprite):
     """
     A class to create and keep track of the Pizza object and its location.
@@ -99,52 +101,47 @@ class Pizza(pygame.sprite.Sprite):
 
 class PizzaStatus:
     """
-    A class to track the toppings on the pizza and location during game play
+    A class to track the toppings on the pizza and location during game play.
 
     Attributes:
-        _current_toppings: a dictionary of all toppings and their instances on
-        the pizza's surface.
-        _position: A list representing the x and y position.
+        __current_toppings: A dictionary of all toppings and their quanitity on
+    the pizza's surface.
+        __position: A two element list representing the x and y position of a
+    pizza.
     """
 
     def __init__(self):
-        self.current_toppings = {
+        self.__current_toppings = {
             "sauce": 0,
             "cheese": 0,
             "pepperoni": 0,
             "basil": 0,
             "mushroom": 0,
         }
-        self._position = [240, 150]
+        self.__position = [240, 150]
 
     def add_topping(self, topping):
         """
-        Update current toppings with new topping
+        Update current toppings with new topping.
 
         Args:
-            topping: A string representing the type of topping to update
+            topping: A string representing the name of the topping to update.
         """
-        self.current_toppings[topping] += 1
-
-    def get_pizza_status(self):
-        """
-        Get status of pizza which includes all current toppings
-
-        Returns:
-            A dictionary with keys representing the type of topping and values
-            representing the quantity on the pizza.
-        """
-        return self.current_toppings
+        self.__current_toppings[topping] += 1
 
     def update_position(self, x_update):
         """
-        A function to update the x-coordinates of the pizza
+        A function to update the x-coordinate of the pizza.
+
         Args:
-            x_update: an int representing the number of pixels to move the pizza
+            x_update: An int representing the number of pixels to move the
+        pizza.
+
         Returns:
-            new_pos: a list of the pizza's xy coordinates with altered x values.
+            new_pos: A list of the pizza's xy coordinates with altered x
+        values.
         """
-        new_pos = self._position  # get position
+        new_pos = self.__position  # get position
         new_pos[0] = new_pos[0] + x_update  # update position's X coordinate
         # check that position is within bounds
         if new_pos[0] < 0:
@@ -153,11 +150,19 @@ class PizzaStatus:
             new_pos[0] = 360  # make X coordinate cap at right screen
         return new_pos
 
-    def get_position(self):
+    @property
+    def position(self):
         """
-        A function that returns the pizza's current position
+        Returns a two element list representing the pizza's x and y location.
         """
-        return self._position
+        return self.__position
+
+    @property
+    def status(self):
+        """
+        Returns a dictionary representing the toppings on the pizza.
+        """
+        return self.__current_toppings
 
 
 class Toppings:
@@ -194,6 +199,9 @@ class Cheese(Toppings):
 
     def __init__(self):
         super().__init__("Cheese")
+        # img = pygame.image.load('assets/img/cheese.png')
+        # super().__init__("Cheese", img, (30, 30))
+        super().__init__("Cheese", (255, 255, 224), (30, 30))
 
 
 class Sauce(Toppings):
