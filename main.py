@@ -23,8 +23,8 @@ def menu(screen):
         screen: a Surface to display on.
     """
     # initialize buttons
-    start_button = gmo.Button(50, 600, "assets/img/StartButton.png", 1, screen)
-    exit_button_1 = gmo.Button(250, 600, "assets/img/ExitButton.png", 1, screen)
+    start_button = gmo.Button(70, 600, "assets/img/play_button.png", 1, screen)
+    exit_button = gmo.Button(260, 600, "assets/img/exit_button.png", 1, screen)
 
     # start loop
     clock = pygame.time.Clock()
@@ -39,7 +39,7 @@ def menu(screen):
         # checking for button clicks
         if start_button.draw():  # start, exit menu, start game
             running = False
-        if exit_button_1.draw():  # exit, exit
+        if exit_button.draw():  # exit, exit
             pygame.quit()
 
         pygame.display.update()
@@ -52,6 +52,9 @@ def play(screen):
 
     Args:
         screen: a Surface to display on.
+
+    Returns:
+        total_money: a float representing the total amount of money earned.
     """
     order_instance = gmo.OrderStatus(4)  # initialize first order
     pizza_status = gmo.PizzaStatus()  # initialize empty pizza
@@ -59,6 +62,8 @@ def play(screen):
 
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
+
+    total_money_instance = gmo.TotalMoney() # initialize money count
 
     topping_interval = 25 # every 25 frames add generate new topping
 
@@ -103,9 +108,26 @@ def play(screen):
 def end(screen):
     """
     Display End scene, including score and option to play again.
+
+    Args:
+        screen: a Surface to display on.
     """
-    pass
+    # start loop
+    clock = pygame.time.Clock()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # display home screen and buttons.
+        screen.fill((153, 217, 234))
+        gv.EndScreen(screen)
+
+        pygame.display.update()
+        clock.tick(60)  # limits FPS to 60
 
 
-menu(SCREEN)
-play(SCREEN)
+# menu(SCREEN)
+# play(SCREEN)
+end(SCREEN)

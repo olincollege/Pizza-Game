@@ -78,6 +78,7 @@ class OrderStatus:
         """
         return self.__max_toppings
 
+
 ### DO WE NEED Pizza CLASS?? ###
 class Pizza(pygame.sprite.Sprite):
     """
@@ -129,7 +130,6 @@ class PizzaStatus:
         """
         self.__current_toppings[topping] += 1
 
-
     def update_position(self, x_update):
         """
         A function to update the x-coordinate of the pizza.
@@ -137,7 +137,7 @@ class PizzaStatus:
         Args:
             x_update: An int representing the number of pixels to move the
         pizza.
-        
+
         Returns:
             new_pos: A list of the pizza's xy coordinates with altered x
         values.
@@ -181,20 +181,16 @@ class Toppings:
     def __init__(
         self,
         value,
-        color,
-        bounding_box,
         fall_speed=5,
     ):
         self._fall_speed = fall_speed
         self.topping_value = value
-        self.color = color
-        self.bounding_box = bounding_box
 
-    def get_color(self):
+    def get_value(self):
         """
-        Returns topping color
+        Returns value of topping
         """
-        return self.color
+        return self.topping_value
 
 
 class Cheese(Toppings):
@@ -204,6 +200,7 @@ class Cheese(Toppings):
     """
 
     def __init__(self):
+        super().__init__("Cheese")
         # img = pygame.image.load('assets/img/cheese.png')
         # super().__init__("Cheese", img, (30, 30))
         super().__init__("Cheese", (255, 255, 224), (30, 30))
@@ -216,7 +213,7 @@ class Sauce(Toppings):
     """
 
     def __init__(self):
-        super().__init__("Sauce", (255, 0, 0), (30, 30))
+        super().__init__("Sauce")
 
 
 class Pepperoni(Toppings):
@@ -226,7 +223,7 @@ class Pepperoni(Toppings):
     """
 
     def __init__(self):
-        super().__init__("Pepperoni", (165, 42, 42), (30, 30))
+        super().__init__("Pepperoni")
 
 
 class Basil(Toppings):
@@ -236,7 +233,7 @@ class Basil(Toppings):
     """
 
     def __init__(self):
-        super().__init__("Basil", (0, 255, 0), (30, 30))
+        super().__init__("Basil")
 
 
 class Mushroom(Toppings):
@@ -247,7 +244,7 @@ class Mushroom(Toppings):
 
     def __init__(self):
 
-        super().__init__("Mushroom", (255, 165, 0), (30, 30))
+        super().__init__("Mushroom")
 
 
 class ToppingPosition:
@@ -262,7 +259,13 @@ class ToppingPosition:
         """
         Create an instance of the ToppingPosition class
         """
-        self._topping_list = ("Cheese", "Sauce", "Pepperoni", "Basil", "Mushroom")
+        self._topping_list = (
+            "Cheese",
+            "Sauce",
+            "Pepperoni",
+            "Basil",
+            "Mushroom",
+        )
         self._topping_info = []
         self._fall_speed = 5
 
@@ -403,6 +406,12 @@ class TotalMoney:
         """
         self.total_money += CustomerHappiness.get_tip(self)
 
+    @property
+    def get_money(self):
+        """
+        Returns the total amount of money earned.
+        """
+        return self.total_money
 
 class Button:
     """

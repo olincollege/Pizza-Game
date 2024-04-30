@@ -9,10 +9,9 @@ ORDERS = 1
 SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 800
 
-topping_view = gv.Toppings()
-topping_database = gmo.ToppingPosition()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
 
 pygame.display.set_caption(
     "Cloudy with a Chance of Pizza"
@@ -26,6 +25,8 @@ start_button = gmo.Button(50, 600, "assets/img/StartButton.png", 1, screen)
 exit_button_1 = gmo.Button(250, 600, "assets/img/ExitButton.png", 1, screen)
 
 button_run = True
+
+
 while button_run:
     screen.blit(homescreen, (0, -100))  # display homescreen img
     if start_button.draw():
@@ -43,6 +44,12 @@ print(1)
 # create exit button instance
 exit_button_2 = gmo.Button(400, 0, "assets/img/ExitButton.png", 0.5, screen)
 
+topping_view = gv.Toppings()
+topping_database = gmo.ToppingPosition()
+pizza_sprite = gv.Pizza(screen)
+pizza_stat = gmo.PizzaStatus()
+happiness = gmo.CustomerHappiness()
+
 # game loop
 for i in range(ORDERS):
     game_run = True
@@ -52,18 +59,16 @@ for i in range(ORDERS):
         )  # display kitchen
         order = gmo.OrderStatus(4)  # initialized order
         print(order.order_dict)
-        pizza_sprite = gmo.Pizza()
-        pizza_stat = gmo.PizzaStatus()
-        happiness = gmo.CustomerHappiness()
         print(
             happiness.evaluate_order(
-                order.order_dict, pizza_stat._current_toppings
+                order.order_dict, pizza_stat.current_toppings
             )
         )
 
-        print(pizza_stat._current_toppings)
+        print(pizza_stat.current_toppings)
         topping_view.create_topping(screen, topping_database)
-        topping_view.move_toppings_view()
+        topping_view.move_toppings_view(screen)
+        # topping_view.collide_pizza(pizza_sprite.pizza_dough)
 
         if exit_button_2.draw():
             pygame.quit()
