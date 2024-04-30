@@ -102,6 +102,7 @@ def play(screen):
             )  # create and display toppings
             topping_view.move_toppings_view(screen)
             topping_interval = 0
+            running = False
         else:
             topping_view.move_toppings_view(screen)
             topping_interval += 1
@@ -110,7 +111,9 @@ def play(screen):
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
 
-def end(screen):
+    return total_money_instance.get_money
+
+def end(screen, money):
     """
     Display End scene, including score and option to play again.
 
@@ -127,12 +130,12 @@ def end(screen):
 
         # display home screen and buttons.
         screen.fill((153, 217, 234))
-        gv.EndScreen(screen)
+        gv.EndScreen(screen, money)
 
         pygame.display.update()
         clock.tick(60)  # limits FPS to 60
 
 
 menu(SCREEN)
-play(SCREEN)
-#end(SCREEN)
+# play(SCREEN)
+end(SCREEN, play(SCREEN))
