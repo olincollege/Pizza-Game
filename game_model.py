@@ -130,6 +130,18 @@ class PizzaStatus:
         """
         self.__current_toppings[topping] += 1
 
+    def clear_pizza(self):
+        """
+        Clear all toppings off a pizza (used when order is completed).
+        """
+        self.__current_toppings = {
+            "sauce": 0,
+            "cheese": 0,
+            "pepperoni": 0,
+            "basil": 0,
+            "mushroom": 0,
+        }
+
     def update_position(self, x_update):
         """
         A function to update the x-coordinate of the pizza.
@@ -417,20 +429,10 @@ class Button:
     """
     A class for the buttons that display at the start of the game.
     Attributes:
-        x: A float representing the x position of the top left corner of the
-    button.
-        y: A float representing the y position of the top left corner of the
-    button.
-        image: A string representing the file path where the image of the
-    button is stored.
-        scale: A float representing how much the image should be scaled from
-    its default resolution
-        converted_image: A surface representing the image.
-        screen: The pygame surface being used for the game.
-        width: An int representing the width in pixels of the image.
-        height: An int representing the height in pixels of the image.
-        rect: A rect representing the image.
-        clicked: A boolean representing whether or not a button is actively
+        __converted_image: A surface representing the image.
+        __screen: The pygame surface being used for the game.
+        __rect: A rect representing the image.
+        __clicked: A boolean representing whether or not a button is actively
     being pressed.
     """
 
@@ -449,16 +451,20 @@ class Button:
         its default resolution
             screen: The pygame surface being used for the game.
         """
-        self.screen = screen
-        self.converted_image = pygame.image.load(image).convert_alpha()
-        width = self.converted_image.get_width()
-        height = self.converted_image.get_height()
-        self.converted_image = pygame.transform.scale(
-            self.converted_image, (int(width * scale), int(height * scale))
+        self.__screen = screen
+        # load image
+        self.__converted_image = pygame.image.load(image).convert_alpha()
+        # get image file's width and height
+        width = self.__converted_image.get_width()
+        height = self.__converted_image.get_height()
+        # scale image
+        self.__converted_image = pygame.transform.scale(
+            self.__converted_image, (int(width * scale), int(height * scale))
         )
-        self.rect = self.converted_image.get_rect()
-        self.rect.topleft = (x, y)
-        self.clicked = False
+        # create rectangle out of image
+        self.__rect = self.__converted_image.get_rect()
+        self.__rect.topleft = (x, y)
+        self.__clicked = False
 
     def draw(self):
         """
@@ -476,12 +482,12 @@ class Button:
         pos = pygame.mouse.get_pos()
 
         # check mouseover and clicked conditons
-        if self.rect.collidepoint(pos):
-            if pygame.mouse.get_pressed()[0] == 1 and self.clicked is False:
-                self.clicked = True
+        if self.__rect.collidepoint(pos):
+            if pygame.mouse.get_pressed()[0] == 1 and self.__clicked is False:
+                self.__clicked = True
                 action = True
         if pygame.mouse.get_pressed()[0] == 0:
-            self.clicked = False
+            self.__clicked = False
         # draw button on screen
-        self.screen.blit(self.converted_image, (self.rect.x, self.rect.y))
+        self.__screen.blit(self.__converted_image, (self.__rect.x, self.__rect.y))
         return action
