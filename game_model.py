@@ -430,13 +430,10 @@ class Button:
     A class for the buttons that display at the start of the game.
     Attributes:
         __converted_image: A surface representing the image.
-        __screen: The pygame surface being used for the game.
         __rect: A rect representing the image.
-        __clicked: A boolean representing whether or not a button is actively
-    being pressed.
     """
 
-    def __init__(self, x, y, image, scale, screen):
+    def __init__(self, x, y, image, scale):
         """
         Initializes a Button object.
 
@@ -449,9 +446,7 @@ class Button:
         button is stored.
             scale: A float representing how much the image should be scaled from
         its default resolution
-            screen: The pygame surface being used for the game.
         """
-        self.__screen = screen
         # load image
         self.__converted_image = pygame.image.load(image).convert_alpha()
         # get image file's width and height
@@ -464,30 +459,16 @@ class Button:
         # create rectangle out of image
         self.__rect = self.__converted_image.get_rect()
         self.__rect.topleft = (x, y)
-        self.__clicked = False
 
-    def draw(self):
+    @property
+    def rect(self):
         """
-        This function both draws the button and checks if it is pressed.
-
-        A call to this function will both display the button on the surface
-        being used for the game and also return a boolean.
-
-        Returns:
-            A boolean representing whether or not the button is being pressed
-        during the call to draw.
+        Returns the __rect Rect.
         """
-        action = False
-        # get mouse position
-        pos = pygame.mouse.get_pos()
-
-        # check mouseover and clicked conditons
-        if self.__rect.collidepoint(pos):
-            if pygame.mouse.get_pressed()[0] == 1 and self.__clicked is False:
-                self.__clicked = True
-                action = True
-        if pygame.mouse.get_pressed()[0] == 0:
-            self.__clicked = False
-        # draw button on screen
-        self.__screen.blit(self.__converted_image, (self.__rect.x, self.__rect.y))
-        return action
+        return self.__rect
+    @property
+    def converted_image(self):
+        """
+        Returns the __converted_image Surface.
+        """
+        return self.__converted_image

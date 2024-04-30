@@ -23,9 +23,10 @@ def menu(screen):
         screen: a Surface to display on.
     """
     # initialize buttons
-    start_button = gmo.Button(70, 600, "assets/img/play_button.png", 1, screen)
-    exit_button = gmo.Button(260, 600, "assets/img/exit_button.png", 1, screen)
-
+    start_button = gmo.Button(70, 600, "assets/img/play_button.png", 1)
+    exit_button = gmo.Button(260, 600, "assets/img/exit_button.png", 1)
+    button_control = gc.ButtonControl()
+    button_display = gv.ButtonDisplay(screen)
     # start loop
     clock = pygame.time.Clock()
     running = True
@@ -36,10 +37,13 @@ def menu(screen):
 
         # display home screen and buttons.
         gv.HomeScreen(screen)
+        button_display.display_button(start_button)
+        button_display.display_button(exit_button)
+
         # checking for button clicks
-        if start_button.draw():  # start, exit menu, start game
+        if button_control.check_press(start_button):  # start, exit menu, start game
             running = False
-        if exit_button.draw():  # exit, exit
+        if button_control.check_press(exit_button):  # exit, exit
             pygame.quit()
 
         pygame.display.update()
@@ -102,7 +106,7 @@ def play(screen):
             )  # create and display toppings
             topping_view.move_toppings_view(screen)
             topping_interval = 0
-            running = False
+            #running = False
         else:
             topping_view.move_toppings_view(screen)
             topping_interval += 1
