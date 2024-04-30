@@ -1,6 +1,7 @@
 import pygame, random, time, numpy
 
-# from game_main import SCREEN_WIDTH, SCREEN_HEIGHT
+SCREEN_WIDTH = 480
+SCREEN_HEIGHT = 800
 
 """
 Classes for tracking the current order, current toppings on pizza, and
@@ -168,9 +169,10 @@ class PizzaStatus:
 class Toppings:
     """
     A parent class for the individual toppings.
+    
     Attributes:
-        value: a string denoting what topping the instance is
-        color: a tuple of 3 numbers detailing the color key
+        value: A string denoting what topping the instance represents.
+        color: A tuple of 3 numbers detailing the color key of the topping
         bounding_box: a tuple dictating the borders of the topping's
         bounding box
         fall_speed = an integer set to default value 5
@@ -268,8 +270,6 @@ class ToppingPosition:
         """
         A function to generate a topping at the top of the screen at a random x-value
         """
-        SCREEN_HEIGHT = 800
-        SCREEN_WIDTH = 480
         top = random.choice(self._topping_list)
         if top == "Cheese":
             top = Cheese()

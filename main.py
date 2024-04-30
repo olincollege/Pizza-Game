@@ -7,8 +7,8 @@ import time
 pygame.init()
 
 # set up screen display
-SCREEN_WIDTH = 480
-SCREEN_HEIGHT = 800
+SCREEN_WIDTH = gmo.SCREEN_WIDTH
+SCREEN_HEIGHT = gmo.SCREEN_HEIGHT
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # window display caption
 pygame.display.set_caption("Cloudy with a Chance of Pizza")
