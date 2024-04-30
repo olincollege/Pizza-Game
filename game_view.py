@@ -129,7 +129,7 @@ class Pizza:
         self.pizza_dough = pygame.transform.scale_by(dough_surf, 0.27)
         pygame.Surface.blit(screen, self.pizza_dough, (x_pos, 600))
 
-    def update(self, screen):
+    def update(self, pizza_status, screen):
         """
         Update Pizza location on display.
 
