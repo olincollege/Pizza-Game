@@ -59,13 +59,9 @@ for i in range(ORDERS):
         )  # display kitchen
         order = gmo.OrderStatus(4)  # initialized order
         print(order.order_dict)
-        print(
-            happiness.evaluate_order(
-                order.order_dict, pizza_stat.current_toppings
-            )
-        )
+        print(happiness.evaluate_order(order.order_dict, pizza_stat.status))
 
-        print(pizza_stat.current_toppings)
+        print(pizza_stat.status)
         topping_view.create_topping(screen, topping_database)
         topping_view.move_toppings_view(screen)
         # topping_view.collide_pizza(pizza_sprite.pizza_dough)

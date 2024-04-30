@@ -201,7 +201,7 @@ class Cheese(Toppings):
         super().__init__("Cheese")
         # img = pygame.image.load('assets/img/cheese.png')
         # super().__init__("Cheese", img, (30, 30))
-        super().__init__("Cheese", (255, 255, 224), (30, 30))
+        super().__init__("Cheese")
 
 
 class Sauce(Toppings):

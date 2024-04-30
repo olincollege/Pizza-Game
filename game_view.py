@@ -81,7 +81,7 @@ class Order:
             new_topping_added: a string representing the topping that has
             to be updated in the order
         """
-        self.pizza_status.current_toppings[new_topping_added] += 1
+        self.pizza_status.status[new_topping_added] += 1
         font = pygame.font.Font(None, 36)
 
         pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
@@ -89,7 +89,7 @@ class Order:
         i = 0
         while i < len(self.order_dict):
             for topping, num in self.order_dict.items():
-                text = f"{topping}: {num}, {self.pizza_status.current_toppings[topping]}"
+                text = f"{topping}: {num}, {self.pizza_status.status[topping]}"
                 order_text = font.render(text, True, (0, 0, 0))
                 screen.blit(order_text, (35, 30 + (30 * i)))
                 i += 1
@@ -166,10 +166,16 @@ class Toppings:
         sauce_image = pygame.image.load(
             os.path.join("assets/img", "sauce.png")
         ).convert()
+        cheese_image = pygame.image.load(
+            os.path.join("assets/img", "cheese.png")
+        ).convert()
 
         mushroom_image.set_colorkey(mushroom_image.get_at((0, 0)))
         pepperoni_image.set_colorkey(pepperoni_image.get_at((0, 0)))
         sauce_image.set_colorkey(sauce_image.get_at((0, 0)))
+        cheese_image.set_colorkey(cheese_image.get_at((0, 0)))
+
+        cheese_image = pygame.transform.smoothscale(cheese_image, (120, 120))
         mushroom_image = pygame.transform.smoothscale(
             mushroom_image, (120, 120)
         )
@@ -189,8 +195,8 @@ class Toppings:
         x_pos = random.randrange(5, 470)
         y_pos = 5
         if topping_type == "Cheese":
-            screen.blit(mushroom_image, (x_pos, y_pos))
-            topping_image = mushroom_image
+            screen.blit(cheese_image, (x_pos, y_pos))
+            topping_image = cheese_image
         if topping_type == "Mushroom":
             screen.blit(mushroom_image, (x_pos, y_pos))
             topping_image = mushroom_image
