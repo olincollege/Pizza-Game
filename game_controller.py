@@ -15,30 +15,41 @@ class Arrow:
     """
     A class to define the function of a button press
 
-        direction: whether the left or right button was pressed
-        move-pizza: true or false depending if the player is in active play
-        of the game.
+    Attributes:
+        __pizza_speed: An integer representing the number of pixels the pizza
+    moves with each press of an arrow key.
     """
 
-    def __init__(self):
+    def __init__(self, speed):
         """
         Initiate an instance of the arrow class.
 
-        Attributes:
-            _pizza_speed: An integer representing the number of pixels the
-            Pizza moves with each press of key.
+        Args:
+            speed: An int representing the distance the pizza moves on a press
+        of an arrow key.
         """
-        self._pizza_speed = 10
+        self.__pizza_speed = speed
 
     def move_pizza(self, pizza):
         """
         A function to move the pizza left or right based on arrow interaction.
+
+        Args:
+            pizza: A PizzaStatus instance.
         """
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            PizzaStatus.update_position(pizza, -(self._pizza_speed))
+            pizza.update_position(-(self.__pizza_speed))
         elif keys[pygame.K_RIGHT]:
-            PizzaStatus.update_position(pizza, self._pizza_speed)
+            pizza.update_position(self.__pizza_speed)
+    
+    @property
+    def speed(self):
+        """
+        Returns an int representing the speed of the pizza.
+        """
+        return self.__pizza_speed
+        
 
 # tester code
 # pygame.init()

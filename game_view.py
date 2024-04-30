@@ -30,13 +30,14 @@ class EndScreen:
     Class to display to end screen.
     """
 
-    def __init__(self, screen):
+    def __init__(self, screen, money):
+        font = pygame.font.Font(None, 165)  # use default font
+
         end_text = pygame.image.load("assets/img/end_text.png")
         screen.blit(end_text, (0, 0))
-
-        total_money = gm.TotalMoney.get_money
-        print(total_money)
-        screen.blit(screen, total_money, (240, 360))
+        money = f'${money}'
+        money_text = font.render(money, True, (0, 0, 0))
+        screen.blit(money_text, (180, 240))
 
 
 # class Button(HomeScreen):

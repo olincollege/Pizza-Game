@@ -7,8 +7,8 @@ import time
 pygame.init()
 
 # set up screen display
-SCREEN_WIDTH = 480
-SCREEN_HEIGHT = 800
+SCREEN_WIDTH = gmo.SCREEN_WIDTH
+SCREEN_HEIGHT = gmo.SCREEN_HEIGHT
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # window display caption
 pygame.display.set_caption("Cloudy with a Chance of Pizza")
@@ -64,6 +64,9 @@ def play(screen):
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
 
+    customer_happiness = (
+        gmo.CustomerHappiness()
+    )  # initialize customer happiness
     total_money_instance = gmo.TotalMoney()  # initialize money count
 
     topping_interval = 25  # every 25 frames add generate new topping
@@ -84,10 +87,15 @@ def play(screen):
         current_pizza = pizza_status.status  # get status on current pizza
         # check if pizza order is completed
         if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
+            customer_happiness.evaluate_order(
+                order_instance.order_dict, pizza_status.status
+            )
+            total_money_instance.update_money()
+            #### ADD METHOD TO CLEAR PIZZA
             order_instance = gmo.OrderStatus(4)  # initialize new order
 
         # move pizza
-        arrow = gc.Arrow()  # initialize class for arrow inputs
+        arrow = gc.Arrow(10)  # initialize class for arrow inputs
         arrow.move_pizza(pizza_status)  # check for user arrow inputs
         pizza_view.update(
             pizza_status, screen
@@ -100,6 +108,7 @@ def play(screen):
             )  # create and display toppings
             topping_view.move_toppings_view(screen)
             topping_interval = 0
+            running = False
         else:
             topping_view.move_toppings_view(screen)
             topping_interval += 1
@@ -126,7 +135,7 @@ def end(screen):
 
         # display home screen and buttons.
         screen.fill((153, 217, 234))
-        gv.EndScreen(screen)
+        gv.EndScreen(screen, money)
 
         pygame.display.update()
         clock.tick(60)  # limits FPS to 60

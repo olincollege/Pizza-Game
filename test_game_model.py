@@ -105,6 +105,25 @@ def check_add_topping():
     pizza.add_topping("mushroom")
     return test_pizza == pizza.status
 
+def check_clear_pizza():
+    """
+    Checks that the clear_topping function removes every topping from a pizza.
+
+    Returns:
+        True if a call to clear_topping on a PizzaStatus instance results in
+    __current_toppings being a dictionary with every value equaling zero.
+    """
+    pizza = gmo.PizzaStatus()
+    pizza.add_topping("sauce")
+    pizza.add_topping("cheese")
+    pizza.add_topping("cheese")
+    pizza.add_topping("mushroom")
+    pizza.clear_pizza()
+    count = 0
+    for num in pizza.status.values():
+        count += num
+    return count == 0
+
 def check_update_postion_right_side():
     """
     Checks that the update_position function stops pizzas from leaving screen.
@@ -136,6 +155,7 @@ def check_update_postion_left_side():
         check_add_topping,
         check_update_postion_right_side,
         check_update_postion_left_side,
+        check_clear_pizza,
     ],
 )
 def test_PizzaStatus(func):  # pylint: disable=invalid-name
