@@ -91,7 +91,7 @@ def play(screen):
             order_instance = gmo.OrderStatus(4) # initialize new order
 
         # move pizza
-        arrow = gc.Arrow()  # initialize class for arrow inputs
+        arrow = gc.Arrow(10)  # initialize class for arrow inputs
         arrow.move_pizza(pizza_status)  # check for user arrow inputs
         pizza_view.update(pizza_status, screen)  # update pizza position on display
 
