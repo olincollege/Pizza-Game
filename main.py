@@ -69,8 +69,7 @@ def play(screen):
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
 
-    customer_happiness = gmo.CustomerHappiness() # initialize customer happiness
-    total_money_instance = gmo.TotalMoney() # initialize money count
+    money = gmo.Money() # initialize customer money
 
     topping_interval = 25  # every 25 frames add generate new topping
 
@@ -90,11 +89,8 @@ def play(screen):
         current_pizza = pizza_status.status  # get status on current pizza
         # check if pizza order is completed
         if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
-            customer_happiness.evaluate_order(
-                order_instance.order_dict, pizza_status.status
-            )
-            total_money_instance.update_money()
-            #### ADD METHOD TO CLEAR PIZZA
+            money.update_money(order_instance, pizza_status)
+            pizza_status.clear_pizza()
             order_instance = gmo.OrderStatus(4)  # initialize new order
 
         # move pizza
@@ -120,7 +116,7 @@ def play(screen):
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
 
-    return total_money_instance.get_money
+    return money.get_money
 
 
 def end(screen, money):

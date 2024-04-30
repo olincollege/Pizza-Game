@@ -324,85 +324,85 @@ class TimerStatus:
         return time.time() - self.time_current
 
 
-class CustomerHappiness:
+class Money:
     """
-    A class to calculate customer happiness/tip based on player accuracy
+    A class to calculate customer happiness/tip based on player accuracy.
+
     Attributes:
-        accuracy: an integer representing player accuracy in percent
-        tip: an integer representing the tip amount derived from
-        customer happiness
+        __customer_happiness: A float representing the happiness of a customer,
+    with a value closer to 0 meaning a more satisfied customer.
+        __desired_toppings: An int representing the total number of toppings a
+    customer wants on their pizza.
+        __total_money: A float representing the total ammount of money that the
+    player has made playing the game.
     """
 
     def __init__(self):
-        self._customer_happiness = 0
-        self._desired_toppings = 0
+        """
+        Function to initialize a CustomerHappiness instance.
+        """
+        self.__customer_happiness = 0
+        self.__desired_toppings = 0
+        self.__total_money = 0
+
 
     def evaluate_order(self, desired_order, pizza_status):
         """
-        A function to evaluate the customer's desired order versus
-        the given pizza.
-        Attributes:
-            desired_order: a dictionary representing the customer's order with
-            toppings as the keys and topping instances as the values.
+        A function to evaluate how well a pizza fits an order.
 
-            pizza_status: a dictionary representing the toppings actually
-            on the pizza with toppings as the keys and num topping
-            instances as the values.
+        Args:
+            desired_order: An OrderStatus instance representing the desired
+        order of the customer.
+            pizza_status: A PizzaStatus instance representing the current pizza
+        that the user is making.
 
         Returns:
             customer_happiness_change: a float to represent customer
-            happiness level based on the order's accurateness.
+        happiness level based on the order's accurateness.
         """
         topping_inaccuracies = 0
         # loops through dictionary of the desired toppings
-        for topping, num in desired_order.items():
-            topping_inaccuracies += abs(num - pizza_status[topping])
+        for topping, num in desired_order.order_dict.items():
+            topping_inaccuracies += abs(num - pizza_status.status[topping])
 
-        for num in desired_order.values():
-            self._desired_toppings += num
+        for num in desired_order.order_dict.values():
+            self.__desired_toppings += num
 
-        topping_differences = self._desired_toppings - topping_inaccuracies
+        if topping_inaccuracies < 1:
+            self.__customer_happiness = 0
+        else:
+            self.__customer_happiness = min((topping_inaccuracies / self.__desired_toppings), 1)
 
-        if topping_differences < 1:
-            return self._customer_happiness
-        self._customer_happiness = topping_inaccuracies / self._desired_toppings
-        return self._customer_happiness
-
-    def get_tip(self):
+    def get_tip(self, desired_order, pizza_status):
         """
-        A function to get the customer's final tip based on customer happiness
+        A function to get the customer's final tip based on customer happiness.
+
+        Args:
+            desired_order: An OrderStatus instance representing the desired
+        order of the customer.
+            pizza_status: A PizzaStatus instance representing the current pizza
+        that the user is making.
+
         Returns:
             tip: an int representing the tip given.
         """
-        tip = (self._desired_toppings * 1.5) * self._customer_happiness
+        self.evaluate_order(desired_order, pizza_status)
+        tip = (self.__desired_toppings * 1.5) * (1 - self.__customer_happiness)
         return tip
-
-
-class TotalMoney:
-    """
-    A class to keep track of total money earned by the player
-    Attributes:
-        total_money: an integer representing money earned
-    """
-
-    def __init__(self):
-        """
-        Initialize money.
-        """
-        self._total_money = 0
-
-    def update_money(self):
+    
+    def update_money(self, desired_order, pizza_status):
         """
         A method to update total_money after every order.
         """
-        self._total_money += CustomerHappiness.get_tip(self)
+        self.__total_money += self.get_tip(desired_order, pizza_status)
 
     @property
     def get_money(self):
         """
         Returns the total amount of money earned.
         """
-        return self._total_money
+        return self.__total_money
+
 
 
 class Button:
