@@ -11,16 +11,27 @@ class HomeScreen:
     """
     Class to display the home screen.
     """
-
     def __init__(self, screen):
         """
         Initialize Home screen on display.
         Args:
             screen: a Surface to display on to.
         """
-        scene = pygame.image.load("assets/img/homescreen.png")
-        screen.blit(scene, (0, 0))
+        screen.fill((153, 217, 234)) # background color
+        title_text = pygame.image.load('assets/img/title.png')
+        screen.blit(title_text, (0, 0)) # display title text
 
+class EndScreen:
+    """
+    Class to display to end screen.
+    """
+    def __init__(self, screen):
+        end_text = pygame.image.load('assets/img/end_text.png')
+        screen.blit(end_text, (0, 0))
+
+        total_money = gm.TotalMoney.get_money
+        print(total_money)
+        screen.blit(screen, total_money, (240, 360))
 
 # class Button(HomeScreen):
 
@@ -56,9 +67,9 @@ class Order:
             screen: a Surface to display on to.
             order_instance: the instance of the current working order.
         """
-        font = pygame.font.Font(None, 36)
+        font = pygame.font.Font(None, 36) # use default font
 
-        pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
+        pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135)) # draw white box
 
         self.order_dict = order_instance.order_dict
         self.pizza_status = gm.PizzaStatus()
@@ -79,7 +90,7 @@ class Order:
             new_topping_added: a string representing the topping that has
             to be updated in the order
         """
-        self.pizza_status.current_toppings[new_topping_added] += 1
+        self.pizza_status.add_topping(new_topping_added)
         font = pygame.font.Font(None, 36)
 
         pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
@@ -87,7 +98,7 @@ class Order:
         i = 0
         while i < len(self.order_dict):
             for topping, num in self.order_dict.items():
-                text = f"{topping}: {num}, {self.pizza_status.current_toppings[topping]}"
+                text = f"{topping}: {num}, {self.pizza_status.status[topping]}"
                 order_text = font.render(text, True, (0, 0, 0))
                 screen.blit(order_text, (35, 30 + (30 * i)))
                 i += 1
