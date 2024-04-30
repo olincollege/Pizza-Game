@@ -13,27 +13,31 @@ class HomeScreen:
     """
     Class to display the home screen.
     """
+
     def __init__(self, screen):
         """
         Initialize Home screen on display.
         Args:
             screen: a Surface to display on to.
         """
-        screen.fill((153, 217, 234)) # background color
-        title_text = pygame.image.load('assets/img/title.png')
-        screen.blit(title_text, (0, 0)) # display title text
+        screen.fill((153, 217, 234))  # background color
+        title_text = pygame.image.load("assets/img/title.png")
+        screen.blit(title_text, (0, 0))  # display title text
+
 
 class EndScreen:
     """
     Class to display to end screen.
     """
+
     def __init__(self, screen):
-        end_text = pygame.image.load('assets/img/end_text.png')
+        end_text = pygame.image.load("assets/img/end_text.png")
         screen.blit(end_text, (0, 0))
 
         total_money = gm.TotalMoney.get_money
         print(total_money)
         screen.blit(screen, total_money, (240, 360))
+
 
 # class Button(HomeScreen):
 
@@ -69,9 +73,11 @@ class Order:
             screen: a Surface to display on to.
             order_instance: the instance of the current working order.
         """
-        font = pygame.font.Font(None, 36) # use default font
+        font = pygame.font.Font(None, 36)  # use default font
 
-        pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135)) # draw white box
+        pygame.draw.rect(
+            screen, (255, 255, 255), (30, 25, 163, 135)
+        )  # draw white box
 
         self.order_dict = order_instance.order_dict
         self.pizza_status = gm.PizzaStatus()
@@ -177,10 +183,16 @@ class Toppings:
         sauce_image = pygame.image.load(
             os.path.join("assets/img", "sauce.png")
         ).convert()
+        cheese_image = pygame.image.load(
+            os.path.join("assets/img", "cheese.png")
+        ).convert()
 
         mushroom_image.set_colorkey(mushroom_image.get_at((0, 0)))
         pepperoni_image.set_colorkey(pepperoni_image.get_at((0, 0)))
         sauce_image.set_colorkey(sauce_image.get_at((0, 0)))
+        cheese_image.set_colorkey(cheese_image.get_at((0, 0)))
+
+        cheese_image = pygame.transform.smoothscale(cheese_image, (120, 120))
         mushroom_image = pygame.transform.smoothscale(
             mushroom_image, (120, 120)
         )
@@ -200,8 +212,8 @@ class Toppings:
         x_pos = random.randrange(5, 470)
         y_pos = 5
         if topping_type == "Cheese":
-            screen.blit(mushroom_image, (x_pos, y_pos))
-            topping_image = mushroom_image
+            screen.blit(cheese_image, (x_pos, y_pos))
+            topping_image = cheese_image
         if topping_type == "Mushroom":
             screen.blit(mushroom_image, (x_pos, y_pos))
             topping_image = mushroom_image
