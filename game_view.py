@@ -263,7 +263,8 @@ class Toppings:
         Also updates order status.
         """
         for topping in self.sprite_top_list:
-            if pygame.sprite.collide_rect(topping[2], pizza):
+            image_rect = topping[1].image.get_rect()
+            if pygame.sprite.collide_rect(image_rect, pizza):
                 topping_value = topping[3]
                 del topping
                 return topping_value
