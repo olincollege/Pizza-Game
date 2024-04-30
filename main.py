@@ -61,13 +61,12 @@ def play(screen):
     pizza_view = gv.Pizza(screen)  # display pizza
     pizza = gv.PizzaView()
     pizza_sprite = pizza.pizza_sprite
+
     topping_view = gv.Toppings()  # initialize list of toppings
     topping_database = gmo.ToppingPosition()  # initialize topping info
 
-    customer_happiness = (
-        gmo.CustomerHappiness()
-    )  # initialize customer happiness
-    total_money_instance = gmo.TotalMoney()  # initialize money count
+    customer_happiness = gmo.CustomerHappiness() # initialize customer happiness
+    total_money_instance = gmo.TotalMoney() # initialize money count
 
     topping_interval = 25  # every 25 frames add generate new topping
 
@@ -117,8 +116,10 @@ def play(screen):
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
 
+    return total_money_instance.get_money
 
-def end(screen):
+
+def end(screen, money):
     """
     Display End scene, including score and option to play again.
 
@@ -142,5 +143,5 @@ def end(screen):
 
 
 menu(SCREEN)
-play(SCREEN)
-# end(SCREEN)
+# play(SCREEN)
+end(SCREEN, play(SCREEN))
