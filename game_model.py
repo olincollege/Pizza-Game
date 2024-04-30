@@ -355,10 +355,6 @@ class Money:
         order of the customer.
             pizza_status: A PizzaStatus instance representing the current pizza
         that the user is making.
-
-        Returns:
-            customer_happiness_change: a float to represent customer
-        happiness level based on the order's accurateness.
         """
         topping_inaccuracies = 0
         # loops through dictionary of the desired toppings
@@ -368,10 +364,7 @@ class Money:
         for num in desired_order.order_dict.values():
             self.__desired_toppings += num
 
-        if topping_inaccuracies < 1:
-            self.__customer_happiness = 0
-        else:
-            self.__customer_happiness = min((topping_inaccuracies / self.__desired_toppings), 1)
+        self.__customer_happiness = min((topping_inaccuracies / self.__desired_toppings), 1)
 
     def get_tip(self, desired_order, pizza_status):
         """
@@ -384,7 +377,7 @@ class Money:
         that the user is making.
 
         Returns:
-            tip: an int representing the tip given.
+            tip: an int representing the tip given for an individual order.
         """
         self.evaluate_order(desired_order, pizza_status)
         tip = (self.__desired_toppings * 1.5) * (1 - self.__customer_happiness)
@@ -395,19 +388,34 @@ class Money:
         A method to update total_money after every order.
         """
         self.__total_money += self.get_tip(desired_order, pizza_status)
-
+        
+    @property
+    def desired_toppings(self):
+        """
+        Returns an int representing the total number of toppings in the order.
+        """
+        return self.__desired_toppings
+    
+    @property
+    def customer_happiness(self):
+        """
+        Returns a float representing the happiness of a customer.
+        """
+        return self.__customer_happiness 
+    
     @property
     def get_money(self):
         """
-        Returns the total amount of money earned.
+        Returns a float representing total money earned (two decimal places).
         """
-        return self.__total_money
+        return round(self.__total_money, 2)
 
 
 
 class Button:
     """
     A class for the buttons that display at the start of the game.
+
     Attributes:
         __converted_image: A surface representing the image.
         __rect: A rect representing the image.

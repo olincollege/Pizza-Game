@@ -167,3 +167,122 @@ def test_PizzaStatus(func):  # pylint: disable=invalid-name
     functionality of the PizzaStatus class.
     """
     assert func()
+
+def check_evaluate_perfect_order():
+    """
+    Check that a perfect order leads to a __customer_happiness value of zero.
+
+    Returns:
+        True if a perfectly filled order results in the __customer_happiness
+    having a value of zero, False otherwise.
+    """
+    money = gmo.Money()
+    order = gmo.OrderStatus(1)
+    pizza = gmo.PizzaStatus()
+    # populates PizzaStatus with toppings to fill out order correctly.
+    for topping, num in order.order_dict.items():
+        if num == 1:
+            pizza.add_topping(topping)
+    money.evaluate_order(order, pizza)
+    return money.customer_happiness == 0
+
+def check_evaluate_imperfect_order():
+    """
+    Check an imperfect order leading to a __customer_happiness value of zero.
+
+    Returns:
+        True if a perfectly imperfect order results in the __customer_happiness
+    having a value of one, False otherwise.
+    """
+    money = gmo.Money()
+    order = gmo.OrderStatus(1)
+    pizza = gmo.PizzaStatus()
+    money.evaluate_order(order, pizza)
+    return money.customer_happiness == 1.0
+
+def check_get_perfect_tip():
+    """
+    Check that a perfect order's tip equals the number of toppings times 1.5.
+
+    Returns:
+        True if the tip of a perfect order is equal to 1.5 times the number of
+    toppings that are in the order, False otherwise.
+    """
+    money = gmo.Money()
+    order = gmo.OrderStatus(1)
+    pizza = gmo.PizzaStatus()
+    # populates PizzaStatus with toppings to fill out order correctly.
+    for topping, num in order.order_dict.items():
+        if num == 1:
+            pizza.add_topping(topping)
+    return money.get_tip(order, pizza) == money.desired_toppings * 1.5
+
+def check_get_imperfect_tip():
+    """
+    Check that a perfect order's tip equals the number of toppings times 1.5.
+
+    Returns:
+        True if the tip for an order that is not filled out whatsoever has a
+    tip of 0, False otherwise.
+    """
+    money = gmo.Money()
+    order = gmo.OrderStatus(1)
+    pizza = gmo.PizzaStatus()
+    return money.get_tip(order, pizza) == 0
+
+def check_update_money_perfect():
+    """
+    Check that an order with a nonzero tip changes the value of __total_money.
+
+    Returns:
+        True if the value of __total_money is greater than 0 after a call to
+    get_tip on a completed order, False otherwise.
+    """
+    money = gmo.Money()
+    order = gmo.OrderStatus(1)
+    pizza = gmo.PizzaStatus()
+    # populates PizzaStatus with toppings to fill out order correctly.
+    for topping, num in order.order_dict.items():
+        if num == 1:
+            pizza.add_topping(topping)
+    money.update_money(order, pizza)
+    return money.get_money > 0
+
+def check_update_money_imperfect():
+    """
+    Check that order with zero tip does not change the value of __total_money.
+
+    Returns:
+        True if the value of __total_money is 0 after a call to get_tip on an
+    incomplete order, False otherwise.
+    """
+    money = gmo.Money()
+    order = gmo.OrderStatus(1)
+    pizza = gmo.PizzaStatus()
+    # populates PizzaStatus with toppings to fill out order correctly.
+    for topping, num in order.order_dict.items():
+        if num == 1:
+            pizza.add_topping(topping)
+    money.update_money(order, pizza)
+    return money.get_money > 0
+@pytest.mark.parametrize(
+    "func",
+    [
+        check_evaluate_perfect_order,
+        check_evaluate_imperfect_order,
+        check_get_perfect_tip,
+        check_get_imperfect_tip,
+        check_update_money_perfect,
+        check_update_money_imperfect,
+    ],
+)
+
+def test_Money(func):  # pylint: disable=invalid-name
+    """
+    Check that the Money class in game_model is working as intended.
+
+    Args:
+        func: A function that returns a boolean, used to test various
+    functionality of the Money class.
+    """
+    assert func()
