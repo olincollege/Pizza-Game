@@ -95,10 +95,10 @@ def play(screen):
             topping_view.create_topping(
                 screen, topping_database
             )  # create and display toppings
-            topping_view.move_toppings_view()
+            topping_view.move_toppings_view(screen)
             topping_interval = 0
         else:
-            topping_view.move_toppings_view()
+            topping_view.move_toppings_view(screen)
             topping_interval += 1
 
 
@@ -128,6 +128,6 @@ def end(screen):
         clock.tick(60)  # limits FPS to 60
 
 
-# menu(SCREEN)
-# play(SCREEN)
-end(SCREEN)
+menu(SCREEN)
+play(SCREEN)
+#end(SCREEN)
