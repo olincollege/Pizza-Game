@@ -64,6 +64,7 @@ for i in range(ORDERS):
         print(pizza_stat.status)
         topping_view.create_topping(screen, topping_database)
         topping_view.move_toppings_view(screen)
+        pizza_stat.add_topping(topping_view.collide_pizza(pizza_sprite))
         # topping_view.collide_pizza(pizza_sprite.pizza_dough)
 
         if exit_button_2.draw():
