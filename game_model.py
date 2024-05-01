@@ -160,7 +160,7 @@ class PizzaStatus:
 class Toppings:
     """
     A parent class for the individual toppings.
-    
+
     Attributes:
         value: A string denoting what topping the instance represents.
         color: A tuple of 3 numbers detailing the color key of the topping
@@ -469,5 +469,7 @@ class Button:
         if pygame.mouse.get_pressed()[0] == 0:
             self.__clicked = False
         # draw button on screen
-        self.__screen.blit(self.__converted_image, (self.__rect.x, self.__rect.y))
+        self.__screen.blit(
+            self.__converted_image, (self.__rect.x, self.__rect.y)
+        )
         return action

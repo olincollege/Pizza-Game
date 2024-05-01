@@ -35,7 +35,7 @@ class EndScreen:
 
         end_text = pygame.image.load("assets/img/end_text.png")
         screen.blit(end_text, (0, 0))
-        money = f'${money}'
+        money = f"${money}"
         money_text = font.render(money, True, (0, 0, 0))
         screen.blit(money_text, (180, 240))
 
@@ -161,10 +161,11 @@ class Toppings:
         """
         Initiates a list to monitor and create toppings.
         Attributes:
-            rectangle_top_list = a list to hold all rectangles 'toppings' represented in the database
+            sprite_top_list = a list to hold all rectangles 'toppings' represented in the database
         """
         self.sprite_top_list = []
         self._order_status = gm.OrderStatus(4)
+        self.toppings_group = pygame.sprite.Group()
 
     def create_topping(self, screen, database):
         """
@@ -177,6 +178,9 @@ class Toppings:
         """
         mushroom_image = pygame.image.load(
             os.path.join("assets/img", "mushroom.png")
+        ).convert()
+        basil_image = pygame.image.load(
+            os.path.join("assets/img", "basil.png")
         ).convert()
         pepperoni_image = pygame.image.load(
             os.path.join("assets/img", "pepperoni.png")
@@ -192,6 +196,7 @@ class Toppings:
         pepperoni_image.set_colorkey(pepperoni_image.get_at((0, 0)))
         sauce_image.set_colorkey(sauce_image.get_at((0, 0)))
         cheese_image.set_colorkey(cheese_image.get_at((0, 0)))
+        basil_image.set_colorkey(basil_image.get_at((0, 0)))
 
         cheese_image = pygame.transform.smoothscale(cheese_image, (120, 120))
         mushroom_image = pygame.transform.smoothscale(
@@ -201,8 +206,10 @@ class Toppings:
             pepperoni_image, (120, 120)
         )
         sauce_image = pygame.transform.smoothscale(sauce_image, (120, 120))
+        basil_image = pygame.transform.smoothscale(basil_image, (120, 120))
 
         new_top_info = database.spawn_topping()
+
         new_top_type = new_top_info[0]
         dimension = (120, 120)
         topping_type = new_top_type.topping_value
@@ -212,6 +219,9 @@ class Toppings:
         topping_image = mushroom_image
         x_pos = random.randrange(5, 470)
         y_pos = 5
+        if topping_type == "basil":
+            screen.blit(basil_image, (x_pos, y_pos))
+            topping_image = basil_image
         if topping_type == "cheese":
             screen.blit(cheese_image, (x_pos, y_pos))
             topping_image = cheese_image
@@ -224,7 +234,9 @@ class Toppings:
         if topping_type == "sauce":
             screen.blit(sauce_image, (x_pos, y_pos))
             topping_image = sauce_image
-
+        topping_sprite.rect = topping_sprite.image.get_rect()
+        self.toppings_group.add(topping_sprite)
+        print(self.toppings_group)
         new_sprite = [
             screen,
             topping_sprite,
@@ -263,18 +275,15 @@ class Toppings:
         Checks if any of the toppings have collided with the pizza, and if so, delete them.
         Also updates order status.
         """
-        for sprite in self.sprite_top_list:
-            sprite_obj = sprite[1]
-            image_rect = sprite_obj.image.get_rect()
-            if image_rect.colliderect(pizza.pizza_rect):
-                topping = sprite[2]
-                del sprite
-                return topping
+        collisions = pygame.sprite.spritecollide(
+            pizza, self.toppings_group, True
+        )
+        return collisions
 
     ### DO WE NEED Pizza CLASS?? ###
 
 
-class PizzaView:
+class PizzaView(pygame.sprite.Sprite):
     """
     A class to create and keep track of the Pizza object and its location.
     """
@@ -283,17 +292,15 @@ class PizzaView:
         """
         Initialize an instance of Pizza object.
         """
-        self.pizza_sprite = pygame.sprite.Sprite()
-
-        self.pizza_image = pygame.image.load(
+        pygame.sprite.Sprite.__init__(self)
+        # self.image = pygame.Surface((200, 200))
+        self.image = pygame.image.load(
             os.path.join("assets/img", "pizza_dough.png")
-        ).convert()
-        self.pizza_image.set_colorkey(self.pizza_image.get_at((0, 0)))
+        ).convert_alpha()
+        self.image.set_colorkey(self.image.get_at((0, 0)))
         # dough_surf = pygame.image.load("assets/img/pizza_dough.png")
-        self.pizza_dough = pygame.transform.scale_by(self.pizza_image, 0.27)
-        dimension = (200, 200)
-        self.pizza_sprite.image = pygame.Surface(dimension)
-        self.pizza_rect = self.pizza_sprite.image.get_rect()
+        self.pizza_dough = pygame.transform.scale_by(self.image, 0.27)
+        self.rect = self.image.get_rect()
 
         # pizza = pygame.image.load("assets/img/pizza.png").convert_alpha()
         # pizza_mask = pygame.mask.from_surface(pizza)
