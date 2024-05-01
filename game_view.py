@@ -149,7 +149,7 @@ class AllToppingsFr(pygame.sprite.Sprite):
         self.image.set_colorkey(self.image.get_at((0, 0)))
         self.image = pygame.transform.smoothscale(self.image, (120, 120))
         self.rect = self.image.get_rect()
-        self.x_pos = random.randrange(5, 470)
+        self.x_pos = random.randrange(30, 450)
         self.y_pos = 5
         self.rect.center = (self.x_pos, self.y_pos)
         self.mask = pygame.mask.from_surface(self.image)
@@ -252,29 +252,6 @@ class Toppings(pygame.sprite.Sprite):
 
         return topping_sprite
 
-    def move_toppings_view(self, screen):
-        """
-        Moves all toppings down 5 pixels
-        """
-        # database.move_all_toppings()
-
-        # for sprite in self.sprite_top_list:
-        #     image = sprite[3]
-        #     image.rect.x = sprite[4]
-        #     image.rect.y = sprite[5] + 5
-
-        # screen.blit(screen, (0, 0))
-
-        # for sprite in self.sprite_top_list:
-        #     x_pos = sprite[4]
-        #     y_pos = sprite[5] + 5
-        #     sprite[5] = y_pos
-        #     topping_image = sprite[3]
-        #     image_rect = sprite[1].image.get_rect()
-        #     image_rect.y = y_pos
-        #     screen.blit(topping_image, (x_pos, y_pos))
-        # pygame.display.update()
-
     def collide_pizza(self, pizza, topping_group):
         """
         Checks if any of the toppings have collided with the pizza, and if so, delete them.
@@ -310,6 +287,7 @@ class Pizza(pygame.sprite.Sprite):
             self.image.get_height(),
         )
         self.mask = pygame.mask.from_surface(self.image)
+        self.toppings_on_pizza = []
 
     def update(self, pizza_status, screen):
         """
@@ -329,9 +307,11 @@ class Pizza(pygame.sprite.Sprite):
             self.image.get_height(),
         )
         pygame.Surface.blit(screen, self.image, (x_pos, 600))
+        for image in self.toppings_on_pizza:
+            pygame.Surface.blit(screen, image, (x_pos, 650))
 
-    def add_topping(self, topping):
+    def add_topping(self, topping_image):
         """
         Docstring
         """
-        pass
+        self.toppings_on_pizza.append(topping_image)
