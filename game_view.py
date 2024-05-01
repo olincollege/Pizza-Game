@@ -4,14 +4,10 @@ import sys
 import os
 import random
 
-"""
-Classes for viewing the game.
-"""
-
 
 class HomeScreen:
     """
-    Class to display the home screen.
+    Class to display the home screen as a pygame surface.
     """
 
     def __init__(self, screen):
@@ -27,10 +23,16 @@ class HomeScreen:
 
 class EndScreen:
     """
-    Class to display to end screen.
+    Class to display to end screen as a pygame surface.
     """
 
     def __init__(self, screen, money):
+        """
+        Initialize End Screen on display
+        Args:
+            screen: a Surface to display on to.
+            money: an int representing the money the player accrued throughout the game
+        """
         font = pygame.font.Font(None, 165)  # use default font
 
         scene = pygame.image.load('assets/img/end_screen.png')
@@ -44,7 +46,7 @@ class EndScreen:
 
 class ButtonDisplay:
     """
-    Class to display Buttons on screen.
+    Class to display Buttons on screen surface.
 
     Atrributes:
         __screen: The pygame surface being used for the game.
@@ -62,6 +64,8 @@ class ButtonDisplay:
     def display_button(self, button):
         """
         Displays a button on the screen.
+        Args:
+            button: an instance of the button class
         """
         self.__screen.blit(
             button.converted_image, (button.rect.x, button.rect.y)
@@ -77,7 +81,7 @@ class ButtonDisplay:
 
 class Kitchen:
     """
-    Class to display the Kitchen scene.
+    Class to display the Kitchen scene as a surface.
     """
 
     def __init__(self, screen):
@@ -148,10 +152,23 @@ class Order:
 
 class AllToppingsFr(pygame.sprite.Sprite):
     """
-    DOC STRING
+    A parent class for the topping types
     """
 
     def __init__(self, image_file):
+        """
+        A class to initialize a topping instance.
+        Args:
+            image_file = a string representing the image file name to
+            be passed to the surface
+        Attributes:
+            self.image = a surface displaying the topping image
+            self.rect = a rectangle representing the topping's bounding box
+            self.x_pos = a randomly generated int representing the
+            topping's x position
+            self.y_pos = an int representing the topping's starting y position
+            self.mask = the sprite mask generated from the image surface
+        """
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((120, 120))
         self.image = pygame.image.load(
@@ -176,7 +193,7 @@ class AllToppingsFr(pygame.sprite.Sprite):
 
 class Sauce(AllToppingsFr):
     """
-    Docstring
+    Child of AllToppingsFr with the sauce image file passed as a string
     """
 
     def __init__(self):
@@ -186,7 +203,7 @@ class Sauce(AllToppingsFr):
 
 class Cheese(AllToppingsFr):
     """
-    Docstring
+    Child of AllToppingsFr with the cheese image file passed as a string
     """
 
     def __init__(self):
@@ -196,7 +213,7 @@ class Cheese(AllToppingsFr):
 
 class Mushroom(AllToppingsFr):
     """
-    Docstring
+    Child of AllToppingsFr with the mushroom image file passed as a string
     """
 
     def __init__(self):
@@ -206,7 +223,8 @@ class Mushroom(AllToppingsFr):
 
 class Basil(AllToppingsFr):
     """
-    Docstring
+    Child of AllToppingsFr with the basil image file passed as a string
+
     """
 
     def __init__(self):
@@ -216,7 +234,8 @@ class Basil(AllToppingsFr):
 
 class Pepperoni(AllToppingsFr):
     """
-    Docstring
+    Child of AllToppingsFr with the pepperoni image file passed as a string
+
     """
 
     def __init__(self):
@@ -295,6 +314,13 @@ class Pizza(pygame.sprite.Sprite):
         Initialize Pizza on display.
         Args:
             screen: a Surface to display on to.
+        Attributes:
+            self.image = a surface displaying the pizza image
+            self.rect = a rectangle representing the pizza's bounding box
+            self.x_pos = an int representing the
+            pizza's starting x position
+            self.y_pos = an int representing the pizza's y position
+            self.mask = the sprite mask generated from the image surface
         """
         pygame.sprite.Sprite.__init__(self)
         # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
@@ -353,3 +379,9 @@ class Pizza(pygame.sprite.Sprite):
             self.toppings_on_pizza.append(pepperoni_image.image)
         if topping_image == "mushroom":
             self.toppings_on_pizza.append(mushroom_image.image)
+
+    def clear_topping(self):
+        """
+        DOCSTRING
+        """
+        self.toppings_on_pizza = []
