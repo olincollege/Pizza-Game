@@ -1,12 +1,14 @@
-import pygame, random, time, numpy
-
-SCREEN_WIDTH = 480
-SCREEN_HEIGHT = 800
-
 """
 Classes for tracking the current order, current toppings on pizza, and
 the current time elapsed since the time of ordering.
 """
+
+import random
+import pygame
+import numpy
+
+SCREEN_WIDTH = 480
+SCREEN_HEIGHT = 800
 
 
 class OrderStatus:
@@ -16,7 +18,7 @@ class OrderStatus:
     Attributes:
         __order_dict: A dictionary of all toppings and their quantity in the
     order.
-        __max_toppings: The maximum ammount of each topping a pizza could have.
+        __max_toppings: The maximum amount of each topping a pizza could have.
     """
 
     def __init__(self, topping):
@@ -24,7 +26,7 @@ class OrderStatus:
         A function to initiate a populated order for reference.
 
         Args:
-            topping: An int representing the maximum individual ammount of
+            topping: An int representing the maximum individual amount of
         toppings a pizza could have.
         """
         self.__max_toppings = topping
@@ -38,10 +40,10 @@ class OrderStatus:
         # variable to track total toppings on the pizza
         temp = 0
         # assign values to the topping quantities in __order_dict
-        for topping in self.__order_dict:
+        for toppings in self.__order_dict:
             rand = random.randint(0, self.__max_toppings)
             temp += rand
-            self.__order_dict[topping] = rand
+            self.__order_dict[toppings] = rand
         # checks if pizza with no toppings was created randomly
         if temp == 0:
             # assigns one topping at random to a quantity of 1
@@ -65,7 +67,7 @@ class OrderStatus:
             if current_pizza[topping] < num:
                 return False
         return True
-    
+
     def get_total_toppings(self):
         """
         Function to get the total number of toppings in an order.
@@ -77,7 +79,7 @@ class OrderStatus:
         for num in self.__order_dict.values():
             temp += num
         return temp
-    
+
     @property
     def order_dict(self):
         """
@@ -98,7 +100,7 @@ class PizzaStatus:
     A class to track the toppings on the pizza and location during game play.
 
     Attributes:
-        __current_toppings: A dictionary of all toppings and their quanitity on
+        __current_toppings: A dictionary of all toppings and their quantity on
     the pizza's surface.
         __position: A two element list representing the x and y position of a
     pizza.
@@ -171,32 +173,6 @@ class PizzaStatus:
         return self.__current_toppings
 
 
-class TimerStatus:
-    """
-    A class to track game time.
-
-    Attributes:
-        time_current: A float representing the time in seconds since the Epoch
-    when the instance of TimerStatus was initialized.
-    """
-
-    def __init__(self):
-        """
-        Initializes a TimerStatus object.
-        """
-        self.time_current = time.time()
-
-    def __repr__(self):
-        """
-        Makes a TimerStatus easily convertible to a float.
-
-        Returns:
-            A float representing the time since the creation of the
-            TimerStatus object.
-        """
-        return time.time() - self.time_current
-
-
 class Money:
     """
     A class to calculate customer happiness/tip based on player accuracy.
@@ -206,7 +182,7 @@ class Money:
     with a value closer to 0 meaning a more satisfied customer.
         __desired_toppings: An int representing the total number of toppings a
     customer wants on their pizza.
-        __total_money: A float representing the total ammount of money that the
+        __total_money: A float representing the total amount of money that the
     player has made playing the game.
     """
 
@@ -237,7 +213,11 @@ class Money:
             self.__desired_toppings += num
 
         self.__customer_happiness = min(
-            (topping_inaccuracies / (OrderStatus.get_total_toppings(desired_order))), 1
+            (
+                topping_inaccuracies
+                / (OrderStatus.get_total_toppings(desired_order))
+            ),
+            1,
         )
 
     def get_tip(self, desired_order, pizza_status):
@@ -294,7 +274,7 @@ class Button:
         __rect: A rect representing the image.
     """
 
-    def __init__(self, x, y, image, scale):
+    def __init__(self, x_pos, y_pos, image, scale):
         """
         Initializes a Button object.
 
@@ -319,7 +299,7 @@ class Button:
         )
         # create rectangle out of image
         self.__rect = self.__converted_image.get_rect()
-        self.__rect.topleft = (x, y)
+        self.__rect.topleft = (x_pos, y_pos)
 
     @property
     def rect(self):
