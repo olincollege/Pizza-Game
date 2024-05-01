@@ -69,7 +69,6 @@ def play(screen):
 
     topping_view = gv.Toppings()  # initialize list of toppings
     toppings_group = pygame.sprite.Group()
-    topping_database = gmo.ToppingPosition()  # initialize topping info
 
     money = gmo.Money()  # initialize customer money
 
@@ -87,13 +86,15 @@ def play(screen):
         gv.Kitchen(screen)  # display Kitchen scene
 
         # run orders
-        #gv.Order(screen, order_instance)  # display Order
+        # gv.Order(screen, order_instance)  # display Order
         current_pizza = pizza_status.status  # get status on current pizza
         # check if pizza order is completed
         if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
             money.update_money(order_instance, pizza_status)
             pizza_status.clear_pizza()
+            pizza_view.clear_topping()
             order_instance = gmo.OrderStatus(4)  # initialize new order
+            order = gv.Order(screen, order_instance)
 
         # move pizza
         arrow = gc.Arrow(10)  # initialize class for arrow inputs
@@ -105,12 +106,13 @@ def play(screen):
 
         # toppings
         # check for collision
-        collided_topping = topping_view.collide_pizza(pizza_view,
-                                                      toppings_group)
+        collided_topping = topping_view.collide_pizza(
+            pizza_view, toppings_group
+        )
         if collided_topping is not None:
             pizza_status.add_topping(collided_topping)
             pizza_view.add_topping(collided_topping)
-        order.update(screen, collided_topping) # update order display
+        order.update(screen, collided_topping)  # update order display
         if topping_interval == 25:  # generate toppings at rate
             toppings_group.add(
                 topping_view.create_topping()

@@ -351,3 +351,9 @@ class Pizza(pygame.sprite.Sprite):
             self.toppings_on_pizza.append(pepperoni_image.image)
         if topping_image == "mushroom":
             self.toppings_on_pizza.append(mushroom_image.image)
+
+    def clear_topping(self):
+        """
+        DOCSTRING
+        """
+        self.toppings_on_pizza = []
