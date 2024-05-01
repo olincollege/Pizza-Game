@@ -63,6 +63,7 @@ def play(screen):
         total_money: a float representing the total amount of money earned.
     """
     order_instance = gmo.OrderStatus(4)  # initialize first order
+    order = gv.Order(screen, order_instance)
     pizza_status = gmo.PizzaStatus()  # initialize empty pizza
     pizza_view = gv.Pizza(screen)  # display pizza
 
@@ -86,7 +87,7 @@ def play(screen):
         gv.Kitchen(screen)  # display Kitchen scene
 
         # run orders
-        gv.Order(screen, order_instance)  # display Order
+        #gv.Order(screen, order_instance)  # display Order
         current_pizza = pizza_status.status  # get status on current pizza
         # check if pizza order is completed
         if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
@@ -103,6 +104,12 @@ def play(screen):
         )  # update pizza position on display
 
         # toppings
+        # check for collision
+        collided_topping = topping_view.collide_pizza(pizza_view,
+                                                      toppings_group)
+        if collided_topping is not None:
+            pizza_status.add_topping(collided_topping)
+        order.update(screen, collided_topping) # update order display
         if topping_interval == 25:  # generate toppings at rate
             toppings_group.add(
                 topping_view.create_topping()
@@ -112,12 +119,6 @@ def play(screen):
             topping_interval += 1
         toppings_group.update()
         toppings_group.draw(screen)
-
-        collided_topping = topping_view.collide_pizza(pizza_view,
-                                                      toppings_group)
-        if collided_topping is not None:
-            pizza_status.add_topping(collided_topping)
-        print(pizza_status.status)
 
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60

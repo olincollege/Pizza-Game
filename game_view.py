@@ -102,7 +102,7 @@ class Order:
         font = pygame.font.Font(None, 36)  # use default font
 
         pygame.draw.rect(
-            screen, (255, 255, 255), (30, 25, 163, 135)
+            screen, (255, 255, 255), (30, 25, 170, 155)
         )  # draw white box
 
         self.order_dict = order_instance.order_dict
@@ -124,13 +124,20 @@ class Order:
             new_topping_added: a string representing the topping that has
             to be updated in the order
         """
-        self.pizza_status.add_topping(new_topping_added)
         font = pygame.font.Font(None, 36)
+
+        pygame.draw.rect(
+            screen, (255, 255, 255), (30, 25, 170, 155)
+        )  # draw white box
+
+        for topping in self.order_dict:
+            if topping == new_topping_added:
+                self.order_dict[topping] -= 1
 
         i = 0
         while i < len(self.order_dict):
             for topping, num in self.order_dict.items():
-                text = f"{topping}: {num}, {self.pizza_status.status[topping]}"
+                text = f"{topping}: {num}"
                 order_text = font.render(text, True, (0, 0, 0))
                 screen.blit(order_text, (35, 30 + (30 * i)))
                 i += 1
@@ -271,7 +278,6 @@ class Toppings(pygame.sprite.Sprite):
             pizza, topping_group, True, pygame.sprite.collide_mask
         )
         if len(collisions) > 0:
-            pizza.add_topping(collisions[0].name)
             return collisions[0].name
 
 
