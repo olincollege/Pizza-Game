@@ -40,7 +40,7 @@ class EndScreen:
         screen.blit(money_text, (180, 240))
 
 
-class ButtonDisplay():
+class ButtonDisplay:
     """
     Class to display Buttons on screen.
 
@@ -61,14 +61,17 @@ class ButtonDisplay():
         """
         Displays a button on the screen.
         """
-        self.__screen.blit(button.converted_image, (button.rect.x, button.rect.y))
-    
+        self.__screen.blit(
+            button.converted_image, (button.rect.x, button.rect.y)
+        )
+
     @property
     def screen(self):
         """
         Returns the __screen Surface.
         """
         return self.__screen
+
 
 class Kitchen:
     """
@@ -136,46 +139,75 @@ class Order:
                 i += 1
 
 
-class Pizza:
+class AllToppingsFr(pygame.sprite.Sprite):
+    def __init__(self, image_file):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((120, 120))
+        self.image = pygame.image.load(
+            os.path.join("assets/img", image_file)
+        ).convert()
+        self.image.set_colorkey(self.image.get_at((0, 0)))
+        self.image = pygame.transform.smoothscale(self.image, (120, 120))
+        self.rect = self.image.get_rect()
+        self.x_pos = random.randrange(5, 470)
+        self.y_pos = 5
+        self.rect.center = (self.x_pos, self.y_pos)
+
+    def update(self):
+        """
+        Move the sprite 5 pixels down.
+        """
+        self.rect.move_ip(0, 5)
+        if self.rect.top > 800:
+            self.kill()
+
+
+class Sauce(AllToppingsFr):
     """
-    Class to display pizza, update its position and toppings.
+    Docstring
     """
 
-    def __init__(self, screen):
-        """
-        Initialize Pizza on display.
-        Args:
-            screen: a Surface to display on to.
-        """
-        x_pos = 230
-        # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
-        dough_surf = pygame.image.load("assets/img/pizza_dough.png")
-        self.pizza_dough = pygame.transform.scale_by(dough_surf, 0.27)
-        pygame.Surface.blit(screen, self.pizza_dough, (x_pos, 600))
-
-    def update(self, pizza_status, screen):
-        """
-        Update Pizza location on display.
-
-        Args:
-            pizza_status: A PizzaStatus instance.
-            screen: a Surface to display on to.
-        """
-        pos = pizza_status.position
-        x_pos = pos[0]
-        # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
-        dough_surf = pygame.image.load("assets/img/pizza_dough.png")
-        self.pizza_dough = pygame.transform.scale_by(dough_surf, 0.27)
-        pygame.Surface.blit(screen, self.pizza_dough, (x_pos, 600))
-
-    def add_topping(self, topping):
-        """
-        Docstring
-        """
-        pass
+    def __init__(self):
+        AllToppingsFr.__init__(self, "sauce.png")
 
 
-class Toppings:
+class Cheese(AllToppingsFr):
+    """
+    Docstring
+    """
+
+    def __init__(self):
+        AllToppingsFr.__init__(self, "cheese.png")
+
+
+class Mushroom(AllToppingsFr):
+    """
+    Docstring
+    """
+
+    def __init__(self):
+        AllToppingsFr.__init__(self, "mushroom.png")
+
+
+class Basil(AllToppingsFr):
+    """
+    Docstring
+    """
+
+    def __init__(self):
+        AllToppingsFr.__init__(self, "basil.png")
+
+
+class Pepperoni(AllToppingsFr):
+    """
+    Docstring
+    """
+
+    def __init__(self):
+        AllToppingsFr.__init__(self, "pepperoni.png")
+
+
+class Toppings(pygame.sprite.Sprite):
     """
     A class to spawn toppings and alter their positions
     """
@@ -187,8 +219,6 @@ class Toppings:
             sprite_top_list = a list to hold all rectangles 'toppings' represented in the database
         """
         self.sprite_top_list = []
-        self._order_status = gm.OrderStatus(4)
-        self.toppings_group = pygame.sprite.Group()
 
     def create_topping(self, screen, database):
         """
@@ -199,76 +229,27 @@ class Toppings:
             screen: the surface to draw the topping on
 
         """
-        mushroom_image = pygame.image.load(
-            os.path.join("assets/img", "mushroom.png")
-        ).convert()
-        basil_image = pygame.image.load(
-            os.path.join("assets/img", "basil.png")
-        ).convert()
-        pepperoni_image = pygame.image.load(
-            os.path.join("assets/img", "pepperoni.png")
-        ).convert()
-        sauce_image = pygame.image.load(
-            os.path.join("assets/img", "sauce.png")
-        ).convert()
-        cheese_image = pygame.image.load(
-            os.path.join("assets/img", "cheese.png")
-        ).convert()
-
-        mushroom_image.set_colorkey(mushroom_image.get_at((0, 0)))
-        pepperoni_image.set_colorkey(pepperoni_image.get_at((0, 0)))
-        sauce_image.set_colorkey(sauce_image.get_at((0, 0)))
-        cheese_image.set_colorkey(cheese_image.get_at((0, 0)))
-        basil_image.set_colorkey(basil_image.get_at((0, 0)))
-
-        cheese_image = pygame.transform.smoothscale(cheese_image, (120, 120))
-        mushroom_image = pygame.transform.smoothscale(
-            mushroom_image, (120, 120)
+        topping_type = random.choice(
+            (
+                "cheese",
+                "sauce",
+                "pepperoni",
+                "basil",
+                "mushroom",
+            )
         )
-        pepperoni_image = pygame.transform.smoothscale(
-            pepperoni_image, (120, 120)
-        )
-        sauce_image = pygame.transform.smoothscale(sauce_image, (120, 120))
-        basil_image = pygame.transform.smoothscale(basil_image, (120, 120))
-
-        new_top_info = database.spawn_topping()
-
-        new_top_type = new_top_info[0]
-        dimension = (120, 120)
-        topping_type = new_top_type.topping_value
-
-        topping_sprite = pygame.sprite.Sprite()
-        topping_sprite.image = pygame.Surface(dimension)
-        topping_image = mushroom_image
-        x_pos = random.randrange(5, 470)
-        y_pos = 5
         if topping_type == "basil":
-            screen.blit(basil_image, (x_pos, y_pos))
-            topping_image = basil_image
+            topping_sprite = Basil()
         if topping_type == "cheese":
-            screen.blit(cheese_image, (x_pos, y_pos))
-            topping_image = cheese_image
+            topping_sprite = Cheese()
         if topping_type == "mushroom":
-            screen.blit(mushroom_image, (x_pos, y_pos))
-            topping_image = mushroom_image
+            topping_sprite = Mushroom()
         if topping_type == "pepperoni":
-            screen.blit(pepperoni_image, (x_pos, y_pos))
-            topping_image = pepperoni_image
+            topping_sprite = Pepperoni()
         if topping_type == "sauce":
-            screen.blit(sauce_image, (x_pos, y_pos))
-            topping_image = sauce_image
-        topping_sprite.rect = topping_sprite.image.get_rect()
-        self.toppings_group.add(topping_sprite)
-        print(self.toppings_group)
-        new_sprite = [
-            screen,
-            topping_sprite,
-            topping_type,
-            topping_image,
-            x_pos,
-            y_pos,
-        ]
-        self.sprite_top_list.append(new_sprite)
+            topping_sprite = Sauce()
+
+        return topping_sprite
 
     def move_toppings_view(self, screen):
         """
@@ -281,37 +262,83 @@ class Toppings:
         #     image.rect.x = sprite[4]
         #     image.rect.y = sprite[5] + 5
 
-        screen.blit(screen, (0, 0))
+        # screen.blit(screen, (0, 0))
 
-        for sprite in self.sprite_top_list:
-            x_pos = sprite[4]
-            y_pos = sprite[5] + 5
-            sprite[5] = y_pos
-            topping_image = sprite[3]
-            image_rect = sprite[1].image.get_rect()
-            image_rect.y = y_pos
-            screen.blit(topping_image, (x_pos, y_pos))
-        pygame.display.update()
+        # for sprite in self.sprite_top_list:
+        #     x_pos = sprite[4]
+        #     y_pos = sprite[5] + 5
+        #     sprite[5] = y_pos
+        #     topping_image = sprite[3]
+        #     image_rect = sprite[1].image.get_rect()
+        #     image_rect.y = y_pos
+        #     screen.blit(topping_image, (x_pos, y_pos))
+        # pygame.display.update()
 
-    def collide_pizza(self, pizza):
+    def collide_pizza(self, pizza, topping_group):
         """
         Checks if any of the toppings have collided with the pizza, and if so, delete them.
         Also updates order status.
         """
-        collisions = pygame.sprite.spritecollide(
-            pizza, self.toppings_group, True
-        )
+        collisions = pygame.sprite.spritecollide(pizza, topping_group, True)
         return collisions
 
-    ### DO WE NEED Pizza CLASS?? ###
+
+class Pizza(pygame.sprite.Sprite):
+    """
+    Class to display pizza, update its position and toppings.
+    """
+
+    def __init__(self, screen):
+        """
+        Initialize Pizza on display.
+        Args:
+            screen: a Surface to display on to.
+        """
+        pygame.sprite.Sprite.__init__(self)
+        # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
+        self.image = pygame.image.load("assets/img/pizza_dough.png")
+        self.image = pygame.transform.scale_by(self.image, 0.27)
+        pygame.Surface.blit(screen, self.image, (230, 600))
+        # dough_surf = pygame.image.load("assets/img/pizza_dough.png")
+        self.rect = pygame.Rect(
+            240,
+            600,
+            self.image.get_width(),
+            self.image.get_height(),
+        )
+
+    def update(self, pizza_status, screen):
+        """
+        Update Pizza location on display.
+
+        Args:
+            pizza_status: A PizzaStatus instance.
+            screen: a Surface to display on to.
+        """
+        pos = pizza_status.position
+        x_pos = pos[0]
+        # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
+        self.rect.update(
+            x_pos,
+            600,
+            self.image.get_width(),
+            self.image.get_height(),
+        )
+        pygame.Surface.blit(screen, self.image, (x_pos, 600))
+
+    def add_topping(self, topping):
+        """
+        Docstring
+        """
+        pass
 
 
-class PizzaView(pygame.sprite.Sprite):
+class PizzaSprite(pygame.sprite.Sprite):
     """
     A class to create and keep track of the Pizza object and its location.
     """
 
-    def __init__(self):
+    def __init__(self, screen, x_pos):
         """
         Initialize an instance of Pizza object.
         """
@@ -323,11 +350,29 @@ class PizzaView(pygame.sprite.Sprite):
         self.image.set_colorkey(self.image.get_at((0, 0)))
         # dough_surf = pygame.image.load("assets/img/pizza_dough.png")
         self.pizza_dough = pygame.transform.scale_by(self.image, 0.27)
-        self.rect = self.image.get_rect()
+        self.rect = pygame.Rect(
+            240,
+            600,
+            self.pizza_dough.get_width(),
+            self.pizza_dough.get_height(),
+        )
+        pygame.Surface.blit(screen, self.pizza_dough, (x_pos, 600))
 
         # pizza = pygame.image.load("assets/img/pizza.png").convert_alpha()
         # pizza_mask = pygame.mask.from_surface(pizza)
         # self.mask_img = pizza_mask.to_surface()
 
-    def update(self):
-        pass
+    def update(self, screen, pos):
+        """
+        Update Pizza location on display.
+
+        Args:
+            pizza_status: A PizzaStatus instance.
+                screen: a Surface to display on to.
+        """
+
+        self.rect.update(
+            (pos, 600),
+            (self.pizza_dough.get_width(), self.pizza_dough.get_height()),
+        )
+        pygame.Surface.blit(screen, self.pizza_dough, (pos, 600))
