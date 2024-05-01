@@ -152,6 +152,7 @@ class AllToppingsFr(pygame.sprite.Sprite):
         self.x_pos = random.randrange(5, 470)
         self.y_pos = 5
         self.rect.center = (self.x_pos, self.y_pos)
+        self.mask = pygame.mask.from_surface(self.image)
 
     def update(self):
         """
@@ -279,7 +280,9 @@ class Toppings(pygame.sprite.Sprite):
         Checks if any of the toppings have collided with the pizza, and if so, delete them.
         Also updates order status.
         """
-        collisions = pygame.sprite.spritecollide(pizza, topping_group, True)
+        collisions = pygame.sprite.spritecollide(
+            pizza, topping_group, True, pygame.sprite.collide_mask
+        )
         return collisions
 
 
@@ -306,6 +309,7 @@ class Pizza(pygame.sprite.Sprite):
             self.image.get_width(),
             self.image.get_height(),
         )
+        self.mask = pygame.mask.from_surface(self.image)
 
     def update(self, pizza_status, screen):
         """
@@ -331,48 +335,3 @@ class Pizza(pygame.sprite.Sprite):
         Docstring
         """
         pass
-
-
-class PizzaSprite(pygame.sprite.Sprite):
-    """
-    A class to create and keep track of the Pizza object and its location.
-    """
-
-    def __init__(self, screen, x_pos):
-        """
-        Initialize an instance of Pizza object.
-        """
-        pygame.sprite.Sprite.__init__(self)
-        # self.image = pygame.Surface((200, 200))
-        self.image = pygame.image.load(
-            os.path.join("assets/img", "pizza_dough.png")
-        ).convert_alpha()
-        self.image.set_colorkey(self.image.get_at((0, 0)))
-        # dough_surf = pygame.image.load("assets/img/pizza_dough.png")
-        self.pizza_dough = pygame.transform.scale_by(self.image, 0.27)
-        self.rect = pygame.Rect(
-            240,
-            600,
-            self.pizza_dough.get_width(),
-            self.pizza_dough.get_height(),
-        )
-        pygame.Surface.blit(screen, self.pizza_dough, (x_pos, 600))
-
-        # pizza = pygame.image.load("assets/img/pizza.png").convert_alpha()
-        # pizza_mask = pygame.mask.from_surface(pizza)
-        # self.mask_img = pizza_mask.to_surface()
-
-    def update(self, screen, pos):
-        """
-        Update Pizza location on display.
-
-        Args:
-            pizza_status: A PizzaStatus instance.
-                screen: a Surface to display on to.
-        """
-
-        self.rect.update(
-            (pos, 600),
-            (self.pizza_dough.get_width(), self.pizza_dough.get_height()),
-        )
-        pygame.Surface.blit(screen, self.pizza_dough, (pos, 600))
