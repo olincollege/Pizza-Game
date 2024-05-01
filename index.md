@@ -8,6 +8,7 @@ Cloudy with a Chance of Pizza is a classic 'dropper' game with a twist. The quin
 # Project Demo
 In this video we talk about our project and show a live game play.
 [Link Here](https://drive.google.com/file/d/1yh4xdWRDpS3KcFD-wvZuLM_qfR-QuJoy/view)
+
 ![Kitchen img](/assets/img/kitchen.png)
 
 # Installation Instructions
@@ -15,6 +16,7 @@ Our game can be downloaded off of github.com, in our repository called Pizza-Gam
 
 # Download Links
 [Pizza_game GitHub](https://github.com/olincollege/Pizza-Game)
+
 [How to install pygame](https://www.pygame.org/wiki/GettingStarted)
 
 # Attribution for External Resources
