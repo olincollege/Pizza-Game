@@ -13,6 +13,7 @@ class HomeScreen:
     def __init__(self, screen):
         """
         Initialize Home screen on display.
+
         Args:
             screen: a Surface to display on to.
         """
@@ -29,26 +30,29 @@ class EndScreen:
     def __init__(self, screen, money):
         """
         Initialize End Screen on display
+
         Args:
             screen: a Surface to display on to.
-            money: an int representing the money the player accrued throughout the game
+            money: an int representing the money the player accrued
+            throughout the game
         """
-        font = pygame.font.Font(None, 165)  # use default font
+        font = pygame.font.Font(None, 100)  # use default font
 
+        scene = pygame.image.load("assets/img/end_screen.png")
         scene = pygame.image.load("assets/img/end_screen.png")
         screen.blit(scene, (0, 0))
         end_text = pygame.image.load("assets/img/end_text.png")
         screen.blit(end_text, (0, 0))
         money = f"${money}"
         money_text = font.render(money, True, (0, 0, 0))
-        screen.blit(money_text, (180, 240))
+        screen.blit(money_text, (160, 250))
 
 
 class ButtonDisplay:
     """
     Class to display Buttons on screen surface.
 
-    Atrributes:
+    Attributes:
         __screen: The pygame surface being used for the game.
     """
 
@@ -64,6 +68,7 @@ class ButtonDisplay:
     def display_button(self, button):
         """
         Displays a button on the screen.
+
         Args:
             button: an instance of the button class
         """
@@ -87,6 +92,7 @@ class Kitchen:
     def __init__(self, screen):
         """
         Initialize Kitchen on display.
+
         Args:
             screen: a Surface to display on to.
         """
@@ -97,11 +103,20 @@ class Kitchen:
 class Order:
     """
     Class to display order and update its position.
+
+    Attributes:
+        order_dict: a dictionary of an instance of a order with keys
+        representing the topping and values representing the number of toppings
+        desired.
+        pizza_status: a dictionary of an instance of a pizza with keys
+        representing the topping and values representing the number of toppings
+        on it.
     """
 
     def __init__(self, screen, order_instance):
         """
         Initialize pizza on display.
+
         Args:
             screen: a Surface to display on to.
             order_instance: the instance of the current working order.
@@ -126,6 +141,7 @@ class Order:
     def update(self, screen, new_topping_added):
         """
         Update order status display.
+
         Args:
             screen: a Surface to display on to.
             new_topping_added: a string representing the topping that has
@@ -152,22 +168,24 @@ class Order:
 
 class AllToppingsFr(pygame.sprite.Sprite):
     """
-    A parent class for the topping types
+    A parent class for the topping types.
+
+    Attributes:
+            image: a surface displaying the topping image.
+            rect: a rectangle representing the topping's bounding box.
+            x_pos: a randomly generated int representing the
+            topping's x position.
+            y_pos: an int representing the topping's starting y position.
+            mask: the sprite mask generated from the image surface.
     """
 
     def __init__(self, image_file):
         """
         A class to initialize a topping instance.
+
         Args:
-            image_file = a string representing the image file name to
-            be passed to the surface
-        Attributes:
-            self.image = a surface displaying the topping image
-            self.rect = a rectangle representing the topping's bounding box
-            self.x_pos = a randomly generated int representing the
-            topping's x position
-            self.y_pos = an int representing the topping's starting y position
-            self.mask = the sprite mask generated from the image surface
+            image_file: a string representing the image file name to
+            be passed to the surface.
         """
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((120, 120))
@@ -193,7 +211,10 @@ class AllToppingsFr(pygame.sprite.Sprite):
 
 class Sauce(AllToppingsFr):
     """
-    Child of AllToppingsFr with the sauce image file passed as a string
+    Child of AllToppingsFr with the sauce image file passed as a string.
+
+    Attributes:
+        name: a string representing the type of topping.
     """
 
     def __init__(self):
@@ -203,7 +224,10 @@ class Sauce(AllToppingsFr):
 
 class Cheese(AllToppingsFr):
     """
-    Child of AllToppingsFr with the cheese image file passed as a string
+    Child of AllToppingsFr with the cheese image file passed as a string.
+
+    Attributes:
+        name: a string representing the type of topping.
     """
 
     def __init__(self):
@@ -213,7 +237,10 @@ class Cheese(AllToppingsFr):
 
 class Mushroom(AllToppingsFr):
     """
-    Child of AllToppingsFr with the mushroom image file passed as a string
+    Child of AllToppingsFr with the mushroom image file passed as a string.
+
+    Attributes:
+        name: a string representing the type of topping.
     """
 
     def __init__(self):
@@ -223,7 +250,10 @@ class Mushroom(AllToppingsFr):
 
 class Basil(AllToppingsFr):
     """
-    Child of AllToppingsFr with the basil image file passed as a string
+    Child of AllToppingsFr with the basil image file passed as a string.
+
+    Attributes:
+        name: a string representing the type of topping.
 
     """
 
@@ -234,8 +264,10 @@ class Basil(AllToppingsFr):
 
 class Pepperoni(AllToppingsFr):
     """
-    Child of AllToppingsFr with the pepperoni image file passed as a string
+    Child of AllToppingsFr with the pepperoni image file passed as a string.
 
+    Attributes:
+        name: a string representing the type of topping.
     """
 
     def __init__(self):
@@ -245,14 +277,16 @@ class Pepperoni(AllToppingsFr):
 
 class Toppings(pygame.sprite.Sprite):
     """
-    A class to spawn toppings and alter their positions
+    A class to spawn toppings and alter their positions.
+
+    Attributes:
+        sprite_top_list = a list to hold all rectangles 'toppings'
+        represented in the database.
     """
 
     def __init__(self):
         """
         Initiates a list to monitor and create toppings.
-        Attributes:
-            sprite_top_list = a list to hold all rectangles 'toppings' represented in the database
         """
         self.sprite_top_list = []
 
@@ -307,6 +341,15 @@ class Toppings(pygame.sprite.Sprite):
 class Pizza(pygame.sprite.Sprite):
     """
     Class to display pizza, update its position and toppings.
+
+    Attributes:
+        image: a surface displaying the pizza image.
+        rect: a rectangle representing the pizza's bounding box.
+        x_pos: an int representing the pizza's starting x position.
+        y_pos: an int representing the pizza's y position.
+        mask: the sprite mask generated from the image surface.
+        toppings_on_pizza: a list with elements representing all the
+        current toppings on pizza.
     """
 
     def __init__(self, screen):
@@ -314,13 +357,6 @@ class Pizza(pygame.sprite.Sprite):
         Initialize Pizza on display.
         Args:
             screen: a Surface to display on to.
-        Attributes:
-            self.image = a surface displaying the pizza image
-            self.rect = a rectangle representing the pizza's bounding box
-            self.x_pos = an int representing the
-            pizza's starting x position
-            self.y_pos = an int representing the pizza's y position
-            self.mask = the sprite mask generated from the image surface
         """
         pygame.sprite.Sprite.__init__(self)
         # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
@@ -361,9 +397,10 @@ class Pizza(pygame.sprite.Sprite):
 
     def add_topping(self, topping_image):
         """
-        Adds toppings to the pizza display
+        Display new topping on pizza.
+
         Args:
-            topping_image: a string representing the topping to be added to the pizza
+            topping_image: an image of desired topping.
         """
         sauce_image = Sauce()
         cheese_image = Cheese()
@@ -384,6 +421,6 @@ class Pizza(pygame.sprite.Sprite):
 
     def clear_topping(self):
         """
-        Clears all toppings off the pizza display
+        Clear pizza display of all its toppings.
         """
         self.toppings_on_pizza = []
