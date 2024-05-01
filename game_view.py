@@ -149,7 +149,7 @@ class AllToppingsFr(pygame.sprite.Sprite):
         self.image.set_colorkey(self.image.get_at((0, 0)))
         self.image = pygame.transform.smoothscale(self.image, (120, 120))
         self.rect = self.image.get_rect()
-        self.x_pos = random.randrange(5, 470)
+        self.x_pos = random.randrange(30, 450)
         self.y_pos = 5
         self.rect.center = (self.x_pos, self.y_pos)
         self.mask = pygame.mask.from_surface(self.image)
@@ -299,6 +299,7 @@ class Pizza(pygame.sprite.Sprite):
             self.image.get_height(),
         )
         self.mask = pygame.mask.from_surface(self.image)
+        self.toppings_on_pizza = []
 
     def update(self, pizza_status, screen):
         """
@@ -318,9 +319,11 @@ class Pizza(pygame.sprite.Sprite):
             self.image.get_height(),
         )
         pygame.Surface.blit(screen, self.image, (x_pos, 600))
+        for image in self.toppings_on_pizza:
+            pygame.Surface.blit(screen, image, (x_pos, 650))
 
-    def add_topping(self, topping):
+    def add_topping(self, topping_image):
         """
         Docstring
         """
-        pass
+        self.toppings_on_pizza.append(topping_image)
