@@ -105,7 +105,7 @@ def play(screen):
         # toppings
         if topping_interval == 25:  # generate toppings at rate
             toppings_group.add(
-                topping_view.create_topping(screen, topping_database)
+                topping_view.create_topping()
             )  # create and display toppings
             # topping_view.move_toppings_view(screen)
             toppings_group.update()
