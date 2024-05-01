@@ -40,12 +40,35 @@ class EndScreen:
         screen.blit(money_text, (180, 240))
 
 
-# class Button(HomeScreen):
+class ButtonDisplay():
+    """
+    Class to display Buttons on screen.
 
-# class StartButton(Button):
+    Atrributes:
+        __screen: The pygame surface being used for the game.
+    """
 
-# class InstructionButton(Button):
+    def __init__(self, screen):
+        """
+        Initializes an instance of the ButtonDisplay class.
 
+        Args:
+            screen: The pygame surface being used for the game.
+        """
+        self.__screen = screen
+
+    def display_button(self, button):
+        """
+        Displays a button on the screen.
+        """
+        self.__screen.blit(button.converted_image, (button.rect.x, button.rect.y))
+    
+    @property
+    def screen(self):
+        """
+        Returns the __screen Surface.
+        """
+        return self.__screen
 
 class Kitchen:
     """

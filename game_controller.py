@@ -1,14 +1,37 @@
 import pygame
 from game_model import *
 
-class Button:
+class ButtonControl:
     """
     A class to define button functions within the game.
 
     Attributes:
-        Goes-to: a string of the name of the environment that the button
-        leads to.
+        __button: A Button instance.
+        __pos: A tuple of ints representing the location of the mouse.
     """
+    def __init__(self):
+        """
+        Initialize an instance of the ButtonControl class.
+        """
+        self.__pos = pygame.mouse.get_pos()
+
+    def check_press(self, button):
+        """
+        Checks if the button is pressed.
+
+        Returns:
+            A boolean representing whether or not a button is pressed.
+        """
+        action = False
+        # get mouse position
+        self.__pos = pygame.mouse.get_pos()
+
+        # check mouseover and clicked conditons
+        if button.rect.collidepoint(self.__pos):
+            if pygame.mouse.get_pressed()[0] == 1:
+                action = True
+        return action
+
 
 
 class Arrow:
@@ -22,7 +45,7 @@ class Arrow:
 
     def __init__(self, speed):
         """
-        Initiate an instance of the arrow class.
+        Initialize an instance of the arrow class.
 
         Args:
             speed: An int representing the distance the pizza moves on a press
