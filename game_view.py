@@ -127,8 +127,6 @@ class Order:
         self.pizza_status.add_topping(new_topping_added)
         font = pygame.font.Font(None, 36)
 
-        pygame.draw.rect(screen, (255, 255, 255), (30, 25, 163, 135))
-
         i = 0
         while i < len(self.order_dict):
             for topping, num in self.order_dict.items():
@@ -273,6 +271,7 @@ class Toppings(pygame.sprite.Sprite):
             pizza, topping_group, True, pygame.sprite.collide_mask
         )
         if len(collisions) > 0:
+            pizza.add_topping(collisions[0].name)
             return collisions[0].name
 
 

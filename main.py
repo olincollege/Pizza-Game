@@ -107,17 +107,18 @@ def play(screen):
             toppings_group.add(
                 topping_view.create_topping()
             )  # create and display toppings
-            # topping_view.move_toppings_view(screen)
-            toppings_group.update()
-            toppings_group.draw(screen)
             topping_interval = 0
-            # running = False
         else:
-            toppings_group.update()
-            toppings_group.draw(screen)
-            # topping_view.move_toppings_view(screen)
             topping_interval += 1
-        topping_view.collide_pizza(pizza_view, toppings_group)
+        toppings_group.update()
+        toppings_group.draw(screen)
+
+        collided_topping = topping_view.collide_pizza(pizza_view,
+                                                      toppings_group)
+        if collided_topping is not None:
+            pizza_status.add_topping(collided_topping)
+        print(pizza_status.status)
+
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
 
