@@ -157,147 +157,6 @@ class PizzaStatus:
         return self.__current_toppings
 
 
-class Toppings:
-    """
-    A parent class for the individual toppings.
-
-    Attributes:
-        value: A string denoting what topping the instance represents.
-        color: A tuple of 3 numbers detailing the color key of the topping
-        bounding_box: a tuple dictating the borders of the topping's
-        bounding box
-        fall_speed = an integer set to default value 5
-    """
-
-    def __init__(
-        self,
-        value,
-        fall_speed=5,
-    ):
-        self._fall_speed = fall_speed
-        self.topping_value = value
-
-    def get_value(self):
-        """
-        Returns value of topping
-        """
-        return self.topping_value
-
-
-class Cheese(Toppings):
-    """
-    A class to create an instance of Cheese topping based on the topping
-    parent class.
-    """
-
-    def __init__(self):
-        super().__init__("cheese")
-        # # img = pygame.image.load('assets/img/cheese.png')
-        # # super().__init__("Cheese", img, (30, 30))
-        # super().__init__("cheese")
-
-
-class Sauce(Toppings):
-    """
-    A class to create an instance of the sauce topping based on the
-    topping parent class.
-    """
-
-    def __init__(self):
-        super().__init__("sauce")
-
-
-class Pepperoni(Toppings):
-    """
-    A class to create an instance of the pepperoni topping based on the
-    toping parent class.
-    """
-
-    def __init__(self):
-        super().__init__("pepperoni")
-
-
-class Basil(Toppings):
-    """
-    A class to create an instance of the sauce topping based on the
-    topping parent class.
-    """
-
-    def __init__(self):
-        super().__init__("basil")
-
-
-class Mushroom(Toppings):
-    """
-    A class to create an instance of the mushroom topping based on the
-    topping parent class.
-    """
-
-    def __init__(self):
-
-        super().__init__("mushroom")
-
-
-class ToppingPosition:
-    """
-    A class to monitor the positions of all toppings on screen
-    Attributes:
-        topping_info: A list of lists, where the list entries contain a topping
-        value in index 0, topping x pos in index 1, and y pos in index 2
-    """
-
-    def __init__(self):
-        """
-        Create an instance of the ToppingPosition class
-        """
-        self._topping_list = (
-            "cheese",
-            "sauce",
-            "pepperoni",
-            "basil",
-            "mushroom",
-        )
-        self._topping_info = []
-        self._fall_speed = 5
-
-    def spawn_topping(self):
-        """
-        A function to generate a topping at the top of the screen at a random x-value
-        """
-        top = random.choice(self._topping_list)
-        if top == "cheese":
-            top = Cheese()
-        if top == "sauce":
-            top = Sauce()
-        if top == "pepperoni":
-            top = Pepperoni()
-        if top == "basil":
-            top = Basil()
-        if top == "mushroom":
-            top = Mushroom()
-
-        pos_x = random.choice(range(15, SCREEN_WIDTH - 15))
-        top_position = [top, pos_x]
-        self._topping_info.append(top_position)
-        return top_position
-
-    def move_all_toppings(self):
-        """
-        A function to update the topping positions and remove out of bounds toppings
-        """
-        for topping in self._topping_info:
-            if topping[2] <= SCREEN_HEIGHT:
-                del [topping]
-            else:
-                topping[2] -= self._fall_speed
-
-    def get_topping_info(self):
-        """
-        A function that refturns the value of list _topping_info
-        """
-        return self._topping_info
-
-
 class TimerStatus:
     """
     A class to track game time.
@@ -345,7 +204,6 @@ class Money:
         self.__desired_toppings = 0
         self.__total_money = 0
 
-
     def evaluate_order(self, desired_order, pizza_status):
         """
         A function to evaluate how well a pizza fits an order.
@@ -363,10 +221,12 @@ class Money:
 
         for num in desired_order.order_dict.values():
             self.__desired_toppings += num
-            print(f'desire {self.__desired_toppings}')
+            print(f"desire {self.__desired_toppings}")
 
         print(topping_inaccuracies)
-        self.__customer_happiness = min((topping_inaccuracies / self.__desired_toppings), 1)
+        self.__customer_happiness = min(
+            (topping_inaccuracies / self.__desired_toppings), 1
+        )
 
     def get_tip(self, desired_order, pizza_status):
         """
@@ -384,34 +244,33 @@ class Money:
         self.evaluate_order(desired_order, pizza_status)
         tip = (self.__desired_toppings * 1.5) * (1 - self.__customer_happiness)
         return tip
-    
+
     def update_money(self, desired_order, pizza_status):
         """
         A method to update total_money after every order.
         """
         self.__total_money += self.get_tip(desired_order, pizza_status)
-        
+
     @property
     def desired_toppings(self):
         """
         Returns an int representing the total number of toppings in the order.
         """
         return self.__desired_toppings
-    
+
     @property
     def customer_happiness(self):
         """
         Returns a float representing the happiness of a customer.
         """
-        return self.__customer_happiness 
-    
+        return self.__customer_happiness
+
     @property
     def get_money(self):
         """
         Returns a float representing total money earned (two decimal places).
         """
         return round(self.__total_money, 2)
-
 
 
 class Button:
@@ -456,6 +315,7 @@ class Button:
         Returns the __rect Rect.
         """
         return self.__rect
+
     @property
     def converted_image(self):
         """
