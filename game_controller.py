@@ -1,7 +1,9 @@
+"""
+Classes that take user input and do somethings.
+"""
 import pygame
-from game_model import *
 
-class ButtonControl:
+class ButtonControl: # pylint: disable=too-few-public-methods
     """
     A class to define button functions within the game.
 
@@ -9,6 +11,7 @@ class ButtonControl:
         __button: A Button instance.
         __pos: A tuple of ints representing the location of the mouse.
     """
+
     def __init__(self):
         """
         Initialize an instance of the ButtonControl class.
@@ -26,12 +29,11 @@ class ButtonControl:
         # get mouse position
         self.__pos = pygame.mouse.get_pos()
 
-        # check mouseover and clicked conditons
+        # check mouseover and clicked conditions
         if button.rect.collidepoint(self.__pos):
             if pygame.mouse.get_pressed()[0] == 1:
                 action = True
         return action
-
 
 
 class Arrow:
@@ -65,19 +67,10 @@ class Arrow:
             pizza.update_position(-(self.__pizza_speed))
         elif keys[pygame.K_RIGHT]:
             pizza.update_position(self.__pizza_speed)
-    
+
     @property
     def speed(self):
         """
         Returns an int representing the speed of the pizza.
         """
         return self.__pizza_speed
-        
-
-# tester code
-# pygame.init()
-# test_pizza = PizzaStatus()
-# i =0
-# while i == 10:
-#     Arrow.move_pizza(test_pizza)
-#     i += 1
