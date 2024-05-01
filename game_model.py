@@ -453,24 +453,6 @@ class Button:
         """
         Returns the __rect Rect.
         """
-<<<<<<< HEAD
-        action = False
-        # get mouse position
-        pos = pygame.mouse.get_pos()
-
-        # check mouseover and clicked conditons
-        if self.__rect.collidepoint(pos):
-            if pygame.mouse.get_pressed()[0] == 1 and self.__clicked is False:
-                self.__clicked = True
-                action = True
-        if pygame.mouse.get_pressed()[0] == 0:
-            self.__clicked = False
-        # draw button on screen
-        self.__screen.blit(
-            self.__converted_image, (self.__rect.x, self.__rect.y)
-        )
-        return action
-=======
         return self.__rect
     @property
     def converted_image(self):
@@ -478,4 +460,3 @@ class Button:
         Returns the __converted_image Surface.
         """
         return self.__converted_image
->>>>>>> bb2768ca2f1f5e332543cbe06519df7554c578cc

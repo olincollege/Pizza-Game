@@ -108,7 +108,7 @@ def play(screen):
             )  # create and display toppings
             topping_view.move_toppings_view(screen)
             topping_interval = 0
-            running = False
+            #running = False
         else:
             topping_view.move_toppings_view(screen)
             topping_interval += 1
