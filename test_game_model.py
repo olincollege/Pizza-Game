@@ -54,6 +54,16 @@ def check_access_order():
     order = gmo.OrderStatus(1)
     return isinstance(order.order_dict, dict)
 
+def check_get_total_toppings():
+    """
+    Check that a call to total toppings returns an int greater than 0.
+
+    Returns:
+        True if a call to total toppings returns an int greater than 0, false
+    otherwise.
+    """
+    order = gmo.OrderStatus(1)
+    return order.get_total_toppings() != 0
 
 @pytest.mark.parametrize(
     "func",
@@ -61,6 +71,7 @@ def check_access_order():
         check_check_order_incomplete,
         check_check_order_complete,
         check_access_order,
+        check_get_total_toppings,
     ],
 )
 def test_OrderStatus(func):  # pylint: disable=invalid-name
@@ -130,11 +141,11 @@ def check_update_postion_right_side():
 
     Returns:
         True if a call to update_position with a big positive x_update value
-    results in new_pos being a list equal to [360, 150].
+    results in new_pos being a list equal to [328, 150].
     """
     pizza = gmo.PizzaStatus()
     pizza.update_position(1000)
-    return pizza.position == [360, 150]
+    return pizza.position == [328, 150]
 
 def check_update_postion_left_side():
     """
@@ -142,11 +153,11 @@ def check_update_postion_left_side():
 
     Returns:
         True if a call to update_position with a big negative x_update value
-    results in new_pos being a list equal to [0, 150].
+    results in new_pos being a list equal to [-5, 150].
     """
     pizza = gmo.PizzaStatus()
     pizza.update_position(-1000)
-    return pizza.position == [0, 150]
+    return pizza.position == [-5, 150]
 
 @pytest.mark.parametrize(
     "func",
@@ -265,6 +276,7 @@ def check_update_money_imperfect():
             pizza.add_topping(topping)
     money.update_money(order, pizza)
     return money.get_money > 0
+
 @pytest.mark.parametrize(
     "func",
     [

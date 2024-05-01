@@ -45,7 +45,9 @@ class OrderStatus:
         # checks if pizza with no toppings was created randomly
         if temp == 0:
             # assigns one topping at random to a quantity of 1
-            self.__order_dict[numpy.random.choice(self.__order_dict.keys)] = 1
+            keys = list(self.__order_dict.keys())
+            random_topping = numpy.random.choice(keys)
+            self.__order_dict[random_topping] = 1
 
     def check_order(self, current_pizza):
         """
@@ -63,7 +65,19 @@ class OrderStatus:
             if current_pizza[topping] < num:
                 return False
         return True
+    
+    def get_total_toppings(self):
+        """
+        Function to get the total number of toppings in an order.
 
+        Returns:
+            An int representing the total number of toppings in an order.
+        """
+        temp = 0
+        for num in self.__order_dict.values():
+            temp += num
+        return temp
+    
     @property
     def order_dict(self):
         """
@@ -220,13 +234,10 @@ class Money:
             topping_inaccuracies += abs(num - pizza_status.status[topping])
 
         for num in desired_order.order_dict.values():
-            print(f'num {num}')
             self.__desired_toppings += num
-            print(f"desire {self.__desired_toppings}")
 
-        print(topping_inaccuracies)
         self.__customer_happiness = min(
-            (topping_inaccuracies / self.__desired_toppings), 1
+            (topping_inaccuracies / (OrderStatus.get_total_toppings(desired_order))), 1
         )
 
     def get_tip(self, desired_order, pizza_status):
