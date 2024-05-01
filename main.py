@@ -118,6 +118,7 @@ def play(screen):
             # topping_view.move_toppings_view(screen)
             topping_interval += 1
         topping_view.collide_pizza(pizza_view, toppings_group)
+
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
 
