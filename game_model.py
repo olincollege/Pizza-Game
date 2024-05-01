@@ -363,7 +363,9 @@ class Money:
 
         for num in desired_order.order_dict.values():
             self.__desired_toppings += num
+            print(f'desire {self.__desired_toppings}')
 
+        print(topping_inaccuracies)
         self.__customer_happiness = min((topping_inaccuracies / self.__desired_toppings), 1)
 
     def get_tip(self, desired_order, pizza_status):

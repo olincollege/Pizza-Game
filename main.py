@@ -109,6 +109,7 @@ def play(screen):
                                                       toppings_group)
         if collided_topping is not None:
             pizza_status.add_topping(collided_topping)
+            pizza_view.add_topping(collided_topping)
         order.update(screen, collided_topping) # update order display
         if topping_interval == 25:  # generate toppings at rate
             toppings_group.add(
@@ -120,16 +121,6 @@ def play(screen):
         toppings_group.update()
         toppings_group.draw(screen)
 
-<<<<<<< HEAD
-=======
-        collided_topping = topping_view.collide_pizza(
-            pizza_view, toppings_group
-        )
-        if collided_topping is not None:
-            pizza_status.add_topping(collided_topping)
-            pizza_view.add_topping(collided_topping)
-
->>>>>>> 44e98c22346c9ddc2542f3af1a8e6f1cf38be138
         pygame.display.flip()
         clock.tick(60)  # limits FPS to 60
 
