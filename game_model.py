@@ -1,4 +1,4 @@
-import pygame, random, time, numpy, os
+import pygame, random, time, numpy
 
 SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 800
