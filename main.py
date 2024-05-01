@@ -69,11 +69,12 @@ def play(screen):
 
     topping_view = gv.Toppings()  # initialize list of toppings
     toppings_group = pygame.sprite.Group()
-    topping_database = gmo.ToppingPosition()  # initialize topping info
 
     money = gmo.Money()  # initialize customer money
 
     topping_interval = 25  # every 25 frames add generate new topping
+
+    orders_complete = 1 # number of orders to end game
 
     # start loop
     clock = pygame.time.Clock()
@@ -93,6 +94,10 @@ def play(screen):
         if gmo.OrderStatus.check_order(order_instance, current_pizza) is True:
             money.update_money(order_instance, pizza_status)
             pizza_status.clear_pizza()
+            if orders_complete > 0:
+                orders_complete -= 1
+            else:
+                running = False
             order_instance = gmo.OrderStatus(4)  # initialize new order
 
         # move pizza
@@ -106,7 +111,7 @@ def play(screen):
         # toppings
         # check for collision
         collided_topping = topping_view.collide_pizza(pizza_view,
-                                                      toppings_group)
+                                                    toppings_group)
         if collided_topping is not None:
             pizza_status.add_topping(collided_topping)
             pizza_view.add_topping(collided_topping)
@@ -126,7 +131,6 @@ def play(screen):
 
     return money.get_money
 
-
 def end(screen, money):
     """
     Display End scene, including score and option to play again.
@@ -143,7 +147,7 @@ def end(screen, money):
                 running = False
 
         # display home screen and buttons.
-        screen.fill((153, 217, 234))
+        # screen.fill((153, 217, 234))
         gv.EndScreen(screen, money)
 
         pygame.display.update()
@@ -151,5 +155,5 @@ def end(screen, money):
 
 
 menu(SCREEN)
-play(SCREEN)
-# end(SCREEN, play(SCREEN))
+total_money = play(SCREEN)
+end(SCREEN, total_money)

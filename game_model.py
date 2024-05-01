@@ -136,10 +136,10 @@ class PizzaStatus:
         new_pos = self.__position  # get position
         new_pos[0] = new_pos[0] + x_update  # update position's X coordinate
         # check that position is within bounds
-        if new_pos[0] < 0:
-            new_pos[0] = 0  # make X coordinate cap at left screen
-        if new_pos[0] > 360:
-            new_pos[0] = 360  # make X coordinate cap at right screen
+        if new_pos[0] < -5:
+            new_pos[0] = -5  # make X coordinate cap at left screen
+        if new_pos[0] > 328:
+            new_pos[0] = 328  # make X coordinate cap at right screen
         return new_pos
 
     @property
@@ -362,6 +362,7 @@ class Money:
             topping_inaccuracies += abs(num - pizza_status.status[topping])
 
         for num in desired_order.order_dict.values():
+            print(f'num {num}')
             self.__desired_toppings += num
             print(f'desire {self.__desired_toppings}')
 
