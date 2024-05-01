@@ -1,8 +1,11 @@
+"""
+Functions and calls to run game.
+"""
+
 import pygame
 import game_model as gmo
 import game_view as gv
 import game_controller as gc
-import time
 
 pygame.init()
 
@@ -62,7 +65,7 @@ def play(screen):
     Returns:
         total_money: a float representing the total amount of money earned.
     """
-    toppings = 4 # the maximum ammount of individual topping order could have.
+    toppings = 4  # the maximum amount of individual topping order could have.
     order_instance = gmo.OrderStatus(toppings)  # initialize first order
     order = gv.Order(screen, order_instance)
     pizza_status = gmo.PizzaStatus()  # initialize empty pizza
@@ -152,7 +155,6 @@ def end(screen, money):
                 running = False
 
         # display home screen and buttons.
-        # screen.fill((153, 217, 234))
         gv.EndScreen(screen, money)
 
         pygame.display.update()

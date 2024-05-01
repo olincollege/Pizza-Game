@@ -8,7 +8,7 @@ import pygame
 import game_model as gm
 
 
-class HomeScreen:  # pylint: disable=too-few-public-methods
+class HomeScreen:
     """
     Class to display the home screen as a pygame surface.
     """
@@ -25,7 +25,7 @@ class HomeScreen:  # pylint: disable=too-few-public-methods
         screen.blit(title_text, (0, 0))  # display title text
 
 
-class EndScreen:  # pylint: disable=too-few-public-methods
+class EndScreen:
     """
     Class to display to end screen as a pygame surface.
     """
@@ -103,7 +103,7 @@ class Kitchen:
         screen.blit(scene, (0, 0))
 
 
-class Order:  # pylint: disable=too-few-public-methods
+class Order:
     """
     Class to display order and update its position.
 
@@ -171,7 +171,7 @@ class Order:  # pylint: disable=too-few-public-methods
 
 class AllToppingsFr(
     pygame.sprite.Sprite
-):  # pylint: disable=too-few-public-methods
+):
     """
     A parent class for the topping types.
 
@@ -214,7 +214,7 @@ class AllToppingsFr(
             self.kill()
 
 
-class Sauce(AllToppingsFr):  # pylint: disable=too-few-public-methods
+class Sauce(AllToppingsFr):
     """
     Child of AllToppingsFr with the sauce image file passed as a string.
 
@@ -227,7 +227,7 @@ class Sauce(AllToppingsFr):  # pylint: disable=too-few-public-methods
         self.name = "sauce"
 
 
-class Cheese(AllToppingsFr):  # pylint: disable=too-few-public-methods
+class Cheese(AllToppingsFr):
     """
     Child of AllToppingsFr with the cheese image file passed as a string.
 
@@ -240,7 +240,7 @@ class Cheese(AllToppingsFr):  # pylint: disable=too-few-public-methods
         self.name = "cheese"
 
 
-class Mushroom(AllToppingsFr):  # pylint: disable=too-few-public-methods
+class Mushroom(AllToppingsFr):
     """
     Child of AllToppingsFr with the mushroom image file passed as a string.
 
@@ -253,7 +253,7 @@ class Mushroom(AllToppingsFr):  # pylint: disable=too-few-public-methods
         self.name = "mushroom"
 
 
-class Basil(AllToppingsFr):  # pylint: disable=too-few-public-methods
+class Basil(AllToppingsFr):
     """
     Child of AllToppingsFr with the basil image file passed as a string.
 
@@ -267,7 +267,7 @@ class Basil(AllToppingsFr):  # pylint: disable=too-few-public-methods
         self.name = "basil"
 
 
-class Pepperoni(AllToppingsFr):  # pylint: disable=too-few-public-methods
+class Pepperoni(AllToppingsFr):
     """
     Child of AllToppingsFr with the pepperoni image file passed as a string.
 
@@ -280,7 +280,7 @@ class Pepperoni(AllToppingsFr):  # pylint: disable=too-few-public-methods
         self.name = "pepperoni"
 
 
-class Toppings(pygame.sprite.Sprite):  # pylint: disable=too-few-public-methods
+class Toppings(pygame.sprite.Sprite):
     """
     A class to spawn toppings and alter their positions.
 
@@ -390,7 +390,6 @@ class Pizza(pygame.sprite.Sprite):
         """
         pos = pizza_status.position
         x_pos = pos[0]
-        # pygame.draw.ellipse(screen, (235, 198, 52), (x_pos, 700, 120, 70))
         self.rect.update(
             x_pos,
             600,
