@@ -39,6 +39,7 @@ class EndScreen:
         font = pygame.font.Font(None, 100)  # use default font
 
         scene = pygame.image.load("assets/img/end_screen.png")
+        scene = pygame.image.load("assets/img/end_screen.png")
         screen.blit(scene, (0, 0))
         end_text = pygame.image.load("assets/img/end_text.png")
         screen.blit(end_text, (0, 0))

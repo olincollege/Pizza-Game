@@ -75,7 +75,7 @@ def play(screen):
 
     topping_interval = 25  # every 25 frames add generate new topping
 
-    orders_complete = 1 # number of orders to end game
+    orders_complete = 1  # number of orders to end game
 
     # start loop
     clock = pygame.time.Clock()
@@ -113,8 +113,9 @@ def play(screen):
 
         # toppings
         # check for collision
-        collided_topping = topping_view.collide_pizza(pizza_view,
-                                                    toppings_group)
+        collided_topping = topping_view.collide_pizza(
+            pizza_view, toppings_group
+        )
         if collided_topping is not None:
             pizza_status.add_topping(collided_topping)
             pizza_view.add_topping(collided_topping)
@@ -133,6 +134,7 @@ def play(screen):
         clock.tick(60)  # limits FPS to 60
 
     return money.get_money
+
 
 def end(screen, money):
     """
