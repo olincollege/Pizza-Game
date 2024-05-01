@@ -108,12 +108,11 @@ class Order:
     Class to display order and update its position.
 
     Attributes:
-        order_dict: a dictionary of an instance of a order with keys
-        representing the topping and values representing the number of toppings
-        desired.
-        pizza_status: a dictionary of an instance of a pizza with keys
-        representing the topping and values representing the number of toppings
-        on it.
+        __order_dict: a dictionary of an instance of a order with keys
+    representing the topping and values representing the number of toppings
+    desired.
+        __pizza_status: a PizzaStatus instance from game_model representing the
+    pizza the user is currently making.
     """
 
     def __init__(self, screen, order_instance):
@@ -130,12 +129,12 @@ class Order:
             screen, (255, 255, 255), (30, 25, 170, 155)
         )  # draw white box
 
-        self.order_dict = order_instance.order_dict
-        self.pizza_status = gm.PizzaStatus()
+        self.__order_dict = order_instance.order_dict
+        self.__pizza_status = gm.PizzaStatus()
 
         i = 0
-        while i < len(self.order_dict):
-            for topping, num in self.order_dict.items():
+        while i < len(self.__order_dict):
+            for topping, num in self.__order_dict.items():
                 text = f"{topping}: {num}"
                 order_text = font.render(text, True, (0, 0, 0))
                 screen.blit(order_text, (35, 30 + (30 * i)))
@@ -156,14 +155,14 @@ class Order:
             screen, (255, 255, 255), (30, 25, 170, 155)
         )  # draw white box
 
-        for topping in self.order_dict:
+        for topping in self.__order_dict:
             if topping == new_topping_added:
-                self.pizza_status.add_topping(topping)
+                self.__pizza_status.add_topping(topping)
 
         i = 0
-        while i < len(self.order_dict):
-            for topping, num in self.order_dict.items():
-                text = f"{topping}: {num - self.pizza_status.status[topping]}"
+        while i < len(self.__order_dict):
+            for topping, num in self.__order_dict.items():
+                text = f"{topping}: {num - self.__pizza_status.status[topping]}"
                 order_text = font.render(text, True, (0, 0, 0))
                 screen.blit(order_text, (35, 30 + (30 * i)))
                 i += 1
@@ -326,7 +325,10 @@ class Toppings(pygame.sprite.Sprite):
 
     def collide_pizza(self, pizza, topping_group):
         """
-        Checks if any of the toppings have collided with the pizza,
+        Checks if any of the toppings have collided with the pizza.
+
+        This function checks if any of the toppings have collided with the
+        pizza, and if they have, it deletes the toppings. It
         and if so, delete them. Also updates order status.
 
         Args:
@@ -335,7 +337,7 @@ class Toppings(pygame.sprite.Sprite):
 
         Returns:
             A string representing the name of the topping pizza collided with.
-            If no collision, returns None.
+        If no collision, returns None.
         """
         collisions = pygame.sprite.spritecollide(
             pizza, topping_group, True, pygame.sprite.collide_mask
@@ -357,7 +359,7 @@ class Pizza(pygame.sprite.Sprite):
         y_pos: an int representing the pizza's y position.
         mask: the sprite mask generated from the image surface.
         toppings_on_pizza: a list with elements representing all the
-        current toppings on pizza.
+    current toppings on pizza.
     """
 
     def __init__(self, screen):
