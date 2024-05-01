@@ -62,7 +62,8 @@ def play(screen):
     Returns:
         total_money: a float representing the total amount of money earned.
     """
-    order_instance = gmo.OrderStatus(4)  # initialize first order
+    toppings = 4 # the maximum ammount of individual topping order could have.
+    order_instance = gmo.OrderStatus(toppings)  # initialize first order
     order = gv.Order(screen, order_instance)
     pizza_status = gmo.PizzaStatus()  # initialize empty pizza
     pizza_view = gv.Pizza(screen)  # display pizza
@@ -95,11 +96,11 @@ def play(screen):
             money.update_money(order_instance, pizza_status)
             pizza_status.clear_pizza()
             pizza_view.clear_topping()
-            if orders_complete > 0:
+            if orders_complete > 1:
                 orders_complete -= 1
             else:
                 running = False
-            order_instance = gmo.OrderStatus(4)  # initialize new order
+            order_instance = gmo.OrderStatus(toppings)  # initialize new order
             order = gv.Order(screen, order_instance)
 
         # move pizza

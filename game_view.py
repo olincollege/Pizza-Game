@@ -139,12 +139,12 @@ class Order:
 
         for topping in self.order_dict:
             if topping == new_topping_added:
-                self.order_dict[topping] -= 1
+                self.pizza_status.add_topping(topping)
 
         i = 0
         while i < len(self.order_dict):
             for topping, num in self.order_dict.items():
-                text = f"{topping}: {num}"
+                text = f"{topping}: {num - self.pizza_status.status[topping]}"
                 order_text = font.render(text, True, (0, 0, 0))
                 screen.blit(order_text, (35, 30 + (30 * i)))
                 i += 1
