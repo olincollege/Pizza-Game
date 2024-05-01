@@ -35,7 +35,7 @@ class EndScreen:
         """
         font = pygame.font.Font(None, 165)  # use default font
 
-        scene = pygame.image.load('assets/img/end_screen.png')
+        scene = pygame.image.load("assets/img/end_screen.png")
         screen.blit(scene, (0, 0))
         end_text = pygame.image.load("assets/img/end_text.png")
         screen.blit(end_text, (0, 0))
@@ -361,7 +361,9 @@ class Pizza(pygame.sprite.Sprite):
 
     def add_topping(self, topping_image):
         """
-        Docstring
+        Adds toppings to the pizza display
+        Args:
+            topping_image: a string representing the topping to be added to the pizza
         """
         sauce_image = Sauce()
         cheese_image = Cheese()
@@ -382,6 +384,6 @@ class Pizza(pygame.sprite.Sprite):
 
     def clear_topping(self):
         """
-        DOCSTRING
+        Clears all toppings off the pizza display
         """
         self.toppings_on_pizza = []
