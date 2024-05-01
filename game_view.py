@@ -92,6 +92,7 @@ class Order:
     """
     Class to display order and update its position.
     """
+
     def __init__(self, screen, order_instance):
         """
         Initialize pizza on display.
@@ -140,6 +141,7 @@ class AllToppingsFr(pygame.sprite.Sprite):
     """
     DOC STRING
     """
+
     def __init__(self, image_file):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((120, 120))
@@ -147,7 +149,7 @@ class AllToppingsFr(pygame.sprite.Sprite):
             os.path.join("assets/img", image_file)
         ).convert()
         self.image.set_colorkey(self.image.get_at((0, 0)))
-        self.image = pygame.transform.smoothscale(self.image, (120, 120))
+        self.image = pygame.transform.smoothscale(self.image, (150, 150))
         self.rect = self.image.get_rect()
         self.x_pos = random.randrange(30, 450)
         self.y_pos = 5
@@ -170,7 +172,7 @@ class Sauce(AllToppingsFr):
 
     def __init__(self):
         AllToppingsFr.__init__(self, "sauce.png")
-        self.name = 'sauce'
+        self.name = "sauce"
 
 
 class Cheese(AllToppingsFr):
@@ -180,7 +182,7 @@ class Cheese(AllToppingsFr):
 
     def __init__(self):
         AllToppingsFr.__init__(self, "cheese.png")
-        self.name = 'cheese'
+        self.name = "cheese"
 
 
 class Mushroom(AllToppingsFr):
@@ -190,7 +192,7 @@ class Mushroom(AllToppingsFr):
 
     def __init__(self):
         AllToppingsFr.__init__(self, "mushroom.png")
-        self.name = 'mushroom'
+        self.name = "mushroom"
 
 
 class Basil(AllToppingsFr):
@@ -200,7 +202,7 @@ class Basil(AllToppingsFr):
 
     def __init__(self):
         AllToppingsFr.__init__(self, "basil.png")
-        self.name = 'basil'
+        self.name = "basil"
 
 
 class Pepperoni(AllToppingsFr):
@@ -210,7 +212,7 @@ class Pepperoni(AllToppingsFr):
 
     def __init__(self):
         AllToppingsFr.__init__(self, "pepperoni.png")
-        self.name = 'pepperoni'
+        self.name = "pepperoni"
 
 
 class Toppings(pygame.sprite.Sprite):
@@ -229,7 +231,7 @@ class Toppings(pygame.sprite.Sprite):
     def create_topping(self):
         """
         Spawns a random topping at the top of the screen at a random x-value.
-        
+
         Returns:
             topping_sprite: an instance of a specific topping sprite.
         """
@@ -263,7 +265,7 @@ class Toppings(pygame.sprite.Sprite):
         Args:
             pizza: an instance of Pizza sprite.
             topping_group: a group of topping sprites.
-        
+
         Returns:
             A string representing the name of the topping pizza collided with.
         """
@@ -320,10 +322,25 @@ class Pizza(pygame.sprite.Sprite):
         )
         pygame.Surface.blit(screen, self.image, (x_pos, 600))
         for image in self.toppings_on_pizza:
-            pygame.Surface.blit(screen, image, (x_pos, 650))
+            pygame.Surface.blit(screen, image, (x_pos, 600))
 
     def add_topping(self, topping_image):
         """
         Docstring
         """
-        self.toppings_on_pizza.append(topping_image)
+        sauce_image = Sauce()
+        cheese_image = Cheese()
+        basil_image = Basil()
+        pepperoni_image = Pepperoni()
+        mushroom_image = Mushroom()
+
+        if topping_image == "sauce":
+            self.toppings_on_pizza.append(sauce_image.image)
+        if topping_image == "cheese":
+            self.toppings_on_pizza.append(cheese_image.image)
+        if topping_image == "basil":
+            self.toppings_on_pizza.append(basil_image.image)
+        if topping_image == "pepperoni":
+            self.toppings_on_pizza.append(pepperoni_image.image)
+        if topping_image == "mushroom":
+            self.toppings_on_pizza.append(mushroom_image.image)
