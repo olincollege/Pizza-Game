@@ -65,7 +65,7 @@ def play(screen):
     Returns:
         total_money: a float representing the total amount of money earned.
     """
-    toppings = 4  # the maximum amount of individual topping order could have.
+    toppings = 1  # the maximum amount of individual topping order could have.
     order_instance = gmo.OrderStatus(toppings)  # initialize first order
     order = gv.Order(screen, order_instance)
     pizza_status = gmo.PizzaStatus()  # initialize empty pizza
@@ -146,6 +146,11 @@ def end(screen, money):
     Args:
         screen: a Surface to display on.
     """
+    # initialize buttons
+    start_button = gmo.Button(70, 600, "assets/img/play_button.png", 1)
+    exit_button = gmo.Button(260, 600, "assets/img/exit_button.png", 1)
+    button_control = gc.ButtonControl()
+    button_display = gv.ButtonDisplay(screen)
     # start loop
     clock = pygame.time.Clock()
     running = True
@@ -156,8 +161,19 @@ def end(screen, money):
 
         # display home screen and buttons.
         gv.EndScreen(screen, money)
+        button_display.display_button(start_button)
+        button_display.display_button(exit_button)
 
-        pygame.display.update()
+        # checking for button clicks
+        if button_control.check_press(
+            start_button
+        ):  # start, exit menu, start game
+            total_new_money = play(SCREEN)
+            end(SCREEN, total_new_money)
+        if button_control.check_press(exit_button):  # exit, exit
+            pygame.quit()
+        else:
+            pygame.display.update()
         clock.tick(60)  # limits FPS to 60
 
 
